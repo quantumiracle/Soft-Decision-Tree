@@ -35,8 +35,8 @@ if __name__ == '__main__':
     
     device = torch.device('cuda' if use_cuda else 'cpu')
     tree = SDT(learner_args).to(device)
-    # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
-    criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
+    # criterion = nn.CrossEntropyLoss()
+    criterion = nn.NLLLoss()
     
     # Load data
     data_dir = '../Dataset/mnist'

@@ -6,7 +6,7 @@ from collections import OrderedDict
 
 
 class SDT(nn.Module):
-    
+    """ Soft Desicion Tree """
     def __init__(self, args):
         super(SDT, self).__init__()
         self.args = args
@@ -22,14 +22,39 @@ class SDT(nn.Module):
                         ('linear', nn.Linear(self.args['input_dim']+1, self.inner_node_num, bias=False)),
                         ('sigmoid', nn.Sigmoid()),
                         ]))
-        self.leaf_nodes = nn.Linear(self.leaf_num, self.args['output_dim'], bias=False)
-        
+
+        # original one, softmax(p*Q)
+        # self.leaf_nodes = nn.Linear(self.leaf_num, self.args['output_dim'], bias=False)
+
+        # now change to be p*softmax(Q)
+        self.param = torch.randn(self.leaf_num, self.args['output_dim'])
+        self.param = nn.Parameter(self.param)
+        self.softmax = nn.Softmax(dim=1)
+
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.args['lr'], weight_decay=self.args['weight_decay'])
     
+    def leaf_nodes(self, p):
+        distribution_per_leaf = self.softmax(self.param)
+        average_distribution = torch.mm(p, distribution_per_leaf)
+        log_prob = torch.log(average_distribution)
+        return log_prob
+
+
     def forward(self, data):
         _mu, _penalty = self._forward(data)
         output = self.leaf_nodes(_mu)
-        return output, _penalty 
+
+        if self.args['greatest_path_probability']:
+            one_hot_path_probability = torch.zeros(_mu.shape)
+            vs, ids = torch.max(_mu, 1)
+            one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
+ 
+            prediction = self.leaf_nodes(one_hot_path_probability)
+
+        else:  # prediction value equals to the average distribution
+            prediction = output
+
+        return prediction, output, _penalty 
     
     """ Core implementation on data forwarding in SDT """
     def _forward(self, data):
@@ -49,10 +74,11 @@ class SDT(nn.Module):
             _penalty= _penalty + self._cal_penalty(layer_idx, _mu, _path_prob)  # extract inner nodes in current layer to calculate regularization term
             _mu = _mu.view(batch_size, -1, 1).repeat(1, 1, 2)
             _mu = _mu * _path_prob
-            begin_idx = end_idx
+            begin_idx = end_idx  # index for each layer
             end_idx = begin_idx + 2 ** (layer_idx+1)
-        mu = _mu.view(batch_size, self.leaf_num)
-        return mu, _penalty          
+        mu = _mu.view(batch_size, self.leaf_num)            
+
+        return mu, _penalty   # mu contains the path probability for each leaf       
     
     """ Calculate penalty term for inner-nodes in different layer """
     def _cal_penalty(self, layer_idx, _mu, _path_prob):
@@ -65,10 +91,18 @@ class SDT(nn.Module):
             penalty -= self.penalty_list[layer_idx] * 0.5 * (torch.log(alpha) + torch.log(1-alpha))
         return penalty
     
-    """ Add constant 1 onto the front of each instance """
+    """ Add constant 1 onto the front of each instance, serving as the bias """
     def _data_augment_(self, input):
         batch_size = input.size()[0]
         input = input.view(batch_size, -1)
         bias = torch.ones(batch_size, 1).to(self.device)
         input = torch.cat((bias, input), 1)
         return input
+
+    def save_model(self, model_path):
+        torch.save(self.state_dict(), model_path)
+
+    def load_model(self, model_path):
+        self.load_state_dict(torch.load(model_path))
+        self.eval()
+
