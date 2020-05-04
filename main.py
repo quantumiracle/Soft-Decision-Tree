@@ -28,7 +28,7 @@ if __name__ == '__main__':
                     'cuda': use_cuda,
                     'log_interval': 100,
                     'model_path': './model/sdt',
-                    'greatest_path_probability': True  # when forwarding the SDT, \
+                    'greatest_path_probability': False  # when forwarding the SDT, \
                     # choose the leaf with greatest path probability or average over distributions of all leaves; \
                     # the former one has better explainability while the latter one achieves higher accuracy
                     }
