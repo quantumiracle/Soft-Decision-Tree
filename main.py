@@ -100,7 +100,7 @@ def train_tree(tree):
         testing_acc_list.append(accuracy)
         print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}%\n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
 
-def test_tree(tree):
+def test_tree(tree, epochs=10):
 
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
     
@@ -117,7 +117,7 @@ def test_tree(tree):
     best_testing_acc = 0.
     testing_acc_list = []
 
-    for epoch in range(10):
+    for epoch in range(epochs):
         # Testing stage
         tree.eval()
         correct = 0.
