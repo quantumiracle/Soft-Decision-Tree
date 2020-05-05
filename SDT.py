@@ -17,19 +17,24 @@ class SDT(nn.Module):
         # Different penalty coefficients for nodes in different layer
         self.penalty_list = [args['lamda'] * (2 ** (-depth)) for depth in range(0, self.args['depth'])] 
         
+        # inner nodes operation
         # Initialize inner nodes and leaf nodes (input dimension on innner nodes is added by 1, serving as bias)
-        self.inner_nodes = nn.Sequential(OrderedDict([
-                        ('linear', nn.Linear(self.args['input_dim']+1, self.inner_node_num, bias=False)),
-                        ('sigmoid', nn.Sigmoid()),
-                        ]))
+        self.linear = nn.Linear(self.args['input_dim']+1, self.inner_node_num, bias=False)
+        self.sigmoid = nn.Sigmoid()
+        # temperature term
+        if self.args['beta']:
+            beta = torch.randn(self.inner_node_num)
+            self.beta = nn.Parameter(beta)
+        else:
+            beta = torch.ones(self.inner_node_num)
 
-        # original one, softmax(p*Q)
-        # self.leaf_nodes = nn.Linear(self.leaf_num, self.args['output_dim'], bias=False)
-
-        # now change to be p*softmax(Q)
-        self.param = torch.randn(self.leaf_num, self.args['output_dim'])
-        self.param = nn.Parameter(self.param)
+        # leaf nodes operation
+        # p*softmax(Q) instead of softmax(p*Q)
+        param = torch.randn(self.leaf_num, self.args['output_dim'])
+        self.param = nn.Parameter(param)
         self.softmax = nn.Softmax(dim=1)
+
+
 
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.args['lr'], weight_decay=self.args['weight_decay'])
     
@@ -38,6 +43,10 @@ class SDT(nn.Module):
         average_distribution = torch.mm(p, distribution_per_leaf)
         log_prob = torch.log(average_distribution)
         return log_prob
+
+    def inner_nodes(self, x):
+        output = self.sigmoid(self.beta*self.linear(x))
+        return output
 
 
     def forward(self, data):
