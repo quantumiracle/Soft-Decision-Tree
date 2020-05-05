@@ -13,6 +13,8 @@ class SDT(nn.Module):
         self.device = torch.device('cuda' if self.args['cuda'] else 'cpu')
         self.inner_node_num = 2 ** self.args['depth'] - 1
         self.leaf_num = 2 ** self.args['depth']
+        self.max_depth = self.args['depth']
+        self.max_leaf_idx=None  # the leaf index with maximal path probability
         
         # Different penalty coefficients for nodes in different layer
         self.penalty_list = [args['lamda'] * (2 ** (-depth)) for depth in range(0, self.args['depth'])] 
@@ -26,7 +28,7 @@ class SDT(nn.Module):
             beta = torch.randn(self.inner_node_num)
             self.beta = nn.Parameter(beta)
         else:
-            beta = torch.ones(self.inner_node_num)
+            self.beta = torch.ones(self.inner_node_num)
 
         # leaf nodes operation
         # p*softmax(Q) instead of softmax(p*Q)
@@ -55,15 +57,16 @@ class SDT(nn.Module):
 
         if self.args['greatest_path_probability']:
             one_hot_path_probability = torch.zeros(_mu.shape)
-            vs, ids = torch.max(_mu, 1)
+            vs, ids = torch.max(_mu, 1)  # ids is the leaf index with maximal path probability
             one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
  
             prediction = self.leaf_nodes(one_hot_path_probability)
+            self.max_leaf_idx = ids
 
         else:  # prediction value equals to the average distribution
             prediction = output
 
-        return prediction, output, _penalty 
+        return prediction, output, _penalty
     
     """ Core implementation on data forwarding in SDT """
     def _forward(self, data):

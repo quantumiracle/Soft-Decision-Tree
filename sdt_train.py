@@ -93,7 +93,7 @@ if __name__ == '__main__':
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
             prediction, _, _ = tree.forward(data)
-            pred = predictio.data.max(1)[1]
+            pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)
         if accuracy > best_testing_acc:
