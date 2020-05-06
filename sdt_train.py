@@ -3,7 +3,6 @@
 import torch
 import torch.nn as nn
 from SDT import SDT
-from torch.utils import data
 from utils.dataset import Dataset
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
@@ -15,10 +14,10 @@ def onehot_coding(target, device, output_dim):
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
 
-use_cuda = True
+use_cuda = False
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 2,
+                'depth': 5,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 5e-4,
@@ -26,31 +25,28 @@ learner_args = {'input_dim': 8,
                 'epochs': 40,
                 'cuda': use_cuda,
                 'log_interval': 100,
+                'beta' : True,  # temperature 
                 'greatest_path_probability': True  # when forwarding the SDT, \
                 #choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
 learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])
 
+device = torch.device('cuda' if use_cuda else 'cpu')
 
-if __name__ == '__main__':
+def train_tree(tree):
     writer = SummaryWriter()
-    
-
-    
-    device = torch.device('cuda' if use_cuda else 'cpu')
-    tree = SDT(learner_args).to(device)
     criterion = nn.CrossEntropyLoss()
     
     # Load data
     data_dir = './data/discrete_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
-    train_loader = data.DataLoader(Dataset(data_path, label_path, partition='train'),
+    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train'),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
 
-    test_loader = data.DataLoader(Dataset(data_path, label_path, partition='test'),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
     # Utility variables
@@ -101,3 +97,40 @@ if __name__ == '__main__':
         testing_acc_list.append(accuracy)
         writer.add_scalar('Testing Accuracy', accuracy, epoch)
         print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}%\n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
+
+
+def test_tree(tree, epochs=10):
+    criterion = nn.CrossEntropyLoss()
+
+    # Utility variables
+    best_testing_acc = 0.
+    testing_acc_list = []
+    
+    # Load data
+    data_dir = './data/discrete_'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=learner_args['batch_size'],
+                                    shuffle=True)
+
+    for epoch in range(epochs):
+        # Testing stage
+        tree.eval()
+        correct = 0.
+        for batch_idx, (data, target) in enumerate(test_loader):
+            data, target = data.to(device), target.to(device)
+            batch_size = data.size()[0]
+            prediction, _, _ = tree.forward(data)
+            pred = prediction.data.max(1)[1]
+            correct += pred.eq(target.view(-1).data).sum()
+        accuracy = 100. * float(correct) / len(test_loader.dataset)
+        if accuracy > best_testing_acc:
+            best_testing_acc = accuracy
+        testing_acc_list.append(accuracy)
+        print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}%\n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
+
+
+if __name__ == '__main__':    
+    tree = SDT(learner_args).to(device)
+    train_tree(tree)

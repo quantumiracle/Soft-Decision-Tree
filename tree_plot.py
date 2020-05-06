@@ -5,7 +5,6 @@ from SDT import SDT
 from torch.utils import data
 from utils.dataset import Dataset
 import numpy as np
-from main import learner_args
 
 def get_binary_index(tree):
     """
@@ -40,8 +39,7 @@ def path_from_prediction(tree, idx):
     idx_list.reverse()  # from top to bottom
     return idx_list
 
-def draw_tree(tree, img_rows, img_cols, img_chans,
-              input_img=None, show_correlation=False, savepath=''):
+def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepath=''):
 
     import itertools
     import numpy as np
@@ -53,7 +51,7 @@ def draw_tree(tree, img_rows, img_cols, img_chans,
         '''Private utility function for drawing arrows between two axes.'''
         con = ConnectionPatch(xyA=xyA, xyB=xyB, coordsA='data', coordsB='data',
                               axesA=ax_child, axesB=ax_parent, arrowstyle='<|-',
-                              color=color)
+                              color=color, linewidth=tree.args['input_dim'])
         ax_child.add_artist(con)
 
     inner_nodes = tree.state_dict()['linear.weight']
@@ -61,8 +59,13 @@ def draw_tree(tree, img_rows, img_cols, img_chans,
     binary_indices = get_binary_index(tree)
     inner_indices = binary_indices[:tree.inner_node_num]
     leaf_indices = binary_indices[tree.inner_node_num:]
+    
+    if len(input_shape) == 3:
+        img_rows, img_cols, img_chans = input_shape
+    elif len(input_shape) == 1:
+        img_rows, img_cols = input_shape[0], input_shape[0]
 
-    kernels = dict([(node_idx, node_value.cpu().numpy().reshape(img_rows, img_cols, img_chans)) for node_idx, node_value in zip (inner_indices, inner_nodes[:, 1:]) ])
+    kernels = dict([(node_idx, node_value.cpu().numpy().reshape(input_shape)) for node_idx, node_value in zip (inner_indices, inner_nodes[:, 1:]) ])
     biases = dict([(node_idx, node_value.cpu().numpy().squeeze()) for node_idx, node_value in zip (inner_indices, inner_nodes[:, :1]) ])
     leaves = dict([(leaf_idx, np.array([leaf_dist.cpu().numpy()])) for leaf_idx, leaf_dist in zip (leaf_indices, leaf_nodes) ])
 
@@ -100,7 +103,11 @@ def draw_tree(tree, img_rows, img_cols, img_chans,
 
         #     if show_correlation:
         #         kernel_image = input_img * kernels[key]
-        ax.imshow(kernel_image.squeeze(), **imshow_args)
+        if len(kernel_image.shape)==3: # 2D image (H, W, C)
+            ax.imshow(kernel_image.squeeze(), **imshow_args)
+        elif len(kernel_image.shape)==1:
+            vector_image = np.ones((kernel_image.shape[0], 1)) @ [kernel_image]
+            ax.imshow(vector_image, **imshow_args)
         ax.axis('off')
         digits = set([np.argmax(leaves[k]) for k in leaves.keys()
                       if k.startswith(key)])
@@ -139,7 +146,11 @@ def draw_tree(tree, img_rows, img_cols, img_chans,
     # draw input image with arrow indicating flow into the root node
     if input_img is not None:
         ax = plt.subplot(gs[0, 0:4])
-        ax.imshow(input_img.squeeze(), clim=(0.0, 1.0), **imshow_args)
+        if len(input_img.shape)==3: # 2D image (H, W, C)
+            ax.imshow(input_img.squeeze(), clim=(0.0, 1.0), **imshow_args)
+        elif len(input_img.shape)==1:
+            vector_image = np.ones((input_img.shape[0], 1)) @ [input_img]
+            ax.imshow(vector_image, **imshow_args)
         ax.axis('off')
         plt.title('input')
         _add_arrow(ax, axes['0'],
@@ -155,6 +166,7 @@ def draw_tree(tree, img_rows, img_cols, img_chans,
 
 if __name__ == '__main__':
     import tensorflow as tf
+    from main import learner_args
 
     mnist = tf.keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -163,6 +175,4 @@ if __name__ == '__main__':
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
 
-    p,o,_=tree.forward(torch.Tensor(input_img).unsqueeze(0))
-    draw_tree(tree, 28, 28, 1, input_img=input_img)
-
+    draw_tree(tree, (28, 28, 1), input_img=input_img)

@@ -115,6 +115,6 @@ class SDT(nn.Module):
         torch.save(self.state_dict(), model_path)
 
     def load_model(self, model_path):
-        self.load_state_dict(torch.load(model_path))
+        self.load_state_dict(torch.load(model_path, map_location='cpu'))
         self.eval()
 
