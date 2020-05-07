@@ -36,10 +36,9 @@ class SDT(nn.Module):
         self.param = nn.Parameter(param)
         self.softmax = nn.Softmax(dim=1)
 
-
-
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.args['lr'], weight_decay=self.args['weight_decay'])
-    
+        self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=self.args['exp_scheduler_gamma'])
+
     def leaf_nodes(self, p):
         distribution_per_leaf = self.softmax(self.param)
         average_distribution = torch.mm(p, distribution_per_leaf)

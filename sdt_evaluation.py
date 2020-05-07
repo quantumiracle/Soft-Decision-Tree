@@ -8,6 +8,8 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 from tree_plot import draw_tree
+import os
+
 
 def run(model, tree, episodes=1, frameskip=1):
     env = gym.make('LunarLander-v2')
@@ -21,7 +23,10 @@ def run(model, tree, episodes=1, frameskip=1):
         while not done:
             a = model(torch.Tensor([s]))
             if step%frameskip==0:
-                draw_tree(tree, (tree.args['input_dim'],), input_img=s, savepath='img/eval_{}/{:04}.png'.format(tree.args['depth'],step))
+                img_path='img/eval_abs_{}'.format(tree.args['depth'])
+                if not os.path.exists(img_path):
+                    os.makedirs(img_path)
+                draw_tree(tree, (tree.args['input_dim'],), input_img=s, savepath=img_path+'/{:04}.png'.format(step))
 
             s_prime, r, done, info = env.step(a)
             env.render()
@@ -40,6 +45,7 @@ if __name__ == '__main__':
     from sdt_train import learner_args
     from SDT import SDT
 
+    learner_args['depth']=3
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
 

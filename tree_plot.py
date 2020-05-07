@@ -51,7 +51,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
         '''Private utility function for drawing arrows between two axes.'''
         con = ConnectionPatch(xyA=xyA, xyB=xyB, coordsA='data', coordsB='data',
                               axesA=ax_child, axesB=ax_parent, arrowstyle='<|-',
-                              color=color, linewidth=tree.args['input_dim'])
+                              color=color, linewidth=tree.args['depth'])
         ax_child.add_artist(con)
 
     inner_nodes = tree.state_dict()['linear.weight']
@@ -73,7 +73,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     assert len(leaves) == n_leaves
 
     # prepare figure and specify grid for subplots
-    fig = plt.figure(figsize=(n_leaves, n_leaves//2))
+    fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor=(0.5, 0.5, 0.8))
     gs = GridSpec(tree.max_depth+1, n_leaves*2,
                   height_ratios=[1]*tree.max_depth+[0.5])
 
@@ -86,11 +86,31 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
 
     imshow_args = {'origin': 'upper', 'interpolation': 'None', 'cmap': 'gray'}
 
+    ''' some statistics '''
+    # 1. kernel values
+    # print(list(kernels.values()))
+
+    # 2. sum of absolute weights
+    # print(np.sum(np.abs(list(kernels.values())), axis=0))
+
+    # 3. sum of weighted absolute weights
+    # abs_kernels = np.abs(list(kernels.values()))
+    # current_idx=0
+    # weighted_kernels=[]
+    # for i in range(tree.max_depth):
+    #     nodes_num = 2**i
+    #     weight = 1/nodes_num
+    #     weighted_kernels_per_layer = np.mean(abs_kernels[current_idx:current_idx+nodes_num], axis=0)
+    #     weighted_kernels.append(weighted_kernels_per_layer)
+    #     current_idx = current_idx+nodes_num
+    # print('weighted absolute kernels: ', np.mean(weighted_kernels, axis=0))
+        
     # draw tree nodes
     for pos, key in enumerate(sorted(kernels.keys(), key=lambda x:(len(x), x))):
         ax = plt.subplot(gs[len(key)-1, gcx[pos]-2:gcx[pos]+2])
         axes[key] = ax
-        kernel_image = kernels[key]
+        kernel_image = np.abs(kernels[key])  # absolute value
+        kernel_image = kernel_image/np.sum(kernel_image)  # normalization
         # if input_img is not None and key in path:
         #     # here the path is not correct, choose right whenever the logit > 0 does not ensure 
         #     # the final path is the path with maximiaed probability.
@@ -157,7 +177,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
                    (1, img_rows//2), (img_cols-1, img_rows//2), 'green')
 
     if savepath:
-        plt.savefig(savepath)
+        plt.savefig(savepath, facecolor=fig.get_facecolor())
         plt.close()
     else:
         plt.show()
@@ -167,6 +187,8 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
 if __name__ == '__main__':
     import tensorflow as tf
     from main import learner_args
+    from sdt_train import learner_args
+
 
     mnist = tf.keras.datasets.mnist
     (x_train, y_train), (x_test, y_test) = mnist.load_data()
@@ -175,4 +197,5 @@ if __name__ == '__main__':
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
 
-    draw_tree(tree, (28, 28, 1), input_img=input_img)
+    # draw_tree(tree, (28, 28, 1), input_img=input_img)
+    draw_tree(tree, (tree.args['input_dim'],))

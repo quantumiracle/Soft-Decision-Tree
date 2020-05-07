@@ -17,7 +17,7 @@ def onehot_coding(target, device, output_dim):
 use_cuda = False
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 5,
+                'depth': 3,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 5e-4,
@@ -25,9 +25,10 @@ learner_args = {'input_dim': 8,
                 'epochs': 40,
                 'cuda': use_cuda,
                 'log_interval': 100,
+                'exp_scheduler_gamma': 1.,
                 'beta' : True,  # temperature 
                 'greatest_path_probability': True  # when forwarding the SDT, \
-                #choose the leaf with greatest path probability or average over distributions of all leaves; \
+                # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
 learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])

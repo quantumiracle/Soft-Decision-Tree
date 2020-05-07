@@ -84,6 +84,7 @@ def train_tree(tree):
                             epoch, batch_idx, loss.data, correct, output.size()[0]))
 
                     tree.save_model(model_path = learner_args['model_path'])
+        tree.scheduler.step()
         
         # Testing stage
         tree.eval()
