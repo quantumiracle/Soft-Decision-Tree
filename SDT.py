@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+'''' Soft Decision Tree '''
 import torch
 import torch.nn as nn
 from collections import OrderedDict
@@ -42,15 +42,14 @@ class SDT(nn.Module):
     def leaf_nodes(self, p):
         distribution_per_leaf = self.softmax(self.param)
         average_distribution = torch.mm(p, distribution_per_leaf)
-        log_prob = torch.log(average_distribution)
-        return log_prob
+        return average_distribution
 
     def inner_nodes(self, x):
         output = self.sigmoid(self.beta*self.linear(x))
         return output
 
 
-    def forward(self, data):
+    def forward(self, data, LogProb=True):
         _mu, _penalty = self._forward(data)
         output = self.leaf_nodes(_mu)
 
@@ -64,6 +63,10 @@ class SDT(nn.Module):
 
         else:  # prediction value equals to the average distribution
             prediction = output
+
+        if LogProb:
+            output = torch.log(output)
+            prediction = torch.log(prediction)
 
         return prediction, output, _penalty
     
@@ -110,10 +113,10 @@ class SDT(nn.Module):
         input = torch.cat((bias, input), 1)
         return input
 
-    def save_model(self, model_path):
-        torch.save(self.state_dict(), model_path)
+    def save_model(self, model_path, id=''):
+        torch.save(self.state_dict(), model_path+id)
 
-    def load_model(self, model_path):
-        self.load_state_dict(torch.load(model_path, map_location='cpu'))
+    def load_model(self, model_path, id=''):
+        self.load_state_dict(torch.load(model_path+id, map_location='cpu'))
         self.eval()
 
