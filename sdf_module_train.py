@@ -2,11 +2,10 @@
 
 import torch
 import torch.nn as nn
-from SDT import SDT
+from SDF_module import SDF
 from utils.dataset import Dataset
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
-from heuristic_evaluation import difference_metric
 
 def onehot_coding(target, device, output_dim):
     target_onehot = torch.FloatTensor(target.size()[0], output_dim).to(device)
@@ -14,7 +13,8 @@ def onehot_coding(target, device, output_dim):
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
 use_cuda = False
-learner_args = {'input_dim': 8,
+learner_args = {'num_trees': 3,
+                'input_dim': 8,
                 'output_dim': 4,
                 'depth': 3,
                 'lamda': 1e-3,
@@ -30,15 +30,16 @@ learner_args = {'input_dim': 8,
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/forests/sdt_'+str(learner_args['depth'])
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
-def train_tree(tree):
+def train_forest(forest):
     writer = SummaryWriter()
-    # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
-    criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
-        
+    criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
+    # criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
+    
+    
     # Load data
     data_dir = './data/discrete_'
     data_path = data_dir+'state.npy'
@@ -56,22 +57,19 @@ def train_tree(tree):
     
     for epoch in range(1, learner_args['epochs']+1):
         epoch_training_loss_list = []
-        epoch_weight_difference_list = []
 
         # Training stage
-        tree.train()
+        forest.train()
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
             target_onehot = onehot_coding(target, device, learner_args['output_dim'])
-            prediction, output, penalty, weights = tree.forward(data)
-            difference = difference_metric(weights)
-            epoch_weight_difference_list.append(difference)
+            prediction, output, penalty = forest.forward(data)
             
-            tree.optimizer.zero_grad()
+            forest.optimizers_clear()
             loss = criterion(output, target.view(-1))
             loss += penalty
             loss.backward()
-            tree.optimizer.step()
+            forest.optimizers_step()
             
             # Print intermediate training status
             if batch_idx % learner_args['log_interval'] == 0:
@@ -80,20 +78,19 @@ def train_tree(tree):
                     correct = pred.eq(target.view(-1).data).sum()
                     loss = criterion(output, target.view(-1))
                     epoch_training_loss_list.append(loss.detach().cpu().data.numpy())
-                    print('Epoch: {:02d} | Batch: {:03d} | CrossEntropy-loss: {:.5f} | Correct: {}/{} | Difference: {}'.format(
-                            epoch, batch_idx, loss.data, correct, output.size()[0], difference))
+                    print('Epoch: {:02d} | Batch: {:03d} | CrossEntropy-loss: {:.5f} | Correct: {}/{}'.format(
+                            epoch, batch_idx, loss.data, correct, output.size()[0]))
 
-                    tree.save_model(model_path = learner_args['model_path'])
+                    forest.save_model()
         writer.add_scalar('Training Loss', np.mean(epoch_training_loss_list), epoch)
-        writer.add_scalar('Training Weight Difference', np.mean(epoch_weight_difference_list), epoch)
 
         # Testing stage
-        tree.eval()
+        forest.eval()
         correct = 0.
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
-            prediction, _, _,_ = tree.forward(data)
+            prediction, _, _ = forest.forward(data)
             pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)
@@ -101,10 +98,10 @@ def train_tree(tree):
             best_testing_acc = accuracy
         testing_acc_list.append(accuracy)
         writer.add_scalar('Testing Accuracy', accuracy, epoch)
-        print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}% \n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
+        print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}%\n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
 
 
-def test_tree(tree, epochs=10):
+def test_forest(forest, epochs=10):
     criterion = nn.CrossEntropyLoss()
 
     # Utility variables
@@ -121,12 +118,12 @@ def test_tree(tree, epochs=10):
 
     for epoch in range(epochs):
         # Testing stage
-        tree.eval()
+        forest.eval()
         correct = 0.
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
-            prediction, _, _, _ = tree.forward(data)
+            prediction, _, _ = forest.forward(data)
             pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)
@@ -137,5 +134,5 @@ def test_tree(tree, epochs=10):
 
 
 if __name__ == '__main__':    
-    tree = SDT(learner_args).to(device)
-    train_tree(tree)
+    forest = SDF(learner_args, device)
+    train_forest(forest)

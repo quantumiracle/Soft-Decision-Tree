@@ -68,7 +68,9 @@ class SDT(nn.Module):
             output = torch.log(output)
             prediction = torch.log(prediction)
 
-        return prediction, output, _penalty
+        weights = self.state_dict()['linear.weight'][:, 1:].detach().cpu().numpy()
+
+        return prediction, output, _penalty, weights
     
     """ Core implementation on data forwarding in SDT """
     def _forward(self, data):

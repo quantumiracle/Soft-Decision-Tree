@@ -11,7 +11,7 @@ from tree_plot import draw_tree
 import os
 
 
-def run(model, tree, episodes=1, frameskip=1, seed=0):
+def run(model, tree, episodes=1, frameskip=1, seed=0, saveimg=True):
     env = gym.make('LunarLander-v2')
     env.seed(seed)
     state_dim = env.observation_space.shape[0]
@@ -23,7 +23,7 @@ def run(model, tree, episodes=1, frameskip=1, seed=0):
         step=0
         while not done:
             a = model(torch.Tensor([s]))
-            if step%frameskip==0:
+            if step%frameskip==0 and saveimg:
                 img_path='img/eval_abs2_{}'.format(tree.args['depth'])
                 if not os.path.exists(img_path):
                     os.makedirs(img_path)
@@ -47,11 +47,10 @@ if __name__ == '__main__':
     from SDT import SDT
 
     # for reproduciblility
-    seed=3
+    seed=5
     torch.manual_seed(seed)
     np.random.seed(seed)
 
-    learner_args['depth']=3
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
 

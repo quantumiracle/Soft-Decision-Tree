@@ -13,10 +13,10 @@ def onehot_coding(target, device, output_dim):
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
 use_cuda = False
-learner_args = {'num_trees': 2,
+learner_args = {'num_trees': 3,
                 'input_dim': 8,
                 'output_dim': 4,
-                'depth': 3,
+                'depth': 4,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 5e-4,
@@ -63,7 +63,7 @@ def train_forest(forest):
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
             target_onehot = onehot_coding(target, device, learner_args['output_dim'])
-            prediction, output, penalty = forest.forward(data)
+            prediction, output, penalty = forest.forward(data, Train=True)
             
             forest.optimizers_clear()
             loss = criterion(output, target.view(-1))
