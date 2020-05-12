@@ -19,7 +19,7 @@ def onehot_coding(target, device, output_dim):
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
 use_cuda = False
-learner_args = {'num_trees': int(args.num_trees),,
+learner_args = {'num_trees': int(args.num_trees),
                 'input_dim': 8,
                 'output_dim': 4,
                 'depth': int(args.depth),
