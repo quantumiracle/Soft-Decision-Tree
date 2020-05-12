@@ -8,7 +8,7 @@ echo $CUDA_VISIBLE_DEVICES
 # python3 sdf_module_train.py --num_trees=3 --depth=3  &
 
 min=3
-max=9
+max=5
 inter=2
 
 for ((i=min; i <= max; i+=inter));
@@ -19,9 +19,9 @@ done &
 for ((i=min; i <= max; i+=inter));
 do 
     python3 sdf_train.py --num_trees=3 --depth="$i" &
-done &
+done & 
 
 for ((i=min; i <= max; i+=inter));
 do 
     python3 sdf_module_train.py --num_trees=3 --depth="$i" &
-done &
+done & 

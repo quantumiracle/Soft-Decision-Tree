@@ -1,0 +1,18 @@
+/var/lib/slurm/slurmd/job214051/slurm_script: line 3: --mem=40G: command not found
+NoDevFiles
+  File "sdf_module_train.py", line 22
+    learner_args = {'num_trees': int(args.num_trees),,
+                                                     ^
+SyntaxError: invalid syntax
+  File "sdf_module_train.py", line 22
+    learner_args = {'num_trees': int(args.num_trees),,
+                                                     ^
+SyntaxError: invalid syntax
+  File "sdf_module_train.py", line 22
+    learner_args = {'num_trees': int(args.num_trees),,
+                                                     ^
+SyntaxError: invalid syntax
+  File "sdf_module_train.py", line 22
+    learner_args = {'num_trees': int(args.num_trees),,
+                                                     ^
+SyntaxError: invalid syntax
