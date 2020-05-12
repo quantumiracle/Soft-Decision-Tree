@@ -48,6 +48,10 @@ class SDT(nn.Module):
         output = self.sigmoid(self.beta*self.linear(x))
         return output
 
+    def get_tree_weights(self):
+        """Return tree weights as a list"""
+        return self.state_dict()['linear.weight'][:, 1:].detach().cpu().numpy()
+
 
     def forward(self, data, LogProb=True):
         _mu, _penalty = self._forward(data)
@@ -68,7 +72,7 @@ class SDT(nn.Module):
             output = torch.log(output)
             prediction = torch.log(prediction)
 
-        weights = self.state_dict()['linear.weight'][:, 1:].detach().cpu().numpy()
+        weights = self.get_tree_weights()
 
         return prediction, output, _penalty, weights
     

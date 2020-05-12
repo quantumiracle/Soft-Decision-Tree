@@ -19,7 +19,7 @@ learner_args = {'input_dim': 8,
                 'depth': 3,
                 'lamda': 1e-3,
                 'lr': 1e-3,
-                'weight_decay': 5e-4,
+                'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
                 'epochs': 40,
                 'cuda': use_cuda,

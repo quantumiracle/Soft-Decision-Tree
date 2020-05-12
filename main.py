@@ -24,6 +24,7 @@ learner_args = {'input_dim': 28*28,
                 'epochs': 40,
                 'cuda': use_cuda,
                 'log_interval': 100,
+                'exp_scheduler_gamma': 1.,
                 'model_path': './model/sdt_mnist',
                 'beta' : False,  # temperature 
                 'greatest_path_probability': True  # when forwarding the SDT, \
@@ -64,7 +65,7 @@ def train_tree(tree):
         for batch_idx, (data, target) in enumerate(train_loader):
             data, target = data.to(device), target.to(device)
             target_onehot = onehot_coding(target, device, learner_args['output_dim'])
-            prediction, output, penalty = tree.forward(data)
+            prediction, output, penalty, _ = tree.forward(data)
             # print(np.sum(output.detach().cpu().numpy(), axis=1))
             
             tree.optimizer.zero_grad()
@@ -92,7 +93,7 @@ def train_tree(tree):
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
-            prediction, _, _ = tree.forward(data)
+            prediction, _, _, _ = tree.forward(data)
             pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)
@@ -125,7 +126,7 @@ def test_tree(tree, epochs=10):
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
-            prediction, _, _ = tree.forward(data)
+            prediction, _, _, _ = tree.forward(data)
             pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)

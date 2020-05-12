@@ -29,15 +29,19 @@ def get_binary_index(tree):
 
 def path_from_prediction(tree, idx):
     """
-    Generate list of nodes as decision path, with each node represented by a binary str
+    Generate list of nodes as decision path, 
+    with each node represented by a binary string and an int index
     """
-    idx_list = []
+    binary_idx_list = []
+    int_idx_list=[]
     idx = int(idx)
     for layer_idx in range(tree.max_depth+1, 0, -1):
-        idx_list.append(bin(idx)[2:].zfill(layer_idx))
+        binary_idx_list.append(bin(idx)[2:].zfill(layer_idx))
+        int_idx_list.append(2**(layer_idx-1)-1+idx)
         idx = int(idx/2)
-    idx_list.reverse()  # from top to bottom
-    return idx_list
+    binary_idx_list.reverse()  # from top to bottom
+    int_idx_list.reverse() 
+    return binary_idx_list, int_idx_list
 
 def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepath=''):
 
@@ -138,7 +142,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     if input_img is not None:
         tree.forward(torch.Tensor(input_img).unsqueeze(0))
         max_leaf_idx = tree.max_leaf_idx
-        path = path_from_prediction(tree, max_leaf_idx)
+        path, path_idx_int = path_from_prediction(tree, max_leaf_idx)
 
     # draw tree leaves
     for pos, key in enumerate(sorted(leaves.keys(), key=lambda x:(len(x), x))):
@@ -182,7 +186,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     else:
         plt.show()
 
-    return None
+    return path_idx_int
 
 if __name__ == '__main__':
     import tensorflow as tf
