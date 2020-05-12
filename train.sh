@@ -1,8 +1,5 @@
 #!/bin/bash
 
---mem=40G
-#--gres=gpu:0
-
 # hostname
 echo $CUDA_VISIBLE_DEVICES
 
