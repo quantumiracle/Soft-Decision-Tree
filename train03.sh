@@ -13,5 +13,5 @@ inter=2
 
 for ((i=min; i <= max; i+=inter));
 do 
-    python3 sdf_module_train.py --num_trees=3 --depth="$i" 
+    python3 sdf_module_train.py --num_trees=3 --depth="$i" &
 done  

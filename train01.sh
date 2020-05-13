@@ -13,5 +13,5 @@ inter=2
 
 for ((i=min; i <= max; i+=inter));
 do 
-    python3 sdt_train.py --depth="$i"
+    python3 sdt_train.py --depth="$i" &
 done 
