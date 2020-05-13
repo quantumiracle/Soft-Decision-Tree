@@ -18,7 +18,7 @@ def onehot_coding(target, device, output_dim):
     target_onehot.data.zero_()
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
-use_cuda = False
+use_cuda = True
 learner_args = {'num_trees': int(args.num_trees),
                 'input_dim': 8,
                 'output_dim': 4,
@@ -38,7 +38,7 @@ learner_args = {'num_trees': int(args.num_trees),
                 }
 learner_args['model_path'] = './model/forests_module/sdf_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth'])
 
-device = torch.device('cuda' if use_cuda else 'cpu')
+device = torch.device("cuda" if use_cuda and torch.cuda.is_available() else 'cpu')
 
 def train_forest(forest):
     writer = SummaryWriter(log_dir='runs/'+'sdf_module_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth']))
