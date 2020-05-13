@@ -15,8 +15,8 @@ class SDF(nn.Module):
         self.tree_list=[]
         self.args = args
 
-        fusion_params = torch.ones(self.args['num_trees'])
-        self.fusion_params = nn.Parameter(fusion_params).to(device)
+        fusion_params = torch.ones(self.args['num_trees']).to(device)
+        self.fusion_params = nn.Parameter(fusion_params)
         self.softmax = nn.Softmax(dim=0)
 
         self.parameters_=[]
