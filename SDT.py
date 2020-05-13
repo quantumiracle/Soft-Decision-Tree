@@ -58,7 +58,7 @@ class SDT(nn.Module):
         output = self.leaf_nodes(_mu)
 
         if self.args['greatest_path_probability']:
-            one_hot_path_probability = torch.zeros(_mu.shape)
+            one_hot_path_probability = torch.zeros(_mu.shape).to(self.device)
             vs, ids = torch.max(_mu, 1)  # ids is the leaf index with maximal path probability
             one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
  
