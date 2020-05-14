@@ -142,7 +142,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     if input_img is not None:
         tree.forward(torch.Tensor(input_img).unsqueeze(0))
         max_leaf_idx = tree.max_leaf_idx
-        path, path_idx_int = path_from_prediction(tree, max_leaf_idx)
+        path, _ = path_from_prediction(tree, max_leaf_idx)
 
     # draw tree leaves
     for pos, key in enumerate(sorted(leaves.keys(), key=lambda x:(len(x), x))):
@@ -186,7 +186,12 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     else:
         plt.show()
 
+def get_path(tree, input):
+    tree.forward(torch.Tensor(input).unsqueeze(0))
+    max_leaf_idx = tree.max_leaf_idx
+    _, path_idx_int = path_from_prediction(tree, max_leaf_idx)
     return path_idx_int
+
 
 if __name__ == '__main__':
     import tensorflow as tf

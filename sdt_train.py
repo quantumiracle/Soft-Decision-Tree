@@ -13,10 +13,10 @@ def onehot_coding(target, device, output_dim):
     target_onehot.data.zero_()
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
-use_cuda = False
+use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 3,
+                'depth': 5,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
