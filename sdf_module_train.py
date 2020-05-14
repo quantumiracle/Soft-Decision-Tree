@@ -16,7 +16,7 @@ use_cuda = True
 learner_args = {'num_trees': 3,
                 'input_dim': 8,
                 'output_dim': 4,
-                'depth': 3,
+                'depth': 5,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 0.,
