@@ -11,6 +11,7 @@ import argparse
 parser = argparse.ArgumentParser(description='parse')
 parser.add_argument('--num_trees', dest='num_trees', default=False)
 parser.add_argument('--depth', dest='depth', default=False)
+parser.add_argument('--id', dest='id', default=False)
 args = parser.parse_args()
 
 def onehot_coding(target, device, output_dim):
@@ -36,14 +37,14 @@ learner_args = {'num_trees': int(args.num_trees),
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/forests/sdf_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/forests/sdf_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth'])+'_id'+str(args.id)
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_forest(forest):
-    writer = SummaryWriter(log_dir='runs/'+'sdf_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth']))
-    criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
-    # criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
+    writer = SummaryWriter(log_dir='runs/'+'sdf_'+str(learner_args['num_trees'])+'trees_'+str(learner_args['depth'])+'_id'+str(args.id))
+    # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
+    criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
     
     
     # Load data
