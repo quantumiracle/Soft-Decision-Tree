@@ -82,5 +82,5 @@ if __name__ == '__main__':
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True)
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True)
     plot_importance_single_episode(epi_id=0)

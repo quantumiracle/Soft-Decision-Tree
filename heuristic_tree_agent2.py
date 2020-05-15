@@ -178,6 +178,7 @@ class HeuristicTreeSub1(object):
 
 def run(model, episodes=1, seed=None):
     env = gym.make('LunarLander-v2')
+    import time
     if seed:
         env.seed(seed)
     for n_epi in range(episodes):
@@ -187,10 +188,11 @@ def run(model, episodes=1, seed=None):
         step=0
         while not done:
             a = model(s)
+            print(a)
             s_prime, r, done, info = env.step(a)
             env.render()
             s = s_prime
-
+            time.sleep(0.1)
             reward += r
             step+=1
             if done:
