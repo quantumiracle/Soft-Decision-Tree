@@ -1,0 +1,211 @@
+# -*- coding: utf-8 -*-
+'''' 
+Soft Decision Forests: 
+ensemble of Soft Decision Trees
+'''
+import torch
+import torch.nn as nn
+import numpy as np
+import gym
+
+node_list = [
+{6:1, 7:1},
+{0:0.5, 2:1, 8:-0.4},
+{0:-0.5, 2:-1, 8:-0.4},
+{0:1},
+{0:1},
+{0:1},
+[9*[0], [0,0,0,-0.5, 0,0,0,0,0]],  # [at, ht]
+[[0,0,0,0,-0.5,-1,0,0,0.2], [0.275, -0.5, 0,-0.5,0,0,0,0,0]], 
+[[0,0,0,0,-0.5,-1,0,0,0.2], [-0.275, -0.5, 0,-0.5,0,0,0,0,0]],
+[[0,0,0,0,-0.5,-1,0,0,-0.2], [0.275, -0.5, 0,-0.5,0,0,0,0,0]], 
+[[0,0,0,0,-0.5,-1,0,0,-0.2], [-0.275, -0.5, 0,-0.5,0,0,0,0,0]],
+[[0.25, 0,0.5,0,-0.5, -1,0,0,0], [0.275, -0.5, 0,-0.5,0,0,0,0,0]], 
+[[0.25, 0,0.5,0,-0.5, -1,0,0,0], [-0.275, -0.5, 0,-0.5,0,0,0,0,0]],
+]
+
+child_list = [
+    [6,1],
+    [3,2], 
+    [4,5],
+    [7,8],
+    [9,10],
+    [11,12]
+]
+
+
+
+class Node(object):
+    def __init__(self, id, weights, left_child_id, right_child_id):
+        super(Node, self).__init__()
+        self.id = id
+        self.weights = weights
+        self.left_child_id = left_child_id
+        self.right_child_id = right_child_id
+
+    def decide(self, aug_x):
+        prod = np.sum(self.weights*aug_x)  # weights include bias
+        if prod>0:
+            return [self.left_child_id]
+        else:
+            return [self.right_child_id]
+
+
+class Leaf(object):
+    def __init__(self, id, value):
+        super(Leaf, self).__init__()
+        self.id = id
+        self.value = value
+
+def dict_to_vector(dict, dim=8):
+    v = np.zeros(dim+1)  # the last dim is bias
+    for key, value in dict.items():
+        v[key]=value
+    return v
+
+
+class HeuristicTree(object):
+    def __init__(self, node_list, child_list):
+        super(HeuristicTree, self).__init__()
+        self.node_list=[]
+        for i, node in enumerate(node_list):
+            if isinstance(node, dict):  # inner node
+                w = dict_to_vector(node, dim=8)
+                self.node_list.append(Node(i, w, child_list[i][0], child_list[i][1]))
+            else: # leaf
+                self.node_list.append(HeuristicTreeSub1(sub1_node_list, sub1_child_list, node[0], node[1], i))
+
+    def forward(self, x, Info=True):
+        aug_x = np.concatenate((np.array(x), [1]))
+        child = self.node_list[0].decide(aug_x)[0]
+        decision_path=[self.node_list[0].id]
+        decision_weights=[self.node_list[0].weights]
+        while True:
+            last_child = child
+            info = self.node_list[child].decide(aug_x)
+            child=info[0]
+            if isinstance(self.node_list[last_child], HeuristicTreeSub1):
+                break
+            decision_path.append(last_child)
+            decision_weights.append(self.node_list[last_child].weights)
+
+        sub_tree_path = info[1]
+        sub_tree_weights = info[2]
+        decision_path+=sub_tree_path
+        decision_weights+=sub_tree_weights
+
+        if Info:
+            return [child, decision_path, decision_weights]
+        
+        else:
+            return child
+
+
+sub1_node_list=[
+    {0:1},  # 0: at, 1: ht
+    {0:-1, 1:1}, 
+    {0:1, 1:1}, 
+    {1:1, 2:-0.05},
+    {0:1, 2:-0.05}, 
+    {1:1, 2:-0.05}, 
+    {0:-1, 2:-0.05}, 
+    {0:1, 2:-0.05}, 
+    {0:-1, 2:-0.05},
+    2,
+    1, 
+    0,
+    1,
+    0,
+    2,
+    3,
+    0,
+    3,
+    0
+    ]
+
+sub1_child_list=[
+    [1,2],
+    [3,4],
+    [5,6],
+    [9,7],
+    [12,13],
+    [14,8],
+    [17,18],
+    [10,11],
+    [15,16]
+]
+
+
+class SubNode(object):
+    def __init__(self, id, weights, at, ht, left_child_id, right_child_id):
+        super(SubNode, self).__init__()
+        self.id = id
+        self.weights = weights[0]*np.array(at)+weights[1]*np.array(ht)
+        self.weights[-1]+=weights[-1]
+        self.left_child_id = left_child_id
+        self.right_child_id = right_child_id
+
+    def decide(self, aug_x):
+        prod = np.sum(self.weights*aug_x)  # weights include bias
+        if prod>0:
+            return self.left_child_id
+        else:
+            return self.right_child_id
+
+
+class HeuristicTreeSub1(object):
+    def __init__(self, node_list, child_list, at, ht, tree_id):
+        super(HeuristicTreeSub1, self).__init__()
+        self.node_list=[]
+        for i, node in enumerate(node_list):
+            sub_id = 'sub_'+str(i)  # idex of node on subtree 
+            if isinstance(node, dict):  # inner node
+                w = dict_to_vector(node, dim=2)
+                self.node_list.append(SubNode(sub_id, w, at, ht, child_list[i][0], child_list[i][1]))
+            else: # leaf
+                self.node_list.append(Leaf(sub_id, node))
+
+    def decide(self, aug_x, Path=False):
+        child = self.node_list[0].decide(aug_x)
+        decision_path=[self.node_list[0].id]
+        weights_list=[self.node_list[0].weights]
+        while isinstance(self.node_list[child], SubNode):
+            weights_list.append(self.node_list[child].weights)
+            decision_path.append(self.node_list[child].id)
+            child = self.node_list[child].decide(aug_x)
+        decision_path.append(self.node_list[child].id)  # add leaf
+        return [self.node_list[child].value, decision_path, weights_list]
+
+
+def run(model, episodes=1, seed=None):
+    env = gym.make('LunarLander-v2')
+    if seed:
+        env.seed(seed)
+    for n_epi in range(episodes):
+        s = env.reset()
+        done = False
+        reward = 0.0
+        step=0
+        while not done:
+            a = model(s)
+            s_prime, r, done, info = env.step(a)
+            env.render()
+            s = s_prime
+
+            reward += r
+            step+=1
+            if done:
+                break
+
+        print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
+
+
+if __name__ == '__main__':  
+    tree = HeuristicTree(node_list, child_list)
+    # RL test
+    # model = lambda x: tree.forward(x, Info=False)
+    # run(model, episodes=100)
+
+    # single instance with full information
+    x=np.zeros(8)
+    print(tree.forward(x, Info=True))
