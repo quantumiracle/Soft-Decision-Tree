@@ -58,7 +58,7 @@ class SDT(nn.Module):
 
     def forward(self, data, LogProb=True):
         _mu, _penalty = self._forward(data)
-        output = self.leaf_nodes(_mu)
+        output = self.leaf_nodes(_mu) # average over leaves
 
         if self.args['greatest_path_probability']:
             one_hot_path_probability = torch.zeros(_mu.shape).to(self.device)

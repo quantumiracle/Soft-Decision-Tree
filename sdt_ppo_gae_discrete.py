@@ -7,6 +7,8 @@ from torch.distributions import Categorical
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
+from sdt_train import learner_args, device
+from SDT import SDT 
 
 #Hyperparameters
 learning_rate = 0.0005
@@ -15,7 +17,7 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 # T_horizon     = 20
-model_path = './model/ppo_discrete_lunarlandar'
+model_path = './model/sdt_ppo_discrete_lunarlandar'
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
@@ -23,15 +25,19 @@ class PPO(nn.Module):
         self.data = []
         hidden_dim=128
         self.fc1   = nn.Linear(state_dim,hidden_dim)
-        self.fc_pi = nn.Linear(hidden_dim,action_dim)
+        # self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
-        self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
 
-    def pi(self, x, softmax_dim = -1):
-        x = F.relu(self.fc1(x))
-        x = self.fc_pi(x)
-        prob = F.softmax(x, dim=softmax_dim)
-        return prob
+        self.sdt = SDT(learner_args).to(device)
+        self.pi = lambda x: self.sdt.forward(x, LogProb=False)[1]
+
+        self.optimizer = optim.Adam(list(self.parameters())+list(self.sdt.parameters()), lr=learning_rate)
+
+    # def pi(self, x, softmax_dim = -1):
+    #     x = F.relu(self.fc1(x))
+    #     x = self.fc_pi(x)
+    #     prob = F.softmax(x, dim=softmax_dim)
+    #     return prob
     
     def v(self, x):
         if isinstance(x, (np.ndarray, np.generic) ):
@@ -56,9 +62,9 @@ class PPO(nn.Module):
             done_mask = 0 if done else 1
             done_lst.append([done_mask])
             
-        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float), torch.tensor(a_lst), \
-                                          torch.tensor(r_lst), torch.tensor(s_prime_lst, dtype=torch.float), \
-                                          torch.tensor(done_lst, dtype=torch.float), torch.tensor(prob_a_lst)
+        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).to(device), torch.tensor(a_lst).to(device), \
+                                          torch.tensor(r_lst).to(device), torch.tensor(s_prime_lst, dtype=torch.float).to(device), \
+                                          torch.tensor(done_lst, dtype=torch.float).to(device), torch.tensor(prob_a_lst).to(device)
         self.data = []
         return s, a, r, s_prime, done_mask, prob_a
         
@@ -68,20 +74,19 @@ class PPO(nn.Module):
         for i in range(K_epoch):
             td_target = r + gamma * self.v(s_prime) * done_mask
             delta = td_target - self.v(s)
-            delta = delta.detach().numpy()
+            delta = delta.detach()
 
             advantage_lst = []
             advantage = 0.0
-            for delta_t in delta[::-1]:
+            for delta_t in torch.flip(delta, [0]):
                 advantage = gamma * lmbda * advantage + delta_t[0]
                 advantage_lst.append([advantage])
             advantage_lst.reverse()
-            advantage = torch.tensor(advantage_lst, dtype=torch.float)
+            advantage = torch.tensor(advantage_lst, dtype=torch.float).to(device)
 
-            pi = self.pi(s, softmax_dim=1)
+            pi = self.pi(s)
             pi_a = pi.gather(1,a)
             ratio = torch.exp(torch.log(pi_a) - torch.log(prob_a))  # a/b == exp(log(a)-log(b))
-
             surr1 = ratio * advantage
             surr2 = torch.clamp(ratio, 1-eps_clip, 1+eps_clip) * advantage
             loss = -torch.min(surr1, surr2) + F.smooth_l1_loss(self.v(s) , td_target.detach())
@@ -90,14 +95,11 @@ class PPO(nn.Module):
             loss.mean().backward()
             self.optimizer.step()
 
-    def choose_action(self, s, DIST=False):
-        prob = self.pi(torch.from_numpy(s).float())
+    def choose_action(self, s):
+        prob = self.pi(torch.from_numpy(s).unsqueeze(0).float().to(device)).squeeze()
         m = Categorical(prob)
         a = m.sample().item()
-        if DIST:
-            return a, m  
-        else:
-            return a
+        return a, prob
 
     def load_model(self, ):
         self.load_state_dict(torch.load(model_path))
@@ -107,7 +109,7 @@ def plot(rewards):
     # clear_output(True)
     plt.figure(figsize=(10,5))
     plt.plot(rewards)
-    plt.savefig('ppo_discrete_lunarlandar.png')
+    plt.savefig('sdt_ppo_discrete_lunarlandar.png')
     # plt.show()
     plt.clf()  
     plt.close()
@@ -118,7 +120,7 @@ def run(train=False, test=False):
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
-    model = PPO(state_dim, action_dim)
+    model = PPO(state_dim, action_dim).to(device)
     print_interval = 20
     if test:
         model.load_model()
@@ -130,9 +132,7 @@ def run(train=False, test=False):
         step=0
         while not done:
             # for t in range(T_horizon):
-            prob = model.pi(torch.from_numpy(s).float())
-            m = Categorical(prob)
-            a = m.sample().item()
+            a, prob = model.choose_action(s)
             s_prime, r, done, info = env.step(a)
             if test:
                 env.render()
@@ -151,7 +151,7 @@ def run(train=False, test=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/ppo_discrete', rewards_list)
+                np.save('./log/sdt_ppo_discrete', rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
