@@ -1,2 +1,810 @@
 compute005
 5
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Epoch: 01 | Batch: 000 | CrossEntropy-loss: 1.39523 | Correct: 212/1280 | Difference: 534.4353882220514
+Epoch: 01 | Batch: 100 | CrossEntropy-loss: 1.27122 | Correct: 703/1280 | Difference: 536.6954725611216
+Epoch: 01 | Batch: 200 | CrossEntropy-loss: 1.15335 | Correct: 798/1280 | Difference: 527.9147583007403
+Epoch: 01 | Batch: 300 | CrossEntropy-loss: 1.02769 | Correct: 717/1280 | Difference: 519.2870752879688
+Epoch: 01 | Batch: 400 | CrossEntropy-loss: 0.90986 | Correct: 703/1280 | Difference: 508.94938022643953
+Epoch: 01 | Batch: 500 | CrossEntropy-loss: 0.84904 | Correct: 746/1280 | Difference: 495.18416762810995
+Epoch: 01 | Batch: 600 | CrossEntropy-loss: 0.78785 | Correct: 837/1280 | Difference: 482.67196067254883
+Epoch: 01 | Batch: 700 | CrossEntropy-loss: 0.71755 | Correct: 955/1280 | Difference: 471.38125406814663
+Epoch: 01 | Batch: 800 | CrossEntropy-loss: 0.67041 | Correct: 1013/1280 | Difference: 462.9833501709781
+Epoch: 01 | Batch: 900 | CrossEntropy-loss: 0.66017 | Correct: 1005/1280 | Difference: 457.1097260933816
+Epoch: 01 | Batch: 1000 | CrossEntropy-loss: 0.63557 | Correct: 977/1280 | Difference: 452.63714556039406
+Epoch: 01 | Batch: 1100 | CrossEntropy-loss: 0.61565 | Correct: 1018/1280 | Difference: 449.74037696587646
+Epoch: 01 | Batch: 1200 | CrossEntropy-loss: 0.59283 | Correct: 1009/1280 | Difference: 447.9682499254277
+Epoch: 01 | Batch: 1300 | CrossEntropy-loss: 0.57706 | Correct: 1028/1280 | Difference: 447.12214048760353
+Epoch: 01 | Batch: 1400 | CrossEntropy-loss: 0.51770 | Correct: 1051/1280 | Difference: 446.8732104215368
+Epoch: 01 | Batch: 1500 | CrossEntropy-loss: 0.53200 | Correct: 1034/1280 | Difference: 446.83941101660224
+
+Epoch: 01 | Testing Accuracy: 415542/504607 (82.350%) | Historical Best: 82.350% 
+
+Epoch: 02 | Batch: 000 | CrossEntropy-loss: 0.52309 | Correct: 1060/1280 | Difference: 446.9882720303826
+Epoch: 02 | Batch: 100 | CrossEntropy-loss: 0.47797 | Correct: 1063/1280 | Difference: 447.05643027649955
+Epoch: 02 | Batch: 200 | CrossEntropy-loss: 0.50791 | Correct: 1032/1280 | Difference: 447.11214377878923
+Epoch: 02 | Batch: 300 | CrossEntropy-loss: 0.49876 | Correct: 1049/1280 | Difference: 447.0363717898945
+Epoch: 02 | Batch: 400 | CrossEntropy-loss: 0.46605 | Correct: 1067/1280 | Difference: 446.9322448895063
+Epoch: 02 | Batch: 500 | CrossEntropy-loss: 0.47554 | Correct: 1051/1280 | Difference: 446.78857517654103
+Epoch: 02 | Batch: 600 | CrossEntropy-loss: 0.44156 | Correct: 1069/1280 | Difference: 446.46380870808787
+Epoch: 02 | Batch: 700 | CrossEntropy-loss: 0.46339 | Correct: 1054/1280 | Difference: 446.2675009128849
+Epoch: 02 | Batch: 800 | CrossEntropy-loss: 0.46296 | Correct: 1063/1280 | Difference: 446.17647523498425
+Epoch: 02 | Batch: 900 | CrossEntropy-loss: 0.42584 | Correct: 1090/1280 | Difference: 446.06206128179133
+Epoch: 02 | Batch: 1000 | CrossEntropy-loss: 0.41299 | Correct: 1081/1280 | Difference: 445.89883952619965
+Epoch: 02 | Batch: 1100 | CrossEntropy-loss: 0.43830 | Correct: 1071/1280 | Difference: 445.7694679249761
+Epoch: 02 | Batch: 1200 | CrossEntropy-loss: 0.43916 | Correct: 1056/1280 | Difference: 445.50661117609224
+Epoch: 02 | Batch: 1300 | CrossEntropy-loss: 0.40081 | Correct: 1094/1280 | Difference: 445.3163607570526
+Epoch: 02 | Batch: 1400 | CrossEntropy-loss: 0.38208 | Correct: 1091/1280 | Difference: 445.15610950766694
+Epoch: 02 | Batch: 1500 | CrossEntropy-loss: 0.39182 | Correct: 1102/1280 | Difference: 444.97123053873287
+
+Epoch: 02 | Testing Accuracy: 424335/504607 (84.092%) | Historical Best: 84.092% 
+
+Epoch: 03 | Batch: 000 | CrossEntropy-loss: 0.38561 | Correct: 1084/1280 | Difference: 444.80076583395083
+Epoch: 03 | Batch: 100 | CrossEntropy-loss: 0.41458 | Correct: 1074/1280 | Difference: 444.60166383874497
+Epoch: 03 | Batch: 200 | CrossEntropy-loss: 0.42032 | Correct: 1072/1280 | Difference: 444.39158073236575
+Epoch: 03 | Batch: 300 | CrossEntropy-loss: 0.41302 | Correct: 1067/1280 | Difference: 444.06295953972625
+Epoch: 03 | Batch: 400 | CrossEntropy-loss: 0.38517 | Correct: 1092/1280 | Difference: 443.8937713779621
+Epoch: 03 | Batch: 500 | CrossEntropy-loss: 0.37514 | Correct: 1094/1280 | Difference: 443.73733563178837
+Epoch: 03 | Batch: 600 | CrossEntropy-loss: 0.37883 | Correct: 1096/1280 | Difference: 443.5315736607861
+Epoch: 03 | Batch: 700 | CrossEntropy-loss: 0.37499 | Correct: 1085/1280 | Difference: 443.27736114162184
+Epoch: 03 | Batch: 800 | CrossEntropy-loss: 0.37248 | Correct: 1076/1280 | Difference: 443.02082422420403
+Epoch: 03 | Batch: 900 | CrossEntropy-loss: 0.38988 | Correct: 1078/1280 | Difference: 442.74643893794445
+Epoch: 03 | Batch: 1000 | CrossEntropy-loss: 0.38817 | Correct: 1067/1280 | Difference: 442.3571508206393
+Epoch: 03 | Batch: 1100 | CrossEntropy-loss: 0.37701 | Correct: 1083/1280 | Difference: 442.1748087305214
+Epoch: 03 | Batch: 1200 | CrossEntropy-loss: 0.32879 | Correct: 1120/1280 | Difference: 441.81839910420086
+Epoch: 03 | Batch: 1300 | CrossEntropy-loss: 0.35227 | Correct: 1104/1280 | Difference: 441.34724943380763
+Epoch: 03 | Batch: 1400 | CrossEntropy-loss: 0.35187 | Correct: 1096/1280 | Difference: 440.8937525363543
+Epoch: 03 | Batch: 1500 | CrossEntropy-loss: 0.40054 | Correct: 1081/1280 | Difference: 440.4541364572329
+
+Epoch: 03 | Testing Accuracy: 432579/504607 (85.726%) | Historical Best: 85.726% 
+
+Epoch: 04 | Batch: 000 | CrossEntropy-loss: 0.35020 | Correct: 1095/1280 | Difference: 440.1147512117437
+Epoch: 04 | Batch: 100 | CrossEntropy-loss: 0.35918 | Correct: 1097/1280 | Difference: 439.77476616529196
+Epoch: 04 | Batch: 200 | CrossEntropy-loss: 0.34111 | Correct: 1091/1280 | Difference: 439.51948097333485
+Epoch: 04 | Batch: 300 | CrossEntropy-loss: 0.32906 | Correct: 1109/1280 | Difference: 439.0763409310183
+Epoch: 04 | Batch: 400 | CrossEntropy-loss: 0.37949 | Correct: 1074/1280 | Difference: 438.78121131389076
+Epoch: 04 | Batch: 500 | CrossEntropy-loss: 0.35975 | Correct: 1075/1280 | Difference: 438.48413603791096
+Epoch: 04 | Batch: 600 | CrossEntropy-loss: 0.34090 | Correct: 1099/1280 | Difference: 438.35432839963073
+Epoch: 04 | Batch: 700 | CrossEntropy-loss: 0.33432 | Correct: 1103/1280 | Difference: 438.0296293124581
+Epoch: 04 | Batch: 800 | CrossEntropy-loss: 0.34169 | Correct: 1111/1280 | Difference: 437.81080292828744
+Epoch: 04 | Batch: 900 | CrossEntropy-loss: 0.34376 | Correct: 1099/1280 | Difference: 437.6195504732782
+Epoch: 04 | Batch: 1000 | CrossEntropy-loss: 0.32658 | Correct: 1106/1280 | Difference: 437.4086820103196
+Epoch: 04 | Batch: 1100 | CrossEntropy-loss: 0.31896 | Correct: 1108/1280 | Difference: 437.2260064525644
+Epoch: 04 | Batch: 1200 | CrossEntropy-loss: 0.31586 | Correct: 1116/1280 | Difference: 436.95216038760236
+Epoch: 04 | Batch: 1300 | CrossEntropy-loss: 0.32132 | Correct: 1112/1280 | Difference: 436.68970959481845
+Epoch: 04 | Batch: 1400 | CrossEntropy-loss: 0.32781 | Correct: 1117/1280 | Difference: 436.48461726151197
+Epoch: 04 | Batch: 1500 | CrossEntropy-loss: 0.30035 | Correct: 1130/1280 | Difference: 436.3159487813492
+
+Epoch: 04 | Testing Accuracy: 443205/504607 (87.832%) | Historical Best: 87.832% 
+
+Epoch: 05 | Batch: 000 | CrossEntropy-loss: 0.29886 | Correct: 1141/1280 | Difference: 436.38276418145193
+Epoch: 05 | Batch: 100 | CrossEntropy-loss: 0.31630 | Correct: 1126/1280 | Difference: 436.3720079812301
+Epoch: 05 | Batch: 200 | CrossEntropy-loss: 0.30089 | Correct: 1150/1280 | Difference: 436.4572122673886
+Epoch: 05 | Batch: 300 | CrossEntropy-loss: 0.29416 | Correct: 1152/1280 | Difference: 436.3800998420331
+Epoch: 05 | Batch: 400 | CrossEntropy-loss: 0.28736 | Correct: 1141/1280 | Difference: 436.4069494711877
+Epoch: 05 | Batch: 500 | CrossEntropy-loss: 0.31626 | Correct: 1138/1280 | Difference: 436.71676014682964
+Epoch: 05 | Batch: 600 | CrossEntropy-loss: 0.28091 | Correct: 1150/1280 | Difference: 437.02534126034965
+Epoch: 05 | Batch: 700 | CrossEntropy-loss: 0.28774 | Correct: 1153/1280 | Difference: 437.35531214275187
+Epoch: 05 | Batch: 800 | CrossEntropy-loss: 0.28715 | Correct: 1140/1280 | Difference: 437.42989222030127
+Epoch: 05 | Batch: 900 | CrossEntropy-loss: 0.29781 | Correct: 1138/1280 | Difference: 437.40648660520776
+Epoch: 05 | Batch: 1000 | CrossEntropy-loss: 0.27519 | Correct: 1144/1280 | Difference: 437.73127191626764
+Epoch: 05 | Batch: 1100 | CrossEntropy-loss: 0.31907 | Correct: 1124/1280 | Difference: 437.80347603077274
+Epoch: 05 | Batch: 1200 | CrossEntropy-loss: 0.29776 | Correct: 1129/1280 | Difference: 437.88099252816227
+Epoch: 05 | Batch: 1300 | CrossEntropy-loss: 0.27713 | Correct: 1143/1280 | Difference: 437.9800498876336
+Epoch: 05 | Batch: 1400 | CrossEntropy-loss: 0.26482 | Correct: 1150/1280 | Difference: 438.01540669337425
+Epoch: 05 | Batch: 1500 | CrossEntropy-loss: 0.32274 | Correct: 1127/1280 | Difference: 438.04667270145825
+
+Epoch: 05 | Testing Accuracy: 454742/504607 (90.118%) | Historical Best: 90.118% 
+
+Epoch: 06 | Batch: 000 | CrossEntropy-loss: 0.26690 | Correct: 1152/1280 | Difference: 438.0602925397335
+Epoch: 06 | Batch: 100 | CrossEntropy-loss: 0.30816 | Correct: 1145/1280 | Difference: 437.93441948990034
+Epoch: 06 | Batch: 200 | CrossEntropy-loss: 0.28279 | Correct: 1151/1280 | Difference: 437.6533865405138
+Epoch: 06 | Batch: 300 | CrossEntropy-loss: 0.28467 | Correct: 1162/1280 | Difference: 437.51860377502214
+Epoch: 06 | Batch: 400 | CrossEntropy-loss: 0.28756 | Correct: 1150/1280 | Difference: 437.5122301491103
+Epoch: 06 | Batch: 500 | CrossEntropy-loss: 0.25637 | Correct: 1169/1280 | Difference: 437.2270925798046
+Epoch: 06 | Batch: 600 | CrossEntropy-loss: 0.26769 | Correct: 1158/1280 | Difference: 436.6942322790289
+Epoch: 06 | Batch: 700 | CrossEntropy-loss: 0.26917 | Correct: 1158/1280 | Difference: 436.1844366419446
+Epoch: 06 | Batch: 800 | CrossEntropy-loss: 0.28381 | Correct: 1156/1280 | Difference: 435.6765425328579
+Epoch: 06 | Batch: 900 | CrossEntropy-loss: 0.26851 | Correct: 1158/1280 | Difference: 435.2539610219635
+Epoch: 06 | Batch: 1000 | CrossEntropy-loss: 0.25449 | Correct: 1164/1280 | Difference: 435.1615592328194
+Epoch: 06 | Batch: 1100 | CrossEntropy-loss: 0.26579 | Correct: 1164/1280 | Difference: 434.70476796801574
+Epoch: 06 | Batch: 1200 | CrossEntropy-loss: 0.25410 | Correct: 1177/1280 | Difference: 434.25681732709705
+Epoch: 06 | Batch: 1300 | CrossEntropy-loss: 0.23148 | Correct: 1179/1280 | Difference: 433.655338302418
+Epoch: 06 | Batch: 1400 | CrossEntropy-loss: 0.27321 | Correct: 1154/1280 | Difference: 432.85500274507456
+Epoch: 06 | Batch: 1500 | CrossEntropy-loss: 0.27563 | Correct: 1147/1280 | Difference: 432.541752174333
+
+Epoch: 06 | Testing Accuracy: 459658/504607 (91.092%) | Historical Best: 91.092% 
+
+Epoch: 07 | Batch: 000 | CrossEntropy-loss: 0.26454 | Correct: 1158/1280 | Difference: 432.0452941879866
+Epoch: 07 | Batch: 100 | CrossEntropy-loss: 0.25224 | Correct: 1179/1280 | Difference: 431.4198492709967
+Epoch: 07 | Batch: 200 | CrossEntropy-loss: 0.23988 | Correct: 1176/1280 | Difference: 430.7688529254842
+Epoch: 07 | Batch: 300 | CrossEntropy-loss: 0.24402 | Correct: 1166/1280 | Difference: 430.309339022452
+Epoch: 07 | Batch: 400 | CrossEntropy-loss: 0.22829 | Correct: 1186/1280 | Difference: 429.69216695163436
+Epoch: 07 | Batch: 500 | CrossEntropy-loss: 0.25149 | Correct: 1165/1280 | Difference: 429.05313856784323
+Epoch: 07 | Batch: 600 | CrossEntropy-loss: 0.25160 | Correct: 1171/1280 | Difference: 428.4079874393623
+Epoch: 07 | Batch: 700 | CrossEntropy-loss: 0.26290 | Correct: 1148/1280 | Difference: 427.7133487195676
+Epoch: 07 | Batch: 800 | CrossEntropy-loss: 0.23050 | Correct: 1188/1280 | Difference: 426.9147119487648
+Epoch: 07 | Batch: 900 | CrossEntropy-loss: 0.24329 | Correct: 1175/1280 | Difference: 426.2257266960502
+Epoch: 07 | Batch: 1000 | CrossEntropy-loss: 0.24944 | Correct: 1166/1280 | Difference: 425.41219921335227
+Epoch: 07 | Batch: 1100 | CrossEntropy-loss: 0.21986 | Correct: 1178/1280 | Difference: 424.94860778708556
+Epoch: 07 | Batch: 1200 | CrossEntropy-loss: 0.22040 | Correct: 1194/1280 | Difference: 424.0456484118934
+Epoch: 07 | Batch: 1300 | CrossEntropy-loss: 0.23690 | Correct: 1173/1280 | Difference: 423.04179181339333
+Epoch: 07 | Batch: 1400 | CrossEntropy-loss: 0.24882 | Correct: 1176/1280 | Difference: 422.3479078403508
+Epoch: 07 | Batch: 1500 | CrossEntropy-loss: 0.23694 | Correct: 1187/1280 | Difference: 421.51662681931975
+
+Epoch: 07 | Testing Accuracy: 464123/504607 (91.977%) | Historical Best: 91.977% 
+
+Epoch: 08 | Batch: 000 | CrossEntropy-loss: 0.21128 | Correct: 1185/1280 | Difference: 421.05554932551394
+Epoch: 08 | Batch: 100 | CrossEntropy-loss: 0.25003 | Correct: 1175/1280 | Difference: 420.2717378621597
+Epoch: 08 | Batch: 200 | CrossEntropy-loss: 0.21800 | Correct: 1194/1280 | Difference: 419.7446145303869
+Epoch: 08 | Batch: 300 | CrossEntropy-loss: 0.21863 | Correct: 1179/1280 | Difference: 419.3341768769863
+Epoch: 08 | Batch: 400 | CrossEntropy-loss: 0.21199 | Correct: 1191/1280 | Difference: 418.73471513918554
+Epoch: 08 | Batch: 500 | CrossEntropy-loss: 0.23631 | Correct: 1165/1280 | Difference: 417.94297537626915
+Epoch: 08 | Batch: 600 | CrossEntropy-loss: 0.21208 | Correct: 1185/1280 | Difference: 417.45584731281934
+Epoch: 08 | Batch: 700 | CrossEntropy-loss: 0.22255 | Correct: 1166/1280 | Difference: 417.1451573827039
+Epoch: 08 | Batch: 800 | CrossEntropy-loss: 0.22651 | Correct: 1177/1280 | Difference: 416.5772892274606
+Epoch: 08 | Batch: 900 | CrossEntropy-loss: 0.21676 | Correct: 1179/1280 | Difference: 416.0740894927334
+Epoch: 08 | Batch: 1000 | CrossEntropy-loss: 0.22529 | Correct: 1181/1280 | Difference: 415.7335224698471
+Epoch: 08 | Batch: 1100 | CrossEntropy-loss: 0.19669 | Correct: 1199/1280 | Difference: 415.2907244666454
+Epoch: 08 | Batch: 1200 | CrossEntropy-loss: 0.21922 | Correct: 1188/1280 | Difference: 414.71707394575355
+Epoch: 08 | Batch: 1300 | CrossEntropy-loss: 0.19724 | Correct: 1189/1280 | Difference: 414.30561381789903
+Epoch: 08 | Batch: 1400 | CrossEntropy-loss: 0.21345 | Correct: 1184/1280 | Difference: 413.8504744408658
+Epoch: 08 | Batch: 1500 | CrossEntropy-loss: 0.22188 | Correct: 1178/1280 | Difference: 413.4718363959243
+
+Epoch: 08 | Testing Accuracy: 468190/504607 (92.783%) | Historical Best: 92.783% 
+
+Epoch: 09 | Batch: 000 | CrossEntropy-loss: 0.21269 | Correct: 1187/1280 | Difference: 413.14719894793774
+Epoch: 09 | Batch: 100 | CrossEntropy-loss: 0.21311 | Correct: 1181/1280 | Difference: 412.6913903842394
+Epoch: 09 | Batch: 200 | CrossEntropy-loss: 0.20632 | Correct: 1188/1280 | Difference: 412.31229719692874
+Epoch: 09 | Batch: 300 | CrossEntropy-loss: 0.19135 | Correct: 1198/1280 | Difference: 412.07674436591947
+Epoch: 09 | Batch: 400 | CrossEntropy-loss: 0.19011 | Correct: 1198/1280 | Difference: 411.8519434720296
+Epoch: 09 | Batch: 500 | CrossEntropy-loss: 0.20465 | Correct: 1181/1280 | Difference: 411.42433422608434
+Epoch: 09 | Batch: 600 | CrossEntropy-loss: 0.21816 | Correct: 1188/1280 | Difference: 411.04636979490823
+Epoch: 09 | Batch: 700 | CrossEntropy-loss: 0.20570 | Correct: 1194/1280 | Difference: 410.7418191536296
+Epoch: 09 | Batch: 800 | CrossEntropy-loss: 0.20023 | Correct: 1190/1280 | Difference: 410.43017155017804
+Epoch: 09 | Batch: 900 | CrossEntropy-loss: 0.18822 | Correct: 1188/1280 | Difference: 410.14917189891815
+Epoch: 09 | Batch: 1000 | CrossEntropy-loss: 0.20963 | Correct: 1179/1280 | Difference: 409.8843999047908
+Epoch: 09 | Batch: 1100 | CrossEntropy-loss: 0.18291 | Correct: 1191/1280 | Difference: 409.4177702373125
+Epoch: 09 | Batch: 1200 | CrossEntropy-loss: 0.19243 | Correct: 1193/1280 | Difference: 409.26032278770515
+Epoch: 09 | Batch: 1300 | CrossEntropy-loss: 0.20267 | Correct: 1182/1280 | Difference: 408.9551370290075
+Epoch: 09 | Batch: 1400 | CrossEntropy-loss: 0.19771 | Correct: 1197/1280 | Difference: 408.64157289343154
+Epoch: 09 | Batch: 1500 | CrossEntropy-loss: 0.19662 | Correct: 1187/1280 | Difference: 408.15012655841593
+
+Epoch: 09 | Testing Accuracy: 468506/504607 (92.846%) | Historical Best: 92.846% 
+
+Epoch: 10 | Batch: 000 | CrossEntropy-loss: 0.18304 | Correct: 1204/1280 | Difference: 408.0117582849915
+Epoch: 10 | Batch: 100 | CrossEntropy-loss: 0.18660 | Correct: 1183/1280 | Difference: 407.5737432132362
+Epoch: 10 | Batch: 200 | CrossEntropy-loss: 0.17684 | Correct: 1196/1280 | Difference: 407.2777503249175
+Epoch: 10 | Batch: 300 | CrossEntropy-loss: 0.19241 | Correct: 1180/1280 | Difference: 406.8398317935662
+Epoch: 10 | Batch: 400 | CrossEntropy-loss: 0.18159 | Correct: 1181/1280 | Difference: 406.6112839103457
+Epoch: 10 | Batch: 500 | CrossEntropy-loss: 0.19785 | Correct: 1190/1280 | Difference: 406.2892716608302
+Epoch: 10 | Batch: 600 | CrossEntropy-loss: 0.18427 | Correct: 1195/1280 | Difference: 406.0010016307966
+Epoch: 10 | Batch: 700 | CrossEntropy-loss: 0.17823 | Correct: 1199/1280 | Difference: 405.67161859412425
+Epoch: 10 | Batch: 800 | CrossEntropy-loss: 0.20278 | Correct: 1171/1280 | Difference: 405.3636713855713
+Epoch: 10 | Batch: 900 | CrossEntropy-loss: 0.16843 | Correct: 1201/1280 | Difference: 405.2562374948873
+Epoch: 10 | Batch: 1000 | CrossEntropy-loss: 0.19253 | Correct: 1185/1280 | Difference: 404.88714195948273
+Epoch: 10 | Batch: 1100 | CrossEntropy-loss: 0.17326 | Correct: 1194/1280 | Difference: 404.5846057898674
+Epoch: 10 | Batch: 1200 | CrossEntropy-loss: 0.17214 | Correct: 1202/1280 | Difference: 404.2106037193004
+Epoch: 10 | Batch: 1300 | CrossEntropy-loss: 0.17670 | Correct: 1185/1280 | Difference: 403.8485762012688
+Epoch: 10 | Batch: 1400 | CrossEntropy-loss: 0.18054 | Correct: 1189/1280 | Difference: 403.55827456657397
+Epoch: 10 | Batch: 1500 | CrossEntropy-loss: 0.18504 | Correct: 1184/1280 | Difference: 403.30716199100635
+
+Epoch: 10 | Testing Accuracy: 468663/504607 (92.877%) | Historical Best: 92.877% 
+
+Epoch: 11 | Batch: 000 | CrossEntropy-loss: 0.17376 | Correct: 1199/1280 | Difference: 402.96803780068416
+Epoch: 11 | Batch: 100 | CrossEntropy-loss: 0.17485 | Correct: 1190/1280 | Difference: 402.52202444112936
+Epoch: 11 | Batch: 200 | CrossEntropy-loss: 0.18921 | Correct: 1185/1280 | Difference: 402.0446126934263
+Epoch: 11 | Batch: 300 | CrossEntropy-loss: 0.17982 | Correct: 1180/1280 | Difference: 401.7624741347852
+Epoch: 11 | Batch: 400 | CrossEntropy-loss: 0.17175 | Correct: 1207/1280 | Difference: 401.33091800919374
+Epoch: 11 | Batch: 500 | CrossEntropy-loss: 0.16035 | Correct: 1196/1280 | Difference: 401.0309242692736
+Epoch: 11 | Batch: 600 | CrossEntropy-loss: 0.17287 | Correct: 1191/1280 | Difference: 400.6364355118042
+Epoch: 11 | Batch: 700 | CrossEntropy-loss: 0.18879 | Correct: 1178/1280 | Difference: 400.31676489365026
+Epoch: 11 | Batch: 800 | CrossEntropy-loss: 0.16098 | Correct: 1197/1280 | Difference: 399.66982908821865
+Epoch: 11 | Batch: 900 | CrossEntropy-loss: 0.15576 | Correct: 1206/1280 | Difference: 399.3951909052926
+Epoch: 11 | Batch: 1000 | CrossEntropy-loss: 0.16902 | Correct: 1204/1280 | Difference: 399.064054191024
+Epoch: 11 | Batch: 1100 | CrossEntropy-loss: 0.17889 | Correct: 1198/1280 | Difference: 398.87744884465457
+Epoch: 11 | Batch: 1200 | CrossEntropy-loss: 0.14633 | Correct: 1214/1280 | Difference: 398.5635534540898
+Epoch: 11 | Batch: 1300 | CrossEntropy-loss: 0.17195 | Correct: 1204/1280 | Difference: 398.2159478748482
+Epoch: 11 | Batch: 1400 | CrossEntropy-loss: 0.16649 | Correct: 1197/1280 | Difference: 397.8467755779217
+Epoch: 11 | Batch: 1500 | CrossEntropy-loss: 0.16175 | Correct: 1206/1280 | Difference: 397.68138711758445
+
+Epoch: 11 | Testing Accuracy: 472769/504607 (93.691%) | Historical Best: 93.691% 
+
+Epoch: 12 | Batch: 000 | CrossEntropy-loss: 0.16628 | Correct: 1191/1280 | Difference: 397.3719882722144
+Epoch: 12 | Batch: 100 | CrossEntropy-loss: 0.15490 | Correct: 1206/1280 | Difference: 396.94666817942164
+Epoch: 12 | Batch: 200 | CrossEntropy-loss: 0.17412 | Correct: 1197/1280 | Difference: 396.7915076552733
+Epoch: 12 | Batch: 300 | CrossEntropy-loss: 0.16655 | Correct: 1192/1280 | Difference: 396.39594270820913
+Epoch: 12 | Batch: 400 | CrossEntropy-loss: 0.16782 | Correct: 1189/1280 | Difference: 396.06870113599854
+Epoch: 12 | Batch: 500 | CrossEntropy-loss: 0.15743 | Correct: 1206/1280 | Difference: 395.75084496971175
+Epoch: 12 | Batch: 600 | CrossEntropy-loss: 0.16691 | Correct: 1182/1280 | Difference: 395.50787527524756
+Epoch: 12 | Batch: 700 | CrossEntropy-loss: 0.17373 | Correct: 1183/1280 | Difference: 395.24935035712764
+Epoch: 12 | Batch: 800 | CrossEntropy-loss: 0.14460 | Correct: 1208/1280 | Difference: 394.9873181920655
+Epoch: 12 | Batch: 900 | CrossEntropy-loss: 0.15323 | Correct: 1196/1280 | Difference: 394.6619252432268
+Epoch: 12 | Batch: 1000 | CrossEntropy-loss: 0.15342 | Correct: 1195/1280 | Difference: 394.48380468143523
+Epoch: 12 | Batch: 1100 | CrossEntropy-loss: 0.15246 | Correct: 1203/1280 | Difference: 394.2805653281374
+Epoch: 12 | Batch: 1200 | CrossEntropy-loss: 0.15849 | Correct: 1202/1280 | Difference: 394.0247304291193
+Epoch: 12 | Batch: 1300 | CrossEntropy-loss: 0.16014 | Correct: 1197/1280 | Difference: 393.713189272029
+Epoch: 12 | Batch: 1400 | CrossEntropy-loss: 0.17409 | Correct: 1203/1280 | Difference: 393.18546856926827
+Epoch: 12 | Batch: 1500 | CrossEntropy-loss: 0.16961 | Correct: 1198/1280 | Difference: 392.8968106026614
+
+Epoch: 12 | Testing Accuracy: 472788/504607 (93.694%) | Historical Best: 93.694% 
+
+Epoch: 13 | Batch: 000 | CrossEntropy-loss: 0.14851 | Correct: 1203/1280 | Difference: 392.81783281972105
+Epoch: 13 | Batch: 100 | CrossEntropy-loss: 0.15803 | Correct: 1209/1280 | Difference: 392.50056195516026
+Epoch: 13 | Batch: 200 | CrossEntropy-loss: 0.15193 | Correct: 1203/1280 | Difference: 392.2629797691122
+Epoch: 13 | Batch: 300 | CrossEntropy-loss: 0.15553 | Correct: 1201/1280 | Difference: 391.93728142292326
+Epoch: 13 | Batch: 400 | CrossEntropy-loss: 0.15368 | Correct: 1218/1280 | Difference: 391.68445702889704
+Epoch: 13 | Batch: 500 | CrossEntropy-loss: 0.14358 | Correct: 1228/1280 | Difference: 391.4391267903683
+Epoch: 13 | Batch: 600 | CrossEntropy-loss: 0.13327 | Correct: 1219/1280 | Difference: 391.15806822652735
+Epoch: 13 | Batch: 700 | CrossEntropy-loss: 0.14661 | Correct: 1204/1280 | Difference: 390.89992177584253
+Epoch: 13 | Batch: 800 | CrossEntropy-loss: 0.13987 | Correct: 1207/1280 | Difference: 390.6303497244008
+Epoch: 13 | Batch: 900 | CrossEntropy-loss: 0.14939 | Correct: 1187/1280 | Difference: 390.34046180037694
+Epoch: 13 | Batch: 1000 | CrossEntropy-loss: 0.15152 | Correct: 1194/1280 | Difference: 390.0312888573126
+Epoch: 13 | Batch: 1100 | CrossEntropy-loss: 0.14639 | Correct: 1208/1280 | Difference: 389.8187758885767
+Epoch: 13 | Batch: 1200 | CrossEntropy-loss: 0.13566 | Correct: 1208/1280 | Difference: 389.58867541363253
+Epoch: 13 | Batch: 1300 | CrossEntropy-loss: 0.14662 | Correct: 1210/1280 | Difference: 389.22786771414775
+Epoch: 13 | Batch: 1400 | CrossEntropy-loss: 0.14914 | Correct: 1199/1280 | Difference: 389.0577312830583
+Epoch: 13 | Batch: 1500 | CrossEntropy-loss: 0.15000 | Correct: 1201/1280 | Difference: 388.8344245965679
+
+Epoch: 13 | Testing Accuracy: 475616/504607 (94.255%) | Historical Best: 94.255% 
+
+Epoch: 14 | Batch: 000 | CrossEntropy-loss: 0.14890 | Correct: 1214/1280 | Difference: 388.68796840952206
+Epoch: 14 | Batch: 100 | CrossEntropy-loss: 0.14955 | Correct: 1201/1280 | Difference: 388.4118280166868
+Epoch: 14 | Batch: 200 | CrossEntropy-loss: 0.13986 | Correct: 1200/1280 | Difference: 388.3217748979022
+Epoch: 14 | Batch: 300 | CrossEntropy-loss: 0.13582 | Correct: 1208/1280 | Difference: 388.11098823323255
+Epoch: 14 | Batch: 400 | CrossEntropy-loss: 0.15576 | Correct: 1194/1280 | Difference: 387.9318281916864
+Epoch: 14 | Batch: 500 | CrossEntropy-loss: 0.14752 | Correct: 1201/1280 | Difference: 387.6187280357315
+Epoch: 14 | Batch: 600 | CrossEntropy-loss: 0.14341 | Correct: 1204/1280 | Difference: 387.4379928085141
+Epoch: 14 | Batch: 700 | CrossEntropy-loss: 0.13363 | Correct: 1203/1280 | Difference: 387.2402069522308
+Epoch: 14 | Batch: 800 | CrossEntropy-loss: 0.14251 | Correct: 1206/1280 | Difference: 386.97563205409426
+Epoch: 14 | Batch: 900 | CrossEntropy-loss: 0.12919 | Correct: 1206/1280 | Difference: 386.6105186701013
+Epoch: 14 | Batch: 1000 | CrossEntropy-loss: 0.15159 | Correct: 1209/1280 | Difference: 386.27888503998565
+Epoch: 14 | Batch: 1100 | CrossEntropy-loss: 0.15455 | Correct: 1197/1280 | Difference: 385.91450423884316
+Epoch: 14 | Batch: 1200 | CrossEntropy-loss: 0.12196 | Correct: 1215/1280 | Difference: 385.6312631031482
+Epoch: 14 | Batch: 1300 | CrossEntropy-loss: 0.13968 | Correct: 1200/1280 | Difference: 385.3961334057669
+Epoch: 14 | Batch: 1400 | CrossEntropy-loss: 0.14100 | Correct: 1220/1280 | Difference: 385.0384389633558
+Epoch: 14 | Batch: 1500 | CrossEntropy-loss: 0.13339 | Correct: 1203/1280 | Difference: 384.8410087350614
+
+Epoch: 14 | Testing Accuracy: 476758/504607 (94.481%) | Historical Best: 94.481% 
+
+Epoch: 15 | Batch: 000 | CrossEntropy-loss: 0.15407 | Correct: 1200/1280 | Difference: 384.5773723034947
+Epoch: 15 | Batch: 100 | CrossEntropy-loss: 0.13959 | Correct: 1214/1280 | Difference: 384.3342210153895
+Epoch: 15 | Batch: 200 | CrossEntropy-loss: 0.13541 | Correct: 1207/1280 | Difference: 384.109356944715
+Epoch: 15 | Batch: 300 | CrossEntropy-loss: 0.13653 | Correct: 1205/1280 | Difference: 383.9147535741072
+Epoch: 15 | Batch: 400 | CrossEntropy-loss: 0.12927 | Correct: 1206/1280 | Difference: 383.7180066647423
+Epoch: 15 | Batch: 500 | CrossEntropy-loss: 0.13027 | Correct: 1200/1280 | Difference: 383.58319609375087
+Epoch: 15 | Batch: 600 | CrossEntropy-loss: 0.12306 | Correct: 1224/1280 | Difference: 383.38282682132717
+Epoch: 15 | Batch: 700 | CrossEntropy-loss: 0.12399 | Correct: 1219/1280 | Difference: 383.10356554841024
+Epoch: 15 | Batch: 800 | CrossEntropy-loss: 0.13244 | Correct: 1202/1280 | Difference: 382.9234848793907
+Epoch: 15 | Batch: 900 | CrossEntropy-loss: 0.12418 | Correct: 1218/1280 | Difference: 382.589287583418
+Epoch: 15 | Batch: 1000 | CrossEntropy-loss: 0.14058 | Correct: 1212/1280 | Difference: 382.3402922839357
+Epoch: 15 | Batch: 1100 | CrossEntropy-loss: 0.13329 | Correct: 1214/1280 | Difference: 382.178176546024
+Epoch: 15 | Batch: 1200 | CrossEntropy-loss: 0.14157 | Correct: 1190/1280 | Difference: 381.8885505926353
+Epoch: 15 | Batch: 1300 | CrossEntropy-loss: 0.10865 | Correct: 1225/1280 | Difference: 381.68737185109256
+Epoch: 15 | Batch: 1400 | CrossEntropy-loss: 0.12500 | Correct: 1213/1280 | Difference: 381.47264708017366
+Epoch: 15 | Batch: 1500 | CrossEntropy-loss: 0.12535 | Correct: 1208/1280 | Difference: 381.2757201440254
+
+Epoch: 15 | Testing Accuracy: 477209/504607 (94.570%) | Historical Best: 94.570% 
+
+Epoch: 16 | Batch: 000 | CrossEntropy-loss: 0.13086 | Correct: 1200/1280 | Difference: 381.11297255406333
+Epoch: 16 | Batch: 100 | CrossEntropy-loss: 0.12212 | Correct: 1207/1280 | Difference: 380.90695423016854
+Epoch: 16 | Batch: 200 | CrossEntropy-loss: 0.14009 | Correct: 1208/1280 | Difference: 380.6868551928209
+Epoch: 16 | Batch: 300 | CrossEntropy-loss: 0.13126 | Correct: 1224/1280 | Difference: 380.45955992365185
+Epoch: 16 | Batch: 400 | CrossEntropy-loss: 0.12107 | Correct: 1214/1280 | Difference: 380.3598099170756
+Epoch: 16 | Batch: 500 | CrossEntropy-loss: 0.12994 | Correct: 1205/1280 | Difference: 380.09969718377937
+Epoch: 16 | Batch: 600 | CrossEntropy-loss: 0.13825 | Correct: 1211/1280 | Difference: 379.93130547813763
+Epoch: 16 | Batch: 700 | CrossEntropy-loss: 0.13172 | Correct: 1219/1280 | Difference: 379.77049208673986
+Epoch: 16 | Batch: 800 | CrossEntropy-loss: 0.13166 | Correct: 1211/1280 | Difference: 379.54109073417305
+Epoch: 16 | Batch: 900 | CrossEntropy-loss: 0.12356 | Correct: 1209/1280 | Difference: 379.35558573654646
+Epoch: 16 | Batch: 1000 | CrossEntropy-loss: 0.12539 | Correct: 1217/1280 | Difference: 379.17168175223105
+Epoch: 16 | Batch: 1100 | CrossEntropy-loss: 0.11580 | Correct: 1211/1280 | Difference: 378.8950762369938
+Epoch: 16 | Batch: 1200 | CrossEntropy-loss: 0.12260 | Correct: 1225/1280 | Difference: 378.7385459290389
+Epoch: 16 | Batch: 1300 | CrossEntropy-loss: 0.10701 | Correct: 1229/1280 | Difference: 378.53228940496166
+Epoch: 16 | Batch: 1400 | CrossEntropy-loss: 0.12410 | Correct: 1203/1280 | Difference: 378.39847907248037
+Epoch: 16 | Batch: 1500 | CrossEntropy-loss: 0.12942 | Correct: 1214/1280 | Difference: 378.25495358391316
+
+Epoch: 16 | Testing Accuracy: 479866/504607 (95.097%) | Historical Best: 95.097% 
+
+Epoch: 17 | Batch: 000 | CrossEntropy-loss: 0.10983 | Correct: 1218/1280 | Difference: 378.0917275334366
+Epoch: 17 | Batch: 100 | CrossEntropy-loss: 0.12039 | Correct: 1217/1280 | Difference: 377.9122602704302
+Epoch: 17 | Batch: 200 | CrossEntropy-loss: 0.11982 | Correct: 1216/1280 | Difference: 377.79262006496737
+Epoch: 17 | Batch: 300 | CrossEntropy-loss: 0.12760 | Correct: 1217/1280 | Difference: 377.6413845917971
+Epoch: 17 | Batch: 400 | CrossEntropy-loss: 0.10900 | Correct: 1228/1280 | Difference: 377.47216440184746
+Epoch: 17 | Batch: 500 | CrossEntropy-loss: 0.12056 | Correct: 1211/1280 | Difference: 377.24511286408665
+Epoch: 17 | Batch: 600 | CrossEntropy-loss: 0.12867 | Correct: 1206/1280 | Difference: 377.1110003615853
+Epoch: 17 | Batch: 700 | CrossEntropy-loss: 0.11350 | Correct: 1218/1280 | Difference: 376.9135599463086
+Epoch: 17 | Batch: 800 | CrossEntropy-loss: 0.12556 | Correct: 1205/1280 | Difference: 376.7653264516638
+Epoch: 17 | Batch: 900 | CrossEntropy-loss: 0.13285 | Correct: 1214/1280 | Difference: 376.5415078074672
+Epoch: 17 | Batch: 1000 | CrossEntropy-loss: 0.12867 | Correct: 1215/1280 | Difference: 376.4384881805961
+Epoch: 17 | Batch: 1100 | CrossEntropy-loss: 0.11934 | Correct: 1214/1280 | Difference: 376.20582838890164
+Epoch: 17 | Batch: 1200 | CrossEntropy-loss: 0.11180 | Correct: 1226/1280 | Difference: 375.9845150721272
+Epoch: 17 | Batch: 1300 | CrossEntropy-loss: 0.13136 | Correct: 1216/1280 | Difference: 375.843271182704
+Epoch: 17 | Batch: 1400 | CrossEntropy-loss: 0.11267 | Correct: 1224/1280 | Difference: 375.7184320955381
+Epoch: 17 | Batch: 1500 | CrossEntropy-loss: 0.11399 | Correct: 1206/1280 | Difference: 375.5887340445031
+
+Epoch: 17 | Testing Accuracy: 481269/504607 (95.375%) | Historical Best: 95.375% 
+
+Epoch: 18 | Batch: 000 | CrossEntropy-loss: 0.12372 | Correct: 1209/1280 | Difference: 375.5148628864519
+Epoch: 18 | Batch: 100 | CrossEntropy-loss: 0.13049 | Correct: 1211/1280 | Difference: 375.38973180008526
+Epoch: 18 | Batch: 200 | CrossEntropy-loss: 0.11895 | Correct: 1214/1280 | Difference: 375.38390149948543
+Epoch: 18 | Batch: 300 | CrossEntropy-loss: 0.11959 | Correct: 1211/1280 | Difference: 375.26047785557626
+Epoch: 18 | Batch: 400 | CrossEntropy-loss: 0.11067 | Correct: 1222/1280 | Difference: 375.2139147144721
+Epoch: 18 | Batch: 500 | CrossEntropy-loss: 0.11277 | Correct: 1240/1280 | Difference: 375.0786216937001
+Epoch: 18 | Batch: 600 | CrossEntropy-loss: 0.10737 | Correct: 1226/1280 | Difference: 374.95625299009646
+Epoch: 18 | Batch: 700 | CrossEntropy-loss: 0.11774 | Correct: 1220/1280 | Difference: 374.90428059492916
+Epoch: 18 | Batch: 800 | CrossEntropy-loss: 0.11923 | Correct: 1221/1280 | Difference: 374.8189528225755
+Epoch: 18 | Batch: 900 | CrossEntropy-loss: 0.10781 | Correct: 1220/1280 | Difference: 374.6981628322934
+Epoch: 18 | Batch: 1000 | CrossEntropy-loss: 0.11675 | Correct: 1223/1280 | Difference: 374.58830019610025
+Epoch: 18 | Batch: 1100 | CrossEntropy-loss: 0.10625 | Correct: 1225/1280 | Difference: 374.5185709816342
+Epoch: 18 | Batch: 1200 | CrossEntropy-loss: 0.10944 | Correct: 1231/1280 | Difference: 374.46081707925225
+Epoch: 18 | Batch: 1300 | CrossEntropy-loss: 0.10868 | Correct: 1217/1280 | Difference: 374.408236502494
+Epoch: 18 | Batch: 1400 | CrossEntropy-loss: 0.11387 | Correct: 1222/1280 | Difference: 374.28172390069864
+Epoch: 18 | Batch: 1500 | CrossEntropy-loss: 0.11147 | Correct: 1231/1280 | Difference: 374.12544537455386
+
+Epoch: 18 | Testing Accuracy: 482790/504607 (95.676%) | Historical Best: 95.676% 
+
+Epoch: 19 | Batch: 000 | CrossEntropy-loss: 0.11654 | Correct: 1224/1280 | Difference: 373.962435767043
+Epoch: 19 | Batch: 100 | CrossEntropy-loss: 0.11408 | Correct: 1226/1280 | Difference: 373.7558484426324
+Epoch: 19 | Batch: 200 | CrossEntropy-loss: 0.10638 | Correct: 1226/1280 | Difference: 373.60137889208295
+Epoch: 19 | Batch: 300 | CrossEntropy-loss: 0.09899 | Correct: 1225/1280 | Difference: 373.49274836246934
+Epoch: 19 | Batch: 400 | CrossEntropy-loss: 0.10618 | Correct: 1227/1280 | Difference: 373.36262079588073
+Epoch: 19 | Batch: 500 | CrossEntropy-loss: 0.11243 | Correct: 1213/1280 | Difference: 373.2348929679947
+Epoch: 19 | Batch: 600 | CrossEntropy-loss: 0.10578 | Correct: 1221/1280 | Difference: 373.14463348029506
+Epoch: 19 | Batch: 700 | CrossEntropy-loss: 0.11147 | Correct: 1224/1280 | Difference: 373.03583476071486
+Epoch: 19 | Batch: 800 | CrossEntropy-loss: 0.10751 | Correct: 1233/1280 | Difference: 372.8918720040361
+Epoch: 19 | Batch: 900 | CrossEntropy-loss: 0.10878 | Correct: 1220/1280 | Difference: 372.65520665363664
+Epoch: 19 | Batch: 1000 | CrossEntropy-loss: 0.10077 | Correct: 1227/1280 | Difference: 372.6122616118084
+Epoch: 19 | Batch: 1100 | CrossEntropy-loss: 0.10436 | Correct: 1224/1280 | Difference: 372.49077028887245
+Epoch: 19 | Batch: 1200 | CrossEntropy-loss: 0.10307 | Correct: 1238/1280 | Difference: 372.31697751040656
+Epoch: 19 | Batch: 1300 | CrossEntropy-loss: 0.11860 | Correct: 1218/1280 | Difference: 372.15937048899144
+Epoch: 19 | Batch: 1400 | CrossEntropy-loss: 0.10646 | Correct: 1232/1280 | Difference: 372.02778303856434
+Epoch: 19 | Batch: 1500 | CrossEntropy-loss: 0.09665 | Correct: 1234/1280 | Difference: 371.91303170969013
+
+Epoch: 19 | Testing Accuracy: 483606/504607 (95.838%) | Historical Best: 95.838% 
+
+Epoch: 20 | Batch: 000 | CrossEntropy-loss: 0.12004 | Correct: 1226/1280 | Difference: 371.855118649761
+Epoch: 20 | Batch: 100 | CrossEntropy-loss: 0.09816 | Correct: 1239/1280 | Difference: 371.74697481285745
+Epoch: 20 | Batch: 200 | CrossEntropy-loss: 0.10482 | Correct: 1228/1280 | Difference: 371.6186889655702
+Epoch: 20 | Batch: 300 | CrossEntropy-loss: 0.10528 | Correct: 1224/1280 | Difference: 371.5779630899225
+Epoch: 20 | Batch: 400 | CrossEntropy-loss: 0.11199 | Correct: 1224/1280 | Difference: 371.4435424159139
+Epoch: 20 | Batch: 500 | CrossEntropy-loss: 0.10255 | Correct: 1226/1280 | Difference: 371.2378892398637
+Epoch: 20 | Batch: 600 | CrossEntropy-loss: 0.09680 | Correct: 1225/1280 | Difference: 371.1567979776238
+Epoch: 20 | Batch: 700 | CrossEntropy-loss: 0.09740 | Correct: 1233/1280 | Difference: 370.98885225117607
+Epoch: 20 | Batch: 800 | CrossEntropy-loss: 0.09626 | Correct: 1230/1280 | Difference: 370.9367010284552
+Epoch: 20 | Batch: 900 | CrossEntropy-loss: 0.10595 | Correct: 1228/1280 | Difference: 370.7858416929754
+Epoch: 20 | Batch: 1000 | CrossEntropy-loss: 0.10397 | Correct: 1220/1280 | Difference: 370.6606284979227
+Epoch: 20 | Batch: 1100 | CrossEntropy-loss: 0.09061 | Correct: 1236/1280 | Difference: 370.51675300405145
+Epoch: 20 | Batch: 1200 | CrossEntropy-loss: 0.08742 | Correct: 1229/1280 | Difference: 370.36815564528877
+Epoch: 20 | Batch: 1300 | CrossEntropy-loss: 0.10654 | Correct: 1224/1280 | Difference: 370.2743306754133
+Epoch: 20 | Batch: 1400 | CrossEntropy-loss: 0.10509 | Correct: 1228/1280 | Difference: 370.2610506074424
+Epoch: 20 | Batch: 1500 | CrossEntropy-loss: 0.10819 | Correct: 1225/1280 | Difference: 370.1363016764209
+
+Epoch: 20 | Testing Accuracy: 485140/504607 (96.142%) | Historical Best: 96.142% 
+
+Epoch: 21 | Batch: 000 | CrossEntropy-loss: 0.09963 | Correct: 1227/1280 | Difference: 370.07322777109
+Epoch: 21 | Batch: 100 | CrossEntropy-loss: 0.10719 | Correct: 1227/1280 | Difference: 370.03565727081923
+Epoch: 21 | Batch: 200 | CrossEntropy-loss: 0.10096 | Correct: 1218/1280 | Difference: 370.0115320717319
+Epoch: 21 | Batch: 300 | CrossEntropy-loss: 0.11916 | Correct: 1197/1280 | Difference: 369.87633873633405
+Epoch: 21 | Batch: 400 | CrossEntropy-loss: 0.09059 | Correct: 1233/1280 | Difference: 369.70509075668053
+Epoch: 21 | Batch: 500 | CrossEntropy-loss: 0.09847 | Correct: 1234/1280 | Difference: 369.6173940611896
+Epoch: 21 | Batch: 600 | CrossEntropy-loss: 0.09363 | Correct: 1232/1280 | Difference: 369.55561619822834
+Epoch: 21 | Batch: 700 | CrossEntropy-loss: 0.10624 | Correct: 1212/1280 | Difference: 369.4885356396219
+Epoch: 21 | Batch: 800 | CrossEntropy-loss: 0.09812 | Correct: 1228/1280 | Difference: 369.4119428318555
+Epoch: 21 | Batch: 900 | CrossEntropy-loss: 0.08821 | Correct: 1249/1280 | Difference: 369.31007170662826
+Epoch: 21 | Batch: 1000 | CrossEntropy-loss: 0.08750 | Correct: 1234/1280 | Difference: 369.2587416672737
+Epoch: 21 | Batch: 1100 | CrossEntropy-loss: 0.10328 | Correct: 1222/1280 | Difference: 369.2293854874967
+Epoch: 21 | Batch: 1200 | CrossEntropy-loss: 0.09826 | Correct: 1239/1280 | Difference: 369.03278650085315
+Epoch: 21 | Batch: 1300 | CrossEntropy-loss: 0.08724 | Correct: 1226/1280 | Difference: 368.9699663867788
+Epoch: 21 | Batch: 1400 | CrossEntropy-loss: 0.08891 | Correct: 1247/1280 | Difference: 368.8593639392499
+Epoch: 21 | Batch: 1500 | CrossEntropy-loss: 0.09287 | Correct: 1229/1280 | Difference: 368.77300167626305
+
+Epoch: 21 | Testing Accuracy: 485178/504607 (96.150%) | Historical Best: 96.150% 
+
+Epoch: 22 | Batch: 000 | CrossEntropy-loss: 0.09806 | Correct: 1229/1280 | Difference: 368.71871625549306
+Epoch: 22 | Batch: 100 | CrossEntropy-loss: 0.08863 | Correct: 1237/1280 | Difference: 368.5862190658472
+Epoch: 22 | Batch: 200 | CrossEntropy-loss: 0.11025 | Correct: 1214/1280 | Difference: 368.5279328787116
+Epoch: 22 | Batch: 300 | CrossEntropy-loss: 0.10645 | Correct: 1221/1280 | Difference: 368.45919075180484
+Epoch: 22 | Batch: 400 | CrossEntropy-loss: 0.09227 | Correct: 1236/1280 | Difference: 368.34637495332703
+Epoch: 22 | Batch: 500 | CrossEntropy-loss: 0.09380 | Correct: 1222/1280 | Difference: 368.2463039219138
+Epoch: 22 | Batch: 600 | CrossEntropy-loss: 0.09993 | Correct: 1236/1280 | Difference: 368.16197609795097
+Epoch: 22 | Batch: 700 | CrossEntropy-loss: 0.08923 | Correct: 1231/1280 | Difference: 368.1054822879811
+Epoch: 22 | Batch: 800 | CrossEntropy-loss: 0.09313 | Correct: 1230/1280 | Difference: 368.02216840035555
+Epoch: 22 | Batch: 900 | CrossEntropy-loss: 0.09543 | Correct: 1235/1280 | Difference: 367.8832517059912
+Epoch: 22 | Batch: 1000 | CrossEntropy-loss: 0.09677 | Correct: 1226/1280 | Difference: 367.81329299378564
+Epoch: 22 | Batch: 1100 | CrossEntropy-loss: 0.08955 | Correct: 1241/1280 | Difference: 367.6450347778992
+Epoch: 22 | Batch: 1200 | CrossEntropy-loss: 0.09248 | Correct: 1227/1280 | Difference: 367.5587256506386
+Epoch: 22 | Batch: 1300 | CrossEntropy-loss: 0.10525 | Correct: 1205/1280 | Difference: 367.5067907766621
+Epoch: 22 | Batch: 1400 | CrossEntropy-loss: 0.09214 | Correct: 1227/1280 | Difference: 367.41907357918484
+Epoch: 22 | Batch: 1500 | CrossEntropy-loss: 0.08155 | Correct: 1240/1280 | Difference: 367.30574605913864
+
+Epoch: 22 | Testing Accuracy: 487191/504607 (96.549%) | Historical Best: 96.549% 
+
+Epoch: 23 | Batch: 000 | CrossEntropy-loss: 0.08366 | Correct: 1234/1280 | Difference: 367.2279889022587
+Epoch: 23 | Batch: 100 | CrossEntropy-loss: 0.09742 | Correct: 1230/1280 | Difference: 367.1421597977161
+Epoch: 23 | Batch: 200 | CrossEntropy-loss: 0.08915 | Correct: 1225/1280 | Difference: 367.07933679076183
+Epoch: 23 | Batch: 300 | CrossEntropy-loss: 0.09474 | Correct: 1229/1280 | Difference: 366.9762844809524
+Epoch: 23 | Batch: 400 | CrossEntropy-loss: 0.09377 | Correct: 1236/1280 | Difference: 366.80838576005124
+Epoch: 23 | Batch: 500 | CrossEntropy-loss: 0.08739 | Correct: 1232/1280 | Difference: 366.77115715029225
+Epoch: 23 | Batch: 600 | CrossEntropy-loss: 0.08981 | Correct: 1236/1280 | Difference: 366.7276681478789
+Epoch: 23 | Batch: 700 | CrossEntropy-loss: 0.08744 | Correct: 1239/1280 | Difference: 366.65715389873907
+Epoch: 23 | Batch: 800 | CrossEntropy-loss: 0.08431 | Correct: 1226/1280 | Difference: 366.55127550918303
+Epoch: 23 | Batch: 900 | CrossEntropy-loss: 0.08746 | Correct: 1241/1280 | Difference: 366.4403568822872
+Epoch: 23 | Batch: 1000 | CrossEntropy-loss: 0.09265 | Correct: 1232/1280 | Difference: 366.32798866231764
+Epoch: 23 | Batch: 1100 | CrossEntropy-loss: 0.08339 | Correct: 1231/1280 | Difference: 366.2524679975458
+Epoch: 23 | Batch: 1200 | CrossEntropy-loss: 0.08479 | Correct: 1240/1280 | Difference: 366.1634924643632
+Epoch: 23 | Batch: 1300 | CrossEntropy-loss: 0.08896 | Correct: 1225/1280 | Difference: 366.0745316650812
+Epoch: 23 | Batch: 1400 | CrossEntropy-loss: 0.08879 | Correct: 1229/1280 | Difference: 365.98894982287555
+Epoch: 23 | Batch: 1500 | CrossEntropy-loss: 0.09137 | Correct: 1229/1280 | Difference: 365.8706370992907
+
+Epoch: 23 | Testing Accuracy: 487372/504607 (96.584%) | Historical Best: 96.584% 
+
+Epoch: 24 | Batch: 000 | CrossEntropy-loss: 0.08728 | Correct: 1236/1280 | Difference: 365.81229401552565
+Epoch: 24 | Batch: 100 | CrossEntropy-loss: 0.08926 | Correct: 1229/1280 | Difference: 365.8130524686955
+Epoch: 24 | Batch: 200 | CrossEntropy-loss: 0.09032 | Correct: 1234/1280 | Difference: 365.68853658575443
+Epoch: 24 | Batch: 300 | CrossEntropy-loss: 0.08201 | Correct: 1244/1280 | Difference: 365.66225907776067
+Epoch: 24 | Batch: 400 | CrossEntropy-loss: 0.08521 | Correct: 1246/1280 | Difference: 365.5426959932838
+Epoch: 24 | Batch: 500 | CrossEntropy-loss: 0.09055 | Correct: 1228/1280 | Difference: 365.4409756915527
+Epoch: 24 | Batch: 600 | CrossEntropy-loss: 0.09446 | Correct: 1218/1280 | Difference: 365.41515817174206
+Epoch: 24 | Batch: 700 | CrossEntropy-loss: 0.07734 | Correct: 1238/1280 | Difference: 365.36797622375053
+Epoch: 24 | Batch: 800 | CrossEntropy-loss: 0.09002 | Correct: 1229/1280 | Difference: 365.2421669793742
+Epoch: 24 | Batch: 900 | CrossEntropy-loss: 0.08783 | Correct: 1232/1280 | Difference: 365.1879869930165
+Epoch: 24 | Batch: 1000 | CrossEntropy-loss: 0.09102 | Correct: 1235/1280 | Difference: 365.10088521979964
+Epoch: 24 | Batch: 1100 | CrossEntropy-loss: 0.08940 | Correct: 1234/1280 | Difference: 365.02947889891664
+Epoch: 24 | Batch: 1200 | CrossEntropy-loss: 0.08838 | Correct: 1235/1280 | Difference: 364.97857055521007
+Epoch: 24 | Batch: 1300 | CrossEntropy-loss: 0.09001 | Correct: 1230/1280 | Difference: 364.9044762603927
+Epoch: 24 | Batch: 1400 | CrossEntropy-loss: 0.09502 | Correct: 1239/1280 | Difference: 364.8039911523836
+Epoch: 24 | Batch: 1500 | CrossEntropy-loss: 0.08116 | Correct: 1236/1280 | Difference: 364.714720358273
+
+Epoch: 24 | Testing Accuracy: 487413/504607 (96.593%) | Historical Best: 96.593% 
+
+Epoch: 25 | Batch: 000 | CrossEntropy-loss: 0.09474 | Correct: 1230/1280 | Difference: 364.67797912889483
+Epoch: 25 | Batch: 100 | CrossEntropy-loss: 0.08454 | Correct: 1236/1280 | Difference: 364.63573018763765
+Epoch: 25 | Batch: 200 | CrossEntropy-loss: 0.08724 | Correct: 1232/1280 | Difference: 364.5840447879485
+Epoch: 25 | Batch: 300 | CrossEntropy-loss: 0.08725 | Correct: 1233/1280 | Difference: 364.55596197775185
+Epoch: 25 | Batch: 400 | CrossEntropy-loss: 0.08192 | Correct: 1238/1280 | Difference: 364.5471724810909
+Epoch: 25 | Batch: 500 | CrossEntropy-loss: 0.08357 | Correct: 1241/1280 | Difference: 364.5022757844837
+Epoch: 25 | Batch: 600 | CrossEntropy-loss: 0.08161 | Correct: 1240/1280 | Difference: 364.34617971015274
+Epoch: 25 | Batch: 700 | CrossEntropy-loss: 0.08292 | Correct: 1242/1280 | Difference: 364.4156245113545
+Epoch: 25 | Batch: 800 | CrossEntropy-loss: 0.07598 | Correct: 1234/1280 | Difference: 364.32716429620245
+Epoch: 25 | Batch: 900 | CrossEntropy-loss: 0.08470 | Correct: 1234/1280 | Difference: 364.2536895221559
+Epoch: 25 | Batch: 1000 | CrossEntropy-loss: 0.08161 | Correct: 1242/1280 | Difference: 364.2052289648499
+Epoch: 25 | Batch: 1100 | CrossEntropy-loss: 0.08856 | Correct: 1233/1280 | Difference: 364.1949381564471
+Epoch: 25 | Batch: 1200 | CrossEntropy-loss: 0.08772 | Correct: 1241/1280 | Difference: 364.1924518184683
+Epoch: 25 | Batch: 1300 | CrossEntropy-loss: 0.07604 | Correct: 1243/1280 | Difference: 364.2001926730493
+Epoch: 25 | Batch: 1400 | CrossEntropy-loss: 0.07606 | Correct: 1240/1280 | Difference: 364.0822552688901
+Epoch: 25 | Batch: 1500 | CrossEntropy-loss: 0.08208 | Correct: 1246/1280 | Difference: 364.050664492468
+
+Epoch: 25 | Testing Accuracy: 488903/504607 (96.888%) | Historical Best: 96.888% 
+
+Epoch: 26 | Batch: 000 | CrossEntropy-loss: 0.08010 | Correct: 1243/1280 | Difference: 364.00898675193747
+Epoch: 26 | Batch: 100 | CrossEntropy-loss: 0.08013 | Correct: 1230/1280 | Difference: 363.9451961051874
+Epoch: 26 | Batch: 200 | CrossEntropy-loss: 0.08663 | Correct: 1222/1280 | Difference: 363.9470004163391
+Epoch: 26 | Batch: 300 | CrossEntropy-loss: 0.09274 | Correct: 1229/1280 | Difference: 363.96195449837256
+Epoch: 26 | Batch: 400 | CrossEntropy-loss: 0.06926 | Correct: 1241/1280 | Difference: 363.9259620609007
+Epoch: 26 | Batch: 500 | CrossEntropy-loss: 0.07625 | Correct: 1242/1280 | Difference: 363.92852599566584
+Epoch: 26 | Batch: 600 | CrossEntropy-loss: 0.09663 | Correct: 1230/1280 | Difference: 363.823228212583
+Epoch: 26 | Batch: 700 | CrossEntropy-loss: 0.07929 | Correct: 1248/1280 | Difference: 363.6991446480327
+Epoch: 26 | Batch: 800 | CrossEntropy-loss: 0.07992 | Correct: 1233/1280 | Difference: 363.7105435357284
+Epoch: 26 | Batch: 900 | CrossEntropy-loss: 0.09291 | Correct: 1234/1280 | Difference: 363.60741041844676
+Epoch: 26 | Batch: 1000 | CrossEntropy-loss: 0.06900 | Correct: 1244/1280 | Difference: 363.61775523937047
+Epoch: 26 | Batch: 1100 | CrossEntropy-loss: 0.07366 | Correct: 1238/1280 | Difference: 363.58836791086895
+Epoch: 26 | Batch: 1200 | CrossEntropy-loss: 0.08675 | Correct: 1232/1280 | Difference: 363.56167655688165
+Epoch: 26 | Batch: 1300 | CrossEntropy-loss: 0.06812 | Correct: 1243/1280 | Difference: 363.4952025468287
+Epoch: 26 | Batch: 1400 | CrossEntropy-loss: 0.07728 | Correct: 1239/1280 | Difference: 363.4534009573329
+Epoch: 26 | Batch: 1500 | CrossEntropy-loss: 0.07239 | Correct: 1244/1280 | Difference: 363.375213335122
+
+Epoch: 26 | Testing Accuracy: 490159/504607 (97.137%) | Historical Best: 97.137% 
+
+Epoch: 27 | Batch: 000 | CrossEntropy-loss: 0.09006 | Correct: 1226/1280 | Difference: 363.3423409426578
+Epoch: 27 | Batch: 100 | CrossEntropy-loss: 0.08583 | Correct: 1228/1280 | Difference: 363.271149298117
+Epoch: 27 | Batch: 200 | CrossEntropy-loss: 0.06947 | Correct: 1240/1280 | Difference: 363.20232640989013
+Epoch: 27 | Batch: 300 | CrossEntropy-loss: 0.08268 | Correct: 1240/1280 | Difference: 363.1375193806827
+Epoch: 27 | Batch: 400 | CrossEntropy-loss: 0.07869 | Correct: 1229/1280 | Difference: 363.08144540686084
+Epoch: 27 | Batch: 500 | CrossEntropy-loss: 0.07386 | Correct: 1239/1280 | Difference: 363.03400860184945
+Epoch: 27 | Batch: 600 | CrossEntropy-loss: 0.07274 | Correct: 1236/1280 | Difference: 362.97400787791605
+Epoch: 27 | Batch: 700 | CrossEntropy-loss: 0.06678 | Correct: 1246/1280 | Difference: 362.8822498596615
+Epoch: 27 | Batch: 800 | CrossEntropy-loss: 0.08561 | Correct: 1234/1280 | Difference: 362.86083585301066
+Epoch: 27 | Batch: 900 | CrossEntropy-loss: 0.08036 | Correct: 1244/1280 | Difference: 362.81256225050265
+Epoch: 27 | Batch: 1000 | CrossEntropy-loss: 0.07061 | Correct: 1236/1280 | Difference: 362.7757468485569
+Epoch: 27 | Batch: 1100 | CrossEntropy-loss: 0.07918 | Correct: 1239/1280 | Difference: 362.6966964763549
+Epoch: 27 | Batch: 1200 | CrossEntropy-loss: 0.06759 | Correct: 1254/1280 | Difference: 362.6708823364525
+Epoch: 27 | Batch: 1300 | CrossEntropy-loss: 0.07173 | Correct: 1246/1280 | Difference: 362.56309240278665
+Epoch: 27 | Batch: 1400 | CrossEntropy-loss: 0.08346 | Correct: 1226/1280 | Difference: 362.53003830775356
+Epoch: 27 | Batch: 1500 | CrossEntropy-loss: 0.07172 | Correct: 1246/1280 | Difference: 362.50798512245274
+
+Epoch: 27 | Testing Accuracy: 489628/504607 (97.032%) | Historical Best: 97.137% 
+
+Epoch: 28 | Batch: 000 | CrossEntropy-loss: 0.07341 | Correct: 1242/1280 | Difference: 362.4684225866572
+Epoch: 28 | Batch: 100 | CrossEntropy-loss: 0.07464 | Correct: 1243/1280 | Difference: 362.48479430155226
+Epoch: 28 | Batch: 200 | CrossEntropy-loss: 0.06770 | Correct: 1248/1280 | Difference: 362.377709759685
+Epoch: 28 | Batch: 300 | CrossEntropy-loss: 0.07727 | Correct: 1245/1280 | Difference: 362.3140057165878
+Epoch: 28 | Batch: 400 | CrossEntropy-loss: 0.07422 | Correct: 1252/1280 | Difference: 362.3153012120532
+Epoch: 28 | Batch: 500 | CrossEntropy-loss: 0.08003 | Correct: 1227/1280 | Difference: 362.3166181274724
+Epoch: 28 | Batch: 600 | CrossEntropy-loss: 0.07460 | Correct: 1243/1280 | Difference: 362.22300318339916
+Epoch: 28 | Batch: 700 | CrossEntropy-loss: 0.08433 | Correct: 1243/1280 | Difference: 362.09315232240215
+Epoch: 28 | Batch: 800 | CrossEntropy-loss: 0.08455 | Correct: 1236/1280 | Difference: 362.03944138583256
+Epoch: 28 | Batch: 900 | CrossEntropy-loss: 0.07144 | Correct: 1234/1280 | Difference: 361.9651301567174
+Epoch: 28 | Batch: 1000 | CrossEntropy-loss: 0.06951 | Correct: 1253/1280 | Difference: 361.93037439366753
+Epoch: 28 | Batch: 1100 | CrossEntropy-loss: 0.07170 | Correct: 1241/1280 | Difference: 361.8482222318715
+Epoch: 28 | Batch: 1200 | CrossEntropy-loss: 0.07683 | Correct: 1241/1280 | Difference: 361.77392401880104
+Epoch: 28 | Batch: 1300 | CrossEntropy-loss: 0.08923 | Correct: 1235/1280 | Difference: 361.75158982131114
+Epoch: 28 | Batch: 1400 | CrossEntropy-loss: 0.06815 | Correct: 1247/1280 | Difference: 361.6913524158248
+Epoch: 28 | Batch: 1500 | CrossEntropy-loss: 0.08072 | Correct: 1246/1280 | Difference: 361.6994432151988
+
+Epoch: 28 | Testing Accuracy: 490489/504607 (97.202%) | Historical Best: 97.202% 
+
+Epoch: 29 | Batch: 000 | CrossEntropy-loss: 0.07825 | Correct: 1246/1280 | Difference: 361.6689156235546
+Epoch: 29 | Batch: 100 | CrossEntropy-loss: 0.06773 | Correct: 1244/1280 | Difference: 361.7055893947505
+Epoch: 29 | Batch: 200 | CrossEntropy-loss: 0.08129 | Correct: 1241/1280 | Difference: 361.6408860273229
+Epoch: 29 | Batch: 300 | CrossEntropy-loss: 0.07366 | Correct: 1240/1280 | Difference: 361.55729068053705
+Epoch: 29 | Batch: 400 | CrossEntropy-loss: 0.06713 | Correct: 1251/1280 | Difference: 361.47146999042053
+Epoch: 29 | Batch: 500 | CrossEntropy-loss: 0.06530 | Correct: 1250/1280 | Difference: 361.4225261689383
+Epoch: 29 | Batch: 600 | CrossEntropy-loss: 0.06957 | Correct: 1250/1280 | Difference: 361.42656066516554
+Epoch: 29 | Batch: 700 | CrossEntropy-loss: 0.06903 | Correct: 1242/1280 | Difference: 361.4669073965648
+Epoch: 29 | Batch: 800 | CrossEntropy-loss: 0.06703 | Correct: 1248/1280 | Difference: 361.2825741388642
+Epoch: 29 | Batch: 900 | CrossEntropy-loss: 0.06902 | Correct: 1238/1280 | Difference: 361.24173707626767
+Epoch: 29 | Batch: 1000 | CrossEntropy-loss: 0.07621 | Correct: 1232/1280 | Difference: 361.19972199195496
+Epoch: 29 | Batch: 1100 | CrossEntropy-loss: 0.06527 | Correct: 1254/1280 | Difference: 361.20066003328446
+Epoch: 29 | Batch: 1200 | CrossEntropy-loss: 0.07306 | Correct: 1243/1280 | Difference: 361.13877566577787
+Epoch: 29 | Batch: 1300 | CrossEntropy-loss: 0.06393 | Correct: 1251/1280 | Difference: 361.04977516415886
+Epoch: 29 | Batch: 1400 | CrossEntropy-loss: 0.06509 | Correct: 1235/1280 | Difference: 360.94541939089277
+Epoch: 29 | Batch: 1500 | CrossEntropy-loss: 0.06124 | Correct: 1243/1280 | Difference: 360.9152451604153
+
+Epoch: 29 | Testing Accuracy: 490197/504607 (97.144%) | Historical Best: 97.202% 
+
+Epoch: 30 | Batch: 000 | CrossEntropy-loss: 0.07096 | Correct: 1243/1280 | Difference: 360.8037048369286
+Epoch: 30 | Batch: 100 | CrossEntropy-loss: 0.07550 | Correct: 1244/1280 | Difference: 360.83908370286355
+Epoch: 30 | Batch: 200 | CrossEntropy-loss: 0.06912 | Correct: 1246/1280 | Difference: 360.8254356555205
+Epoch: 30 | Batch: 300 | CrossEntropy-loss: 0.06402 | Correct: 1253/1280 | Difference: 360.79155525709
+Epoch: 30 | Batch: 400 | CrossEntropy-loss: 0.06592 | Correct: 1245/1280 | Difference: 360.70043268362383
+Epoch: 30 | Batch: 500 | CrossEntropy-loss: 0.07365 | Correct: 1246/1280 | Difference: 360.6918540215299
+Epoch: 30 | Batch: 600 | CrossEntropy-loss: 0.07074 | Correct: 1242/1280 | Difference: 360.6230811175722
+Epoch: 30 | Batch: 700 | CrossEntropy-loss: 0.06644 | Correct: 1248/1280 | Difference: 360.60520253492405
+Epoch: 30 | Batch: 800 | CrossEntropy-loss: 0.07611 | Correct: 1238/1280 | Difference: 360.576389249782
+Epoch: 30 | Batch: 900 | CrossEntropy-loss: 0.06812 | Correct: 1250/1280 | Difference: 360.5170511733971
+Epoch: 30 | Batch: 1000 | CrossEntropy-loss: 0.06459 | Correct: 1245/1280 | Difference: 360.48814392903876
+Epoch: 30 | Batch: 1100 | CrossEntropy-loss: 0.08048 | Correct: 1243/1280 | Difference: 360.48541357648446
+Epoch: 30 | Batch: 1200 | CrossEntropy-loss: 0.06653 | Correct: 1252/1280 | Difference: 360.4027494823788
+Epoch: 30 | Batch: 1300 | CrossEntropy-loss: 0.07654 | Correct: 1242/1280 | Difference: 360.45603764243754
+Epoch: 30 | Batch: 1400 | CrossEntropy-loss: 0.08304 | Correct: 1234/1280 | Difference: 360.39942958154717
+Epoch: 30 | Batch: 1500 | CrossEntropy-loss: 0.07037 | Correct: 1243/1280 | Difference: 360.2404021267795
+
+Epoch: 30 | Testing Accuracy: 492301/504607 (97.561%) | Historical Best: 97.561% 
+
+Epoch: 31 | Batch: 000 | CrossEntropy-loss: 0.07302 | Correct: 1248/1280 | Difference: 360.2349801618092
+Epoch: 31 | Batch: 100 | CrossEntropy-loss: 0.06278 | Correct: 1246/1280 | Difference: 360.08191152551836
+Epoch: 31 | Batch: 200 | CrossEntropy-loss: 0.07425 | Correct: 1243/1280 | Difference: 360.1386075444885
+Epoch: 31 | Batch: 300 | CrossEntropy-loss: 0.06720 | Correct: 1238/1280 | Difference: 360.09043322305814
+Epoch: 31 | Batch: 400 | CrossEntropy-loss: 0.07498 | Correct: 1235/1280 | Difference: 359.9460474334089
+Epoch: 31 | Batch: 500 | CrossEntropy-loss: 0.06812 | Correct: 1255/1280 | Difference: 359.9540167034118
+Epoch: 31 | Batch: 600 | CrossEntropy-loss: 0.06488 | Correct: 1249/1280 | Difference: 359.83997342957633
+Epoch: 31 | Batch: 700 | CrossEntropy-loss: 0.06515 | Correct: 1258/1280 | Difference: 359.8539886373155
+Epoch: 31 | Batch: 800 | CrossEntropy-loss: 0.06420 | Correct: 1244/1280 | Difference: 359.8253106986104
+Epoch: 31 | Batch: 900 | CrossEntropy-loss: 0.04953 | Correct: 1257/1280 | Difference: 359.85908037861384
+Epoch: 31 | Batch: 1000 | CrossEntropy-loss: 0.06566 | Correct: 1253/1280 | Difference: 359.900820095423
+Epoch: 31 | Batch: 1100 | CrossEntropy-loss: 0.07384 | Correct: 1240/1280 | Difference: 359.7887775703311
+Epoch: 31 | Batch: 1200 | CrossEntropy-loss: 0.06628 | Correct: 1250/1280 | Difference: 359.7639450580374
+Epoch: 31 | Batch: 1300 | CrossEntropy-loss: 0.07931 | Correct: 1242/1280 | Difference: 359.7356042796582
+Epoch: 31 | Batch: 1400 | CrossEntropy-loss: 0.07251 | Correct: 1237/1280 | Difference: 359.6251893666331
+Epoch: 31 | Batch: 1500 | CrossEntropy-loss: 0.06883 | Correct: 1240/1280 | Difference: 359.7910259618694
+
+Epoch: 31 | Testing Accuracy: 491426/504607 (97.388%) | Historical Best: 97.561% 
+
+Epoch: 32 | Batch: 000 | CrossEntropy-loss: 0.06639 | Correct: 1252/1280 | Difference: 359.62525151411205
+Epoch: 32 | Batch: 100 | CrossEntropy-loss: 0.06976 | Correct: 1243/1280 | Difference: 359.4837602656004
+Epoch: 32 | Batch: 200 | CrossEntropy-loss: 0.06303 | Correct: 1249/1280 | Difference: 359.49630399501916
+Epoch: 32 | Batch: 300 | CrossEntropy-loss: 0.06577 | Correct: 1252/1280 | Difference: 359.5409965074413
+Epoch: 32 | Batch: 400 | CrossEntropy-loss: 0.06016 | Correct: 1247/1280 | Difference: 359.60589701538566
+Epoch: 32 | Batch: 500 | CrossEntropy-loss: 0.06746 | Correct: 1239/1280 | Difference: 359.4975027851029
+Epoch: 32 | Batch: 600 | CrossEntropy-loss: 0.06789 | Correct: 1241/1280 | Difference: 359.6457425629046
+Epoch: 32 | Batch: 700 | CrossEntropy-loss: 0.06942 | Correct: 1247/1280 | Difference: 359.54608295639946
+Epoch: 32 | Batch: 800 | CrossEntropy-loss: 0.06990 | Correct: 1246/1280 | Difference: 359.4934633403271
+Epoch: 32 | Batch: 900 | CrossEntropy-loss: 0.06951 | Correct: 1246/1280 | Difference: 359.4761342169517
+Epoch: 32 | Batch: 1000 | CrossEntropy-loss: 0.06884 | Correct: 1250/1280 | Difference: 359.45803367329165
+Epoch: 32 | Batch: 1100 | CrossEntropy-loss: 0.06237 | Correct: 1248/1280 | Difference: 359.454575665544
+Epoch: 32 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 32 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 678/1280 | Difference: nan
+Epoch: 32 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 666/1280 | Difference: nan
+Epoch: 32 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 656/1280 | Difference: nan
+
+Epoch: 32 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 33 | Batch: 000 | CrossEntropy-loss: nan | Correct: 670/1280 | Difference: nan
+Epoch: 33 | Batch: 100 | CrossEntropy-loss: nan | Correct: 642/1280 | Difference: nan
+Epoch: 33 | Batch: 200 | CrossEntropy-loss: nan | Correct: 665/1280 | Difference: nan
+Epoch: 33 | Batch: 300 | CrossEntropy-loss: nan | Correct: 663/1280 | Difference: nan
+Epoch: 33 | Batch: 400 | CrossEntropy-loss: nan | Correct: 683/1280 | Difference: nan
+Epoch: 33 | Batch: 500 | CrossEntropy-loss: nan | Correct: 648/1280 | Difference: nan
+Epoch: 33 | Batch: 600 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 33 | Batch: 700 | CrossEntropy-loss: nan | Correct: 676/1280 | Difference: nan
+Epoch: 33 | Batch: 800 | CrossEntropy-loss: nan | Correct: 669/1280 | Difference: nan
+Epoch: 33 | Batch: 900 | CrossEntropy-loss: nan | Correct: 662/1280 | Difference: nan
+Epoch: 33 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 649/1280 | Difference: nan
+Epoch: 33 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 687/1280 | Difference: nan
+Epoch: 33 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 644/1280 | Difference: nan
+Epoch: 33 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 634/1280 | Difference: nan
+Epoch: 33 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 667/1280 | Difference: nan
+Epoch: 33 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 663/1280 | Difference: nan
+
+Epoch: 33 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 34 | Batch: 000 | CrossEntropy-loss: nan | Correct: 663/1280 | Difference: nan
+Epoch: 34 | Batch: 100 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 34 | Batch: 200 | CrossEntropy-loss: nan | Correct: 665/1280 | Difference: nan
+Epoch: 34 | Batch: 300 | CrossEntropy-loss: nan | Correct: 682/1280 | Difference: nan
+Epoch: 34 | Batch: 400 | CrossEntropy-loss: nan | Correct: 656/1280 | Difference: nan
+Epoch: 34 | Batch: 500 | CrossEntropy-loss: nan | Correct: 661/1280 | Difference: nan
+Epoch: 34 | Batch: 600 | CrossEntropy-loss: nan | Correct: 642/1280 | Difference: nan
+Epoch: 34 | Batch: 700 | CrossEntropy-loss: nan | Correct: 639/1280 | Difference: nan
+Epoch: 34 | Batch: 800 | CrossEntropy-loss: nan | Correct: 674/1280 | Difference: nan
+Epoch: 34 | Batch: 900 | CrossEntropy-loss: nan | Correct: 656/1280 | Difference: nan
+Epoch: 34 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 653/1280 | Difference: nan
+Epoch: 34 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 683/1280 | Difference: nan
+Epoch: 34 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 669/1280 | Difference: nan
+Epoch: 34 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 652/1280 | Difference: nan
+Epoch: 34 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 677/1280 | Difference: nan
+Epoch: 34 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 648/1280 | Difference: nan
+
+Epoch: 34 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 35 | Batch: 000 | CrossEntropy-loss: nan | Correct: 666/1280 | Difference: nan
+Epoch: 35 | Batch: 100 | CrossEntropy-loss: nan | Correct: 691/1280 | Difference: nan
+Epoch: 35 | Batch: 200 | CrossEntropy-loss: nan | Correct: 685/1280 | Difference: nan
+Epoch: 35 | Batch: 300 | CrossEntropy-loss: nan | Correct: 654/1280 | Difference: nan
+Epoch: 35 | Batch: 400 | CrossEntropy-loss: nan | Correct: 638/1280 | Difference: nan
+Epoch: 35 | Batch: 500 | CrossEntropy-loss: nan | Correct: 659/1280 | Difference: nan
+Epoch: 35 | Batch: 600 | CrossEntropy-loss: nan | Correct: 665/1280 | Difference: nan
+Epoch: 35 | Batch: 700 | CrossEntropy-loss: nan | Correct: 680/1280 | Difference: nan
+Epoch: 35 | Batch: 800 | CrossEntropy-loss: nan | Correct: 650/1280 | Difference: nan
+Epoch: 35 | Batch: 900 | CrossEntropy-loss: nan | Correct: 678/1280 | Difference: nan
+Epoch: 35 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 653/1280 | Difference: nan
+Epoch: 35 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 645/1280 | Difference: nan
+Epoch: 35 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 630/1280 | Difference: nan
+Epoch: 35 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 648/1280 | Difference: nan
+Epoch: 35 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 664/1280 | Difference: nan
+Epoch: 35 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 658/1280 | Difference: nan
+
+Epoch: 35 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 36 | Batch: 000 | CrossEntropy-loss: nan | Correct: 680/1280 | Difference: nan
+Epoch: 36 | Batch: 100 | CrossEntropy-loss: nan | Correct: 644/1280 | Difference: nan
+Epoch: 36 | Batch: 200 | CrossEntropy-loss: nan | Correct: 644/1280 | Difference: nan
+Epoch: 36 | Batch: 300 | CrossEntropy-loss: nan | Correct: 681/1280 | Difference: nan
+Epoch: 36 | Batch: 400 | CrossEntropy-loss: nan | Correct: 671/1280 | Difference: nan
+Epoch: 36 | Batch: 500 | CrossEntropy-loss: nan | Correct: 653/1280 | Difference: nan
+Epoch: 36 | Batch: 600 | CrossEntropy-loss: nan | Correct: 678/1280 | Difference: nan
+Epoch: 36 | Batch: 700 | CrossEntropy-loss: nan | Correct: 706/1280 | Difference: nan
+Epoch: 36 | Batch: 800 | CrossEntropy-loss: nan | Correct: 639/1280 | Difference: nan
+Epoch: 36 | Batch: 900 | CrossEntropy-loss: nan | Correct: 661/1280 | Difference: nan
+Epoch: 36 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 670/1280 | Difference: nan
+Epoch: 36 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 635/1280 | Difference: nan
+Epoch: 36 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 647/1280 | Difference: nan
+Epoch: 36 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 642/1280 | Difference: nan
+Epoch: 36 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 653/1280 | Difference: nan
+Epoch: 36 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 674/1280 | Difference: nan
+
+Epoch: 36 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 37 | Batch: 000 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 37 | Batch: 100 | CrossEntropy-loss: nan | Correct: 674/1280 | Difference: nan
+Epoch: 37 | Batch: 200 | CrossEntropy-loss: nan | Correct: 648/1280 | Difference: nan
+Epoch: 37 | Batch: 300 | CrossEntropy-loss: nan | Correct: 669/1280 | Difference: nan
+Epoch: 37 | Batch: 400 | CrossEntropy-loss: nan | Correct: 632/1280 | Difference: nan
+Epoch: 37 | Batch: 500 | CrossEntropy-loss: nan | Correct: 671/1280 | Difference: nan
+Epoch: 37 | Batch: 600 | CrossEntropy-loss: nan | Correct: 657/1280 | Difference: nan
+Epoch: 37 | Batch: 700 | CrossEntropy-loss: nan | Correct: 669/1280 | Difference: nan
+Epoch: 37 | Batch: 800 | CrossEntropy-loss: nan | Correct: 649/1280 | Difference: nan
+Epoch: 37 | Batch: 900 | CrossEntropy-loss: nan | Correct: 655/1280 | Difference: nan
+Epoch: 37 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 667/1280 | Difference: nan
+Epoch: 37 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 632/1280 | Difference: nan
+Epoch: 37 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 657/1280 | Difference: nan
+Epoch: 37 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 670/1280 | Difference: nan
+Epoch: 37 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 633/1280 | Difference: nan
+Epoch: 37 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 649/1280 | Difference: nan
+
+Epoch: 37 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 38 | Batch: 000 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 38 | Batch: 100 | CrossEntropy-loss: nan | Correct: 660/1280 | Difference: nan
+Epoch: 38 | Batch: 200 | CrossEntropy-loss: nan | Correct: 632/1280 | Difference: nan
+Epoch: 38 | Batch: 300 | CrossEntropy-loss: nan | Correct: 646/1280 | Difference: nan
+Epoch: 38 | Batch: 400 | CrossEntropy-loss: nan | Correct: 673/1280 | Difference: nan
+Epoch: 38 | Batch: 500 | CrossEntropy-loss: nan | Correct: 649/1280 | Difference: nan
+Epoch: 38 | Batch: 600 | CrossEntropy-loss: nan | Correct: 669/1280 | Difference: nan
+Epoch: 38 | Batch: 700 | CrossEntropy-loss: nan | Correct: 674/1280 | Difference: nan
+Epoch: 38 | Batch: 800 | CrossEntropy-loss: nan | Correct: 640/1280 | Difference: nan
+Epoch: 38 | Batch: 900 | CrossEntropy-loss: nan | Correct: 676/1280 | Difference: nan
+Epoch: 38 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 635/1280 | Difference: nan
+Epoch: 38 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 664/1280 | Difference: nan
+Epoch: 38 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 678/1280 | Difference: nan
+Epoch: 38 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 668/1280 | Difference: nan
+Epoch: 38 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 689/1280 | Difference: nan
+Epoch: 38 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 658/1280 | Difference: nan
+
+Epoch: 38 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 39 | Batch: 000 | CrossEntropy-loss: nan | Correct: 633/1280 | Difference: nan
+Epoch: 39 | Batch: 100 | CrossEntropy-loss: nan | Correct: 673/1280 | Difference: nan
+Epoch: 39 | Batch: 200 | CrossEntropy-loss: nan | Correct: 641/1280 | Difference: nan
+Epoch: 39 | Batch: 300 | CrossEntropy-loss: nan | Correct: 658/1280 | Difference: nan
+Epoch: 39 | Batch: 400 | CrossEntropy-loss: nan | Correct: 643/1280 | Difference: nan
+Epoch: 39 | Batch: 500 | CrossEntropy-loss: nan | Correct: 629/1280 | Difference: nan
+Epoch: 39 | Batch: 600 | CrossEntropy-loss: nan | Correct: 663/1280 | Difference: nan
+Epoch: 39 | Batch: 700 | CrossEntropy-loss: nan | Correct: 683/1280 | Difference: nan
+Epoch: 39 | Batch: 800 | CrossEntropy-loss: nan | Correct: 652/1280 | Difference: nan
+Epoch: 39 | Batch: 900 | CrossEntropy-loss: nan | Correct: 658/1280 | Difference: nan
+Epoch: 39 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 655/1280 | Difference: nan
+Epoch: 39 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 685/1280 | Difference: nan
+Epoch: 39 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 647/1280 | Difference: nan
+Epoch: 39 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 662/1280 | Difference: nan
+Epoch: 39 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 625/1280 | Difference: nan
+Epoch: 39 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 651/1280 | Difference: nan
+
+Epoch: 39 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+Epoch: 40 | Batch: 000 | CrossEntropy-loss: nan | Correct: 658/1280 | Difference: nan
+Epoch: 40 | Batch: 100 | CrossEntropy-loss: nan | Correct: 701/1280 | Difference: nan
+Epoch: 40 | Batch: 200 | CrossEntropy-loss: nan | Correct: 633/1280 | Difference: nan
+Epoch: 40 | Batch: 300 | CrossEntropy-loss: nan | Correct: 629/1280 | Difference: nan
+Epoch: 40 | Batch: 400 | CrossEntropy-loss: nan | Correct: 652/1280 | Difference: nan
+Epoch: 40 | Batch: 500 | CrossEntropy-loss: nan | Correct: 677/1280 | Difference: nan
+Epoch: 40 | Batch: 600 | CrossEntropy-loss: nan | Correct: 685/1280 | Difference: nan
+Epoch: 40 | Batch: 700 | CrossEntropy-loss: nan | Correct: 666/1280 | Difference: nan
+Epoch: 40 | Batch: 800 | CrossEntropy-loss: nan | Correct: 668/1280 | Difference: nan
+Epoch: 40 | Batch: 900 | CrossEntropy-loss: nan | Correct: 677/1280 | Difference: nan
+Epoch: 40 | Batch: 1000 | CrossEntropy-loss: nan | Correct: 634/1280 | Difference: nan
+Epoch: 40 | Batch: 1100 | CrossEntropy-loss: nan | Correct: 667/1280 | Difference: nan
+Epoch: 40 | Batch: 1200 | CrossEntropy-loss: nan | Correct: 659/1280 | Difference: nan
+Epoch: 40 | Batch: 1300 | CrossEntropy-loss: nan | Correct: 656/1280 | Difference: nan
+Epoch: 40 | Batch: 1400 | CrossEntropy-loss: nan | Correct: 651/1280 | Difference: nan
+Epoch: 40 | Batch: 1500 | CrossEntropy-loss: nan | Correct: 679/1280 | Difference: nan
+
+Epoch: 40 | Testing Accuracy: 259943/504607 (51.514%) | Historical Best: 97.561% 
+
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Traceback (most recent call last):
+  File "sdt_train.py", line 9, in <module>
+    from heuristic_evaluation import difference_metric
+  File "/home/zihan/Soft-Decision-Tree/heuristic_evaluation.py", line 36, in <module>
+    [-0.2, 0.275, -0.5, 0,-0.5, 0.5,1,0,0],
+TypeError: list indices must be integers or slices, not tuple
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Traceback (most recent call last):
+  File "sdt_train.py", line 9, in <module>
+    from heuristic_evaluation import difference_metric
+  File "/home/zihan/Soft-Decision-Tree/heuristic_evaluation.py", line 36, in <module>
+    [-0.2, 0.275, -0.5, 0,-0.5, 0.5,1,0,0],
+TypeError: list indices must be integers or slices, not tuple
