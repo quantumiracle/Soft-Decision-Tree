@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 '''' 
-Soft Decision Forests: 
-ensemble of Soft Decision Trees
+A decision tree of heuristic agent for LunarLander
 '''
 import torch
 import torch.nn as nn
@@ -10,7 +9,7 @@ import gym
 
 node_list = [
 {6:1, 7:1},
-{0:0.5, 2:1, 8:-0.4},
+{0:0.5, 2:1, 8:-0.4},  # last dim is bias
 {0:-0.5, 2:-1, 8:-0.4},
 {0:1},
 {0:1},
@@ -200,6 +199,47 @@ def run(model, episodes=1, seed=None):
         print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
 
 
+def evaluate(model, episodes=1, frameskip=1, seed=None):
+    from heuristic_evaluation import normalize
+
+    env = gym.make('LunarLander-v2')
+    if seed:
+        torch.manual_seed(seed)
+        np.random.seed(seed)
+        env.seed(seed)
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.n  # discrete
+    average_weight_list = []
+
+    for n_epi in range(episodes):
+        print('Episode: ', n_epi)
+        average_weight_list_epi = []
+        s = env.reset()
+        done = False
+        reward = 0.0
+        step=0
+        while not done:
+            info = model(s)
+            a=info[0]
+            if step%frameskip==0:
+                average_weight = np.mean(np.abs(normalize(np.array(info[2])[:, :-1])), axis=0) # take absolute to prevent that positive and negative will counteract
+                average_weight_list_epi.append(average_weight)
+
+            s_prime, r, done, _ = env.step(a)
+            # env.render()
+            s = s_prime
+
+            reward += r
+            step+=1
+            if done:
+                break
+
+        average_weight_list.append(average_weight_list_epi)
+        print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
+    np.save('data/heuristic_tree_importance.npy', average_weight_list)
+
+    env.close()
+
 if __name__ == '__main__':  
     tree = HeuristicTree(node_list, child_list)
     # RL test
@@ -207,5 +247,11 @@ if __name__ == '__main__':
     # run(model, episodes=100)
 
     # single instance with full information
-    x=np.zeros(8)
-    print(tree.forward(x, Info=True))
+    # x=np.zeros(8)
+    # print(tree.forward(x, Info=True))
+
+    # tree evaluation
+    model = lambda x: tree.forward(x, Info=True)
+    evaluate(model, episodes=1, seed=10)
+    from sdt_evaluation import plot_importance_single_episode
+    plot_importance_single_episode(data_path='data/heuristic_tree_importance.npy', save_path='./img/heuristic_tree_importance.png', )

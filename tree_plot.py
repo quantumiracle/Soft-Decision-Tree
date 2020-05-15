@@ -154,7 +154,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
         ax.get_xaxis().set_visible(False)
         ax.get_yaxis().set_visible(False)
         plt.title('{}'.format(np.argmax(leaves[key])), y=-.5)
-
+        
     # add arrows indicating flow
     for pos, key in enumerate(sorted(axes.keys(), key=lambda x:(len(x), x))):
         children_keys = [k for k in axes.keys()

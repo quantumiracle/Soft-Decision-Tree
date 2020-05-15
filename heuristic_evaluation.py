@@ -30,7 +30,7 @@ nodes_in_heuristic_tree = [  # first dim is bias, the rest are weights
 
     [-0.05, -0.275, -0.5, 0, -0.5, 0,0,0,0],
 
-    [-0.05, 0, 0, 0, -0.5, 0, 0, 0, 0]
+    [-0.05, 0, 0, 0, -0.5, 0, 0, 0, 0],
 
     # at, ht
     [-0.2, 0.275, -0.5, 0,-0.5, 0.5,1,0,0],
@@ -56,7 +56,10 @@ nodes_in_heuristic_tree = [  # first dim is bias, the rest are weights
 def normalize(list_v):
     normalized_list = []
     for v in list_v:
-        v=np.array(v)/np.sum(np.abs(v))
+        if np.sum(np.abs(v)) == 0:
+            continue
+        else:
+            v =np.array(v)/np.sum(np.abs(v))
         normalized_list.append(v)
     return normalized_list
 

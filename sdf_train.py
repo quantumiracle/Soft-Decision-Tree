@@ -35,7 +35,7 @@ learner_args['model_path'] = './model/forests/sdt_'+str(learner_args['depth'])
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_forest(forest):
-    writer = SummaryWriter()
+    writer = SummaryWriter('./model/forests/sdt_'+str(learner_args['depth']))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
     

@@ -30,12 +30,12 @@ learner_args = {'num_trees': 3,
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/forests/sdt_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/forests_module/sdt_'+str(learner_args['depth'])
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_forest(forest):
-    writer = SummaryWriter()
+    writer = SummaryWriter('./model/forests_module/sdt_'+str(learner_args['depth']))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
     

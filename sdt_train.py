@@ -16,7 +16,7 @@ def onehot_coding(target, device, output_dim):
 use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 5,
+                'depth': 3,
                 'lamda': 1e-3,
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
@@ -30,12 +30,13 @@ learner_args = {'input_dim': 8,
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])
+# learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter()
+    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['depth']))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
