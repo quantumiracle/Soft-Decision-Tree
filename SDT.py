@@ -25,10 +25,12 @@ class SDT(nn.Module):
         self.sigmoid = nn.Sigmoid()
         # temperature term
         if self.args['beta']:
-            beta = torch.randn(self.inner_node_num)
+            beta = torch.randn(self.inner_node_num)  # use different beta for each node
+            # beta = torch.randn(1)     # or use one beta across all nodes
             self.beta = nn.Parameter(beta)
         else:
-            self.beta = torch.ones(self.inner_node_num)
+            self.beta = torch.ones(self.inner_node_num)  # use different beta for each node
+            # self.beta = torch.ones(1)   # or use one beta across all nodes
 
         # leaf nodes operation
         # p*softmax(Q) instead of softmax(p*Q)
@@ -56,8 +58,8 @@ class SDT(nn.Module):
             return self.state_dict()['linear.weight'][:, 1:].detach().cpu().numpy()
 
 
-    def forward(self, data, LogProb=True):
-        _mu, _penalty = self._forward(data)
+    def forward(self, data, LogProb=True, Alpha=False):
+        _mu, _penalty, _alpha = self._forward(data)
         output = self.leaf_nodes(_mu) # average over leaves
 
         if self.args['greatest_path_probability']:
@@ -77,7 +79,10 @@ class SDT(nn.Module):
 
         weights = self.get_tree_weights(Bias=True)
 
-        return prediction, output, _penalty, weights
+        if Alpha:
+            return prediction, output, _penalty, weights, _alpha
+        else:
+            return prediction, output, _penalty, weights
     
     """ Core implementation on data forwarding in SDT """
     def _forward(self, data):
@@ -91,17 +96,22 @@ class SDT(nn.Module):
         
         begin_idx = 0
         end_idx = 1
+        _alpha_list=[]
         
         for layer_idx in range(0, self.args['depth']):
             _path_prob = path_prob[:, begin_idx:end_idx, :]
-            _penalty= _penalty + self._cal_penalty(layer_idx, _mu, _path_prob)  # extract inner nodes in current layer to calculate regularization term
+            penalty, alpha_list = self._cal_penalty(layer_idx, _mu, _path_prob)
+            _penalty += penalty  # extract inner nodes in current layer to calculate regularization term
+            _alpha_list = _alpha_list + alpha_list
             _mu = _mu.view(batch_size, -1, 1).repeat(1, 1, 2)
             _mu = _mu * _path_prob
             begin_idx = end_idx  # index for each layer
             end_idx = begin_idx + 2 ** (layer_idx+1)
-        mu = _mu.view(batch_size, self.leaf_num)            
+        mu = _mu.view(batch_size, self.leaf_num)  
 
-        return mu, _penalty   # mu contains the path probability for each leaf       
+        # mean value of alpha where it's larger than 0.5, which can describe how unbalance are the decision nodes
+        half_alpha_list = [i for i in _alpha_list if i > 0.5]
+        return mu, _penalty, torch.mean(torch.stack(half_alpha_list)).detach().cpu().numpy()   # mu contains the path probability for each leaf       
     
     """ Calculate penalty term for inner-nodes in different layer """
     def _cal_penalty(self, layer_idx, _mu, _path_prob):
@@ -109,10 +119,15 @@ class SDT(nn.Module):
         batch_size = _mu.size()[0]
         _mu = _mu.view(batch_size, 2**layer_idx)
         _path_prob = _path_prob.view(batch_size, 2**(layer_idx+1))
+        alpha_list=[]
         for node in range(0, 2**(layer_idx+1)):
             alpha = torch.sum(_path_prob[:, node]*_mu[:,node//2], dim=0) / torch.sum(_mu[:,node//2], dim=0)
+            # if alpha ==1 or alpha ==  0, log will cause numerical problem, so alpha should be bounded
+            bound_value = 1e-7  # smaller than 1e-10 will still cause numerical problem
+            alpha = torch.clamp(alpha, bound_value, 1-bound_value)
+            alpha_list.append(alpha)
             penalty -= self.penalty_list[layer_idx] * 0.5 * (torch.log(alpha) + torch.log(1-alpha))
-        return penalty
+        return penalty, alpha_list
     
     """ Add constant 1 onto the front of each instance, serving as the bias """
     def _data_augment_(self, input):

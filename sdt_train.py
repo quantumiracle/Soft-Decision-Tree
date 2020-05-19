@@ -17,7 +17,7 @@ use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
                 'depth': 3,
-                'lamda': 1e-3,
+                'lamda': -1e-1,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
@@ -91,10 +91,12 @@ def train_tree(tree):
         # Testing stage
         tree.eval()
         correct = 0.
+        alpha_list=[]
         for batch_idx, (data, target) in enumerate(test_loader):
             data, target = data.to(device), target.to(device)
             batch_size = data.size()[0]
-            prediction, _, _,_ = tree.forward(data)
+            prediction, _, _,_, alpha = tree.forward(data, Alpha=True)
+            alpha_list.append(alpha)
             pred = prediction.data.max(1)[1]
             correct += pred.eq(target.view(-1).data).sum()
         accuracy = 100. * float(correct) / len(test_loader.dataset)
@@ -102,6 +104,7 @@ def train_tree(tree):
             best_testing_acc = accuracy
         testing_acc_list.append(accuracy)
         writer.add_scalar('Testing Accuracy', accuracy, epoch)
+        writer.add_scalar('Testing Alpha', np.mean(alpha_list), epoch)
         print('\nEpoch: {:02d} | Testing Accuracy: {}/{} ({:.3f}%) | Historical Best: {:.3f}% \n'.format(epoch, correct, len(test_loader.dataset), accuracy, best_testing_acc))
 
 
