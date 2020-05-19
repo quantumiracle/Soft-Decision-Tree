@@ -7,6 +7,12 @@ from utils.dataset import Dataset
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 from heuristic_evaluation import difference_metric
+import argparse
+
+parser = argparse.ArgumentParser(description='parse')
+parser.add_argument('--lamda', dest='lamda', default=False)
+parser.add_argument('--id', dest='id', default=False)
+args = parser.parse_args()
 
 def onehot_coding(target, device, output_dim):
     target_onehot = torch.FloatTensor(target.size()[0], output_dim).to(device)
@@ -16,8 +22,8 @@ def onehot_coding(target, device, output_dim):
 use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 3,
-                'lamda': -1e-1,  # 1e-3 as default value. If it's negative, it encourages more unbalanced nodes; otherwise encourages balanced nodes.
+                'depth': 5,
+                'lamda': float(args.lamda),  # 1e-3 as default value. If it's negative, it encourages more unbalanced nodes; otherwise encourages balanced nodes.
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
@@ -30,8 +36,8 @@ learner_args = {'input_dim': 8,
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-# learner_args['model_path'] = './model/sdt_'+str(learner_args['depth'])
-learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)
+
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
