@@ -17,7 +17,7 @@ use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
                 'depth': 3,
-                'lamda': -1e-1,  # 1e-3
+                'lamda': -1e-1,  # 1e-3 as default value. If it's negative, it encourages more unbalanced nodes; otherwise encourages balanced nodes.
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
