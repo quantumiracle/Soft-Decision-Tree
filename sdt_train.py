@@ -38,7 +38,7 @@ learner_args = {'input_dim': 8,
                 }
 learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)
 
-
+print(learner_args)
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
