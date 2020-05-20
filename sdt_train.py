@@ -16,8 +16,8 @@ def onehot_coding(target, device, output_dim):
 use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 5,
-                'lamda': -1e-1,  # 1e-3
+                'depth': 3,
+                'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
@@ -26,7 +26,7 @@ learner_args = {'input_dim': 8,
                 'log_interval': 100,
                 'exp_scheduler_gamma': 1.,
                 'beta' : True,  # temperature 
-                'l1_regularization': True  # for feature sparsity on nodes
+                'l1_regularization': True,  # for feature sparsity on nodes
                 'greatest_path_probability': True  # when forwarding the SDT, \
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
