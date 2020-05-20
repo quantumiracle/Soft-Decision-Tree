@@ -79,6 +79,15 @@ class SDT(nn.Module):
 
         weights = self.get_tree_weights(Bias=True)
 
+        # L1 regularization for feature sparsity on nodes
+        if self.args['l1_regularization']:
+            L1_reg = torch.tensor(0., requires_grad=True)
+            for name, param in self.named_parameters():
+                if name == 'linear.weight':
+                    L1_reg = L1_reg + torch.norm(param[:, 1:], 1)  # ignore the bias term; L1 norm
+
+        _penalty+=5e-4*L1_reg
+
         if Alpha:
             return prediction, output, _penalty, weights, _alpha
         else:

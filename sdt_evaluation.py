@@ -11,13 +11,12 @@ from tree_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
 import os
 
-def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True):
+def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, img_path = 'img/eval_tree'):
     env = gym.make('LunarLander-v2')
     if seed:
         env.seed(seed)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
-    img_path='img/eval_abs2_{}'.format(tree.args['depth'])
     if not os.path.exists(img_path):
         os.makedirs(img_path)
     tree_weights = tree.get_tree_weights()
@@ -80,7 +79,16 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
 
     tree = SDT(learner_args)
-    tree.load_model(learner_args['model_path'])
+    Discretized=True
+    if Discretized:
+        tree.load_model(learner_args['model_path']+'_discretized')
+    else:
+        tree.load_model(learner_args['model_path'])
+
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True)
+    if Discretized:
+        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
+    else:
+        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+
     plot_importance_single_episode(epi_id=0)
