@@ -42,7 +42,7 @@ learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_i
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['depth']))
+    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
