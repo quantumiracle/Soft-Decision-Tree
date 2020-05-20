@@ -1,0 +1,336 @@
+compute003
+6
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Epoch: 01 | Batch: 000 | CrossEntropy-loss: 1.33242 | Correct: 518/1280 | Difference: 0.9538510335821578
+Epoch: 01 | Batch: 100 | CrossEntropy-loss: 1.23562 | Correct: 628/1280 | Difference: 0.9975226773007551
+Epoch: 01 | Batch: 200 | CrossEntropy-loss: 1.12499 | Correct: 708/1280 | Difference: 1.0059097923240872
+Epoch: 01 | Batch: 300 | CrossEntropy-loss: 1.04220 | Correct: 696/1280 | Difference: 0.9926848988402526
+Epoch: 01 | Batch: 400 | CrossEntropy-loss: 0.95844 | Correct: 744/1280 | Difference: 0.9580751281557124
+Epoch: 01 | Batch: 500 | CrossEntropy-loss: 0.86750 | Correct: 854/1280 | Difference: 0.922609795016676
+Epoch: 01 | Batch: 600 | CrossEntropy-loss: 0.82494 | Correct: 929/1280 | Difference: 0.8860347986782708
+Epoch: 01 | Batch: 700 | CrossEntropy-loss: 0.77964 | Correct: 940/1280 | Difference: 0.8605702353327048
+Epoch: 01 | Batch: 800 | CrossEntropy-loss: 0.73382 | Correct: 949/1280 | Difference: 0.8417279199590814
+Epoch: 01 | Batch: 900 | CrossEntropy-loss: 0.66963 | Correct: 975/1280 | Difference: 0.8353859330050256
+Epoch: 01 | Batch: 1000 | CrossEntropy-loss: 0.65285 | Correct: 959/1280 | Difference: 0.8353702766282491
+Epoch: 01 | Batch: 1100 | CrossEntropy-loss: 0.67633 | Correct: 939/1280 | Difference: 0.8321734277907772
+Epoch: 01 | Batch: 1200 | CrossEntropy-loss: 0.63002 | Correct: 968/1280 | Difference: 0.8303233463682992
+Epoch: 01 | Batch: 1300 | CrossEntropy-loss: 0.56555 | Correct: 1003/1280 | Difference: 0.8335839291934265
+Epoch: 01 | Batch: 1400 | CrossEntropy-loss: 0.58893 | Correct: 971/1280 | Difference: 0.8424414269328561
+Epoch: 01 | Batch: 1500 | CrossEntropy-loss: 0.61221 | Correct: 950/1280 | Difference: 0.8544318583817924
+
+Epoch: 01 | Testing Accuracy: 384141/504607 (76.127%) | Historical Best: 76.127% 
+
+Epoch: 02 | Batch: 000 | CrossEntropy-loss: 0.61388 | Correct: 948/1280 | Difference: 0.8646694241314151
+Epoch: 02 | Batch: 100 | CrossEntropy-loss: 0.57341 | Correct: 970/1280 | Difference: 0.8794047500378712
+Epoch: 02 | Batch: 200 | CrossEntropy-loss: 0.55702 | Correct: 1005/1280 | Difference: 0.8959420864458771
+Epoch: 02 | Batch: 300 | CrossEntropy-loss: 0.54911 | Correct: 1001/1280 | Difference: 0.9136837573827619
+Epoch: 02 | Batch: 400 | CrossEntropy-loss: 0.52754 | Correct: 1021/1280 | Difference: 0.9264110550408373
+Epoch: 02 | Batch: 500 | CrossEntropy-loss: 0.54328 | Correct: 1007/1280 | Difference: 0.9374743227323318
+Epoch: 02 | Batch: 600 | CrossEntropy-loss: 0.53521 | Correct: 1004/1280 | Difference: 0.9492162211713127
+Epoch: 02 | Batch: 700 | CrossEntropy-loss: 0.54521 | Correct: 1015/1280 | Difference: 0.9595739727718646
+Epoch: 02 | Batch: 800 | CrossEntropy-loss: 0.53000 | Correct: 1040/1280 | Difference: 0.9702156836063235
+Epoch: 02 | Batch: 900 | CrossEntropy-loss: 0.52063 | Correct: 1026/1280 | Difference: 0.9791632227235634
+Epoch: 02 | Batch: 1000 | CrossEntropy-loss: 0.52397 | Correct: 1017/1280 | Difference: 0.9917345328138868
+Epoch: 02 | Batch: 1100 | CrossEntropy-loss: 0.53679 | Correct: 1029/1280 | Difference: 1.0042869579431244
+Epoch: 02 | Batch: 1200 | CrossEntropy-loss: 0.50824 | Correct: 1024/1280 | Difference: 1.0173094486822076
+Epoch: 02 | Batch: 1300 | CrossEntropy-loss: 0.50343 | Correct: 1051/1280 | Difference: 1.0310976720200071
+Epoch: 02 | Batch: 1400 | CrossEntropy-loss: 0.54126 | Correct: 1019/1280 | Difference: 1.0460279602730094
+Epoch: 02 | Batch: 1500 | CrossEntropy-loss: 0.49353 | Correct: 1047/1280 | Difference: 1.059282285015513
+
+Epoch: 02 | Testing Accuracy: 407028/504607 (80.662%) | Historical Best: 80.662% 
+
+Epoch: 03 | Batch: 000 | CrossEntropy-loss: 0.49755 | Correct: 1027/1280 | Difference: 1.0673343807854543
+Epoch: 03 | Batch: 100 | CrossEntropy-loss: 0.52962 | Correct: 1003/1280 | Difference: 1.079821067481419
+Epoch: 03 | Batch: 200 | CrossEntropy-loss: 0.47356 | Correct: 1079/1280 | Difference: 1.0868447314171577
+Epoch: 03 | Batch: 300 | CrossEntropy-loss: 0.47825 | Correct: 1042/1280 | Difference: 1.0969801261222532
+Epoch: 03 | Batch: 400 | CrossEntropy-loss: 0.51961 | Correct: 1016/1280 | Difference: 1.1040153427746586
+Epoch: 03 | Batch: 500 | CrossEntropy-loss: 0.51891 | Correct: 1009/1280 | Difference: 1.1117222897391077
+Epoch: 03 | Batch: 600 | CrossEntropy-loss: 0.44712 | Correct: 1059/1280 | Difference: 1.1171388546542136
+Epoch: 03 | Batch: 700 | CrossEntropy-loss: 0.49442 | Correct: 1042/1280 | Difference: 1.1196820274526647
+Epoch: 03 | Batch: 800 | CrossEntropy-loss: 0.49261 | Correct: 1040/1280 | Difference: 1.1206940863310368
+Epoch: 03 | Batch: 900 | CrossEntropy-loss: 0.45685 | Correct: 1046/1280 | Difference: 1.1216314665580296
+Epoch: 03 | Batch: 1000 | CrossEntropy-loss: 0.46066 | Correct: 1052/1280 | Difference: 1.1231534619684567
+Epoch: 03 | Batch: 1100 | CrossEntropy-loss: 0.52368 | Correct: 1033/1280 | Difference: 1.1227845472591576
+Epoch: 03 | Batch: 1200 | CrossEntropy-loss: 0.49990 | Correct: 1037/1280 | Difference: 1.123605256109879
+Epoch: 03 | Batch: 1300 | CrossEntropy-loss: 0.49872 | Correct: 1039/1280 | Difference: 1.1241388771681107
+Epoch: 03 | Batch: 1400 | CrossEntropy-loss: 0.45386 | Correct: 1052/1280 | Difference: 1.1261227921674772
+Epoch: 03 | Batch: 1500 | CrossEntropy-loss: 0.44651 | Correct: 1052/1280 | Difference: 1.1292986939608065
+
+Epoch: 03 | Testing Accuracy: 410469/504607 (81.344%) | Historical Best: 81.344% 
+
+Epoch: 04 | Batch: 000 | CrossEntropy-loss: 0.46881 | Correct: 1048/1280 | Difference: 1.131497914283555
+Epoch: 04 | Batch: 100 | CrossEntropy-loss: 0.47887 | Correct: 1028/1280 | Difference: 1.1336356353115538
+Epoch: 04 | Batch: 200 | CrossEntropy-loss: 0.46003 | Correct: 1051/1280 | Difference: 1.1354709730432824
+Epoch: 04 | Batch: 300 | CrossEntropy-loss: 0.48099 | Correct: 1030/1280 | Difference: 1.1373764362500933
+Epoch: 04 | Batch: 400 | CrossEntropy-loss: 0.50904 | Correct: 1041/1280 | Difference: 1.139512089799387
+Epoch: 04 | Batch: 500 | CrossEntropy-loss: 0.48431 | Correct: 1036/1280 | Difference: 1.1409545228569606
+Epoch: 04 | Batch: 600 | CrossEntropy-loss: 0.46461 | Correct: 1051/1280 | Difference: 1.1425039100448688
+Traceback (most recent call last):
+  File "sdt_train.py", line 151, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 73, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 62, in forward
+    _mu, _penalty, _alpha = self._forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 114, in _forward
+    return mu, _penalty, torch.mean(torch.stack(half_alpha_list)).detach().cpu().numpy()   # mu contains the path probability for each leaf       
+RuntimeError: expected a non-empty list of Tensors
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Epoch: 01 | Batch: 000 | CrossEntropy-loss: 1.34782 | Correct: 540/1280 | Difference: 0.9399028454328788
+Epoch: 01 | Batch: 100 | CrossEntropy-loss: 1.22440 | Correct: 785/1280 | Difference: 0.9686417113460535
+Epoch: 01 | Batch: 200 | CrossEntropy-loss: 1.11547 | Correct: 865/1280 | Difference: 1.0018005888821986
+Epoch: 01 | Batch: 300 | CrossEntropy-loss: 1.02395 | Correct: 789/1280 | Difference: 1.0059163737481833
+Epoch: 01 | Batch: 400 | CrossEntropy-loss: 0.95370 | Correct: 803/1280 | Difference: 0.9858281601638307
+Epoch: 01 | Batch: 500 | CrossEntropy-loss: 0.85353 | Correct: 894/1280 | Difference: 0.9693553942542166
+Epoch: 01 | Batch: 600 | CrossEntropy-loss: 0.79559 | Correct: 926/1280 | Difference: 0.9511616307579973
+Epoch: 01 | Batch: 700 | CrossEntropy-loss: 0.74634 | Correct: 942/1280 | Difference: 0.9284097582297236
+Epoch: 01 | Batch: 800 | CrossEntropy-loss: 0.70180 | Correct: 966/1280 | Difference: 0.9039516489964596
+Epoch: 01 | Batch: 900 | CrossEntropy-loss: 0.71458 | Correct: 957/1280 | Difference: 0.8859079048206333
+Epoch: 01 | Batch: 1000 | CrossEntropy-loss: 0.67663 | Correct: 967/1280 | Difference: 0.8713858756337565
+Epoch: 01 | Batch: 1100 | CrossEntropy-loss: 0.67040 | Correct: 961/1280 | Difference: 0.8605646473494835
+Epoch: 01 | Batch: 1200 | CrossEntropy-loss: 0.67770 | Correct: 939/1280 | Difference: 0.8562819592485155
+Epoch: 01 | Batch: 1300 | CrossEntropy-loss: 0.67642 | Correct: 930/1280 | Difference: 0.8585922731097946
+Epoch: 01 | Batch: 1400 | CrossEntropy-loss: 0.65019 | Correct: 964/1280 | Difference: 0.8627970276576046
+Epoch: 01 | Batch: 1500 | CrossEntropy-loss: 0.62383 | Correct: 969/1280 | Difference: 0.8728525523202063
+
+Epoch: 01 | Testing Accuracy: 390152/504607 (77.318%) | Historical Best: 77.318% 
+
+Epoch: 02 | Batch: 000 | CrossEntropy-loss: 0.58919 | Correct: 992/1280 | Difference: 0.8822013292896816
+Epoch: 02 | Batch: 100 | CrossEntropy-loss: 0.60412 | Correct: 986/1280 | Difference: 0.8972258044264332
+Epoch: 02 | Batch: 200 | CrossEntropy-loss: 0.57413 | Correct: 1011/1280 | Difference: 0.9139817555378398
+Epoch: 02 | Batch: 300 | CrossEntropy-loss: 0.56492 | Correct: 1014/1280 | Difference: 0.9235981265512673
+Epoch: 02 | Batch: 400 | CrossEntropy-loss: 0.56018 | Correct: 1005/1280 | Difference: 0.9419043399935098
+Epoch: 02 | Batch: 500 | CrossEntropy-loss: 0.55141 | Correct: 1019/1280 | Difference: 0.9561022542378135
+Epoch: 02 | Batch: 600 | CrossEntropy-loss: 0.58686 | Correct: 999/1280 | Difference: 0.965068641279671
+Epoch: 02 | Batch: 700 | CrossEntropy-loss: 0.53183 | Correct: 1022/1280 | Difference: 0.9721051865406181
+Epoch: 02 | Batch: 800 | CrossEntropy-loss: 0.56963 | Correct: 1003/1280 | Difference: 0.9758978102787175
+Epoch: 02 | Batch: 900 | CrossEntropy-loss: 0.54760 | Correct: 1020/1280 | Difference: 0.9796018512569967
+Epoch: 02 | Batch: 1000 | CrossEntropy-loss: 0.52856 | Correct: 1029/1280 | Difference: 0.9840064775928542
+Epoch: 02 | Batch: 1100 | CrossEntropy-loss: 0.56428 | Correct: 997/1280 | Difference: 0.9886823702086313
+Epoch: 02 | Batch: 1200 | CrossEntropy-loss: 0.51865 | Correct: 1033/1280 | Difference: 0.9899946672629554
+Epoch: 02 | Batch: 1300 | CrossEntropy-loss: 0.53026 | Correct: 1024/1280 | Difference: 0.9926628721911072
+Epoch: 02 | Batch: 1400 | CrossEntropy-loss: 0.53389 | Correct: 1029/1280 | Difference: 0.9985717855253797
+Epoch: 02 | Batch: 1500 | CrossEntropy-loss: 0.55748 | Correct: 1007/1280 | Difference: 1.0037008743134899
+
+Epoch: 02 | Testing Accuracy: 402489/504607 (79.763%) | Historical Best: 79.763% 
+
+Epoch: 03 | Batch: 000 | CrossEntropy-loss: 0.53298 | Correct: 1014/1280 | Difference: 1.0032375347601792
+Epoch: 03 | Batch: 100 | CrossEntropy-loss: 0.54038 | Correct: 1004/1280 | Difference: 1.0000756137773792
+Epoch: 03 | Batch: 200 | CrossEntropy-loss: 0.52326 | Correct: 1018/1280 | Difference: 0.9913892271923267
+Epoch: 03 | Batch: 300 | CrossEntropy-loss: 0.51674 | Correct: 1004/1280 | Difference: 0.9889874085693678
+Epoch: 03 | Batch: 400 | CrossEntropy-loss: 0.55306 | Correct: 1003/1280 | Difference: 0.9833205743144778
+Epoch: 03 | Batch: 500 | CrossEntropy-loss: 0.49048 | Correct: 1030/1280 | Difference: 0.979835651047308
+Epoch: 03 | Batch: 600 | CrossEntropy-loss: 0.52603 | Correct: 1018/1280 | Difference: 0.985445608909958
+Epoch: 03 | Batch: 700 | CrossEntropy-loss: 0.51633 | Correct: 1020/1280 | Difference: 0.9894522050364268
+Epoch: 03 | Batch: 800 | CrossEntropy-loss: 0.51635 | Correct: 1011/1280 | Difference: 0.9932045426290043
+Epoch: 03 | Batch: 900 | CrossEntropy-loss: 0.48332 | Correct: 1040/1280 | Difference: 0.995973495494067
+Epoch: 03 | Batch: 1000 | CrossEntropy-loss: 0.51049 | Correct: 1021/1280 | Difference: 0.9985950523820024
+Epoch: 03 | Batch: 1100 | CrossEntropy-loss: 0.50725 | Correct: 1026/1280 | Difference: 1.000381711047967
+Epoch: 03 | Batch: 1200 | CrossEntropy-loss: 0.48804 | Correct: 1024/1280 | Difference: 1.0018117326370444
+Epoch: 03 | Batch: 1300 | CrossEntropy-loss: 0.47079 | Correct: 1040/1280 | Difference: 1.0016608676293417
+Epoch: 03 | Batch: 1400 | CrossEntropy-loss: 0.50450 | Correct: 1023/1280 | Difference: 1.0016080865074592
+Epoch: 03 | Batch: 1500 | CrossEntropy-loss: 0.50309 | Correct: 1028/1280 | Difference: 1.0017729871467451
+
+Epoch: 03 | Testing Accuracy: 407908/504607 (80.837%) | Historical Best: 80.837% 
+
+Epoch: 04 | Batch: 000 | CrossEntropy-loss: 0.44834 | Correct: 1044/1280 | Difference: 1.0020328229863584
+Epoch: 04 | Batch: 100 | CrossEntropy-loss: 0.50247 | Correct: 1015/1280 | Difference: 1.0013486985668778
+Epoch: 04 | Batch: 200 | CrossEntropy-loss: 0.48453 | Correct: 1037/1280 | Difference: 1.0014351849750343
+Epoch: 04 | Batch: 300 | CrossEntropy-loss: 0.45581 | Correct: 1042/1280 | Difference: 1.001377317518538
+Epoch: 04 | Batch: 400 | CrossEntropy-loss: 0.51786 | Correct: 1027/1280 | Difference: 1.0014382642330322
+Epoch: 04 | Batch: 500 | CrossEntropy-loss: 0.46340 | Correct: 1045/1280 | Difference: 1.001713428654571
+Epoch: 04 | Batch: 600 | CrossEntropy-loss: 0.46611 | Correct: 1040/1280 | Difference: 1.0017332884608663
+Epoch: 04 | Batch: 700 | CrossEntropy-loss: 0.47113 | Correct: 1032/1280 | Difference: 1.0023511847407722
+Epoch: 04 | Batch: 800 | CrossEntropy-loss: 0.49658 | Correct: 1022/1280 | Difference: 1.0022041534160047
+Epoch: 04 | Batch: 900 | CrossEntropy-loss: 0.46439 | Correct: 1043/1280 | Difference: 1.001978050182865
+Epoch: 04 | Batch: 1000 | CrossEntropy-loss: 0.46161 | Correct: 1045/1280 | Difference: 1.001924533421201
+Epoch: 04 | Batch: 1100 | CrossEntropy-loss: 0.44370 | Correct: 1048/1280 | Difference: 1.0018165253078568
+Epoch: 04 | Batch: 1200 | CrossEntropy-loss: 0.46335 | Correct: 1046/1280 | Difference: 1.0018597489730543
+Epoch: 04 | Batch: 1300 | CrossEntropy-loss: 0.47279 | Correct: 1035/1280 | Difference: 1.0022745698022655
+Epoch: 04 | Batch: 1400 | CrossEntropy-loss: 0.44160 | Correct: 1054/1280 | Difference: 1.0021451087325615
+Epoch: 04 | Batch: 1500 | CrossEntropy-loss: 0.49662 | Correct: 1012/1280 | Difference: 1.0022954645232167
+
+Epoch: 04 | Testing Accuracy: 412159/504607 (81.679%) | Historical Best: 81.679% 
+
+Epoch: 05 | Batch: 000 | CrossEntropy-loss: 0.43671 | Correct: 1064/1280 | Difference: 1.0022299319717618
+Epoch: 05 | Batch: 100 | CrossEntropy-loss: 0.44077 | Correct: 1053/1280 | Difference: 1.002282941195492
+Epoch: 05 | Batch: 200 | CrossEntropy-loss: 0.47231 | Correct: 1028/1280 | Difference: 1.0026645451627099
+Epoch: 05 | Batch: 300 | CrossEntropy-loss: 0.46616 | Correct: 1033/1280 | Difference: 1.0031815395991444
+Epoch: 05 | Batch: 400 | CrossEntropy-loss: 0.50287 | Correct: 1017/1280 | Difference: 1.0035976134881426
+Epoch: 05 | Batch: 500 | CrossEntropy-loss: 0.44696 | Correct: 1043/1280 | Difference: 1.0028638265139354
+Epoch: 05 | Batch: 600 | CrossEntropy-loss: 0.49240 | Correct: 1017/1280 | Difference: 1.0030095126386496
+Epoch: 05 | Batch: 700 | CrossEntropy-loss: 0.45585 | Correct: 1040/1280 | Difference: 1.0032337336186572
+Epoch: 05 | Batch: 800 | CrossEntropy-loss: 0.43904 | Correct: 1044/1280 | Difference: 1.0033469615293424
+Epoch: 05 | Batch: 900 | CrossEntropy-loss: 0.44458 | Correct: 1054/1280 | Difference: 1.0040449218708605
+Epoch: 05 | Batch: 1000 | CrossEntropy-loss: 0.46341 | Correct: 1024/1280 | Difference: 1.003950194552153
+Epoch: 05 | Batch: 1100 | CrossEntropy-loss: 0.45801 | Correct: 1031/1280 | Difference: 1.0047931288676044
+Epoch: 05 | Batch: 1200 | CrossEntropy-loss: 0.45459 | Correct: 1042/1280 | Difference: 1.0051724700324824
+Epoch: 05 | Batch: 1300 | CrossEntropy-loss: 0.46430 | Correct: 1038/1280 | Difference: 1.0054338002662435
+Epoch: 05 | Batch: 1400 | CrossEntropy-loss: 0.43316 | Correct: 1048/1280 | Difference: 1.0057701725449517
+Epoch: 05 | Batch: 1500 | CrossEntropy-loss: 0.44145 | Correct: 1040/1280 | Difference: 1.0053286803684123
+
+Epoch: 05 | Testing Accuracy: 411765/504607 (81.601%) | Historical Best: 81.679% 
+
+Epoch: 06 | Batch: 000 | CrossEntropy-loss: 0.44460 | Correct: 1043/1280 | Difference: 1.0055147593896026
+Epoch: 06 | Batch: 100 | CrossEntropy-loss: 0.43134 | Correct: 1056/1280 | Difference: 1.0054627548580883
+Epoch: 06 | Batch: 200 | CrossEntropy-loss: 0.47301 | Correct: 1029/1280 | Difference: 1.0060446606267994
+Epoch: 06 | Batch: 300 | CrossEntropy-loss: 0.42559 | Correct: 1059/1280 | Difference: 1.00583789761282
+Epoch: 06 | Batch: 400 | CrossEntropy-loss: 0.42573 | Correct: 1053/1280 | Difference: 1.0056736284854093
+Epoch: 06 | Batch: 500 | CrossEntropy-loss: 0.41672 | Correct: 1064/1280 | Difference: 1.0056368343001012
+Epoch: 06 | Batch: 600 | CrossEntropy-loss: 0.43066 | Correct: 1051/1280 | Difference: 1.005910264980642
+Epoch: 06 | Batch: 700 | CrossEntropy-loss: 0.41322 | Correct: 1070/1280 | Difference: 1.0066824655965159
+Epoch: 06 | Batch: 800 | CrossEntropy-loss: 0.40832 | Correct: 1053/1280 | Difference: 1.0064559695091746
+Epoch: 06 | Batch: 900 | CrossEntropy-loss: 0.45801 | Correct: 1042/1280 | Difference: 1.0080378332669448
+Epoch: 06 | Batch: 1000 | CrossEntropy-loss: 0.43668 | Correct: 1044/1280 | Difference: 1.0070902187046114
+Epoch: 06 | Batch: 1100 | CrossEntropy-loss: 0.42941 | Correct: 1054/1280 | Difference: 1.0071384439302913
+Epoch: 06 | Batch: 1200 | CrossEntropy-loss: 0.48049 | Correct: 1032/1280 | Difference: 1.0071827605465122
+Epoch: 06 | Batch: 1300 | CrossEntropy-loss: 0.41389 | Correct: 1087/1280 | Difference: 1.0072315043015263
+Epoch: 06 | Batch: 1400 | CrossEntropy-loss: 0.45681 | Correct: 1049/1280 | Difference: 1.0073523402999223
+Epoch: 06 | Batch: 1500 | CrossEntropy-loss: 0.42504 | Correct: 1052/1280 | Difference: 1.007052753363908
+
+Epoch: 06 | Testing Accuracy: 413922/504607 (82.029%) | Historical Best: 82.029% 
+
+Epoch: 07 | Batch: 000 | CrossEntropy-loss: 0.46137 | Correct: 1038/1280 | Difference: 1.007538115203922
+Epoch: 07 | Batch: 100 | CrossEntropy-loss: 0.42366 | Correct: 1063/1280 | Difference: 1.0077798173504047
+Epoch: 07 | Batch: 200 | CrossEntropy-loss: 0.43878 | Correct: 1060/1280 | Difference: 1.0071082678220107
+Epoch: 07 | Batch: 300 | CrossEntropy-loss: 0.44678 | Correct: 1061/1280 | Difference: 1.0071644098357408
+Epoch: 07 | Batch: 400 | CrossEntropy-loss: 0.45570 | Correct: 1048/1280 | Difference: 1.0071014223200498
+Epoch: 07 | Batch: 500 | CrossEntropy-loss: 0.41699 | Correct: 1067/1280 | Difference: 1.0072467200992108
+Epoch: 07 | Batch: 600 | CrossEntropy-loss: 0.41845 | Correct: 1054/1280 | Difference: 1.0073545605651033
+Epoch: 07 | Batch: 700 | CrossEntropy-loss: 0.44221 | Correct: 1046/1280 | Difference: 1.0075968720162367
+Epoch: 07 | Batch: 800 | CrossEntropy-loss: 0.44782 | Correct: 1037/1280 | Difference: 1.0071894286093683
+Epoch: 07 | Batch: 900 | CrossEntropy-loss: 0.43053 | Correct: 1072/1280 | Difference: 1.0072897626132342
+Epoch: 07 | Batch: 1000 | CrossEntropy-loss: 0.44355 | Correct: 1063/1280 | Difference: 1.007211975239519
+Epoch: 07 | Batch: 1100 | CrossEntropy-loss: 0.41538 | Correct: 1061/1280 | Difference: 1.0077107619033887
+Epoch: 07 | Batch: 1200 | CrossEntropy-loss: 0.44493 | Correct: 1060/1280 | Difference: 1.0077483578841246
+Epoch: 07 | Batch: 1300 | CrossEntropy-loss: 0.42886 | Correct: 1059/1280 | Difference: 1.0080733664134502
+Epoch: 07 | Batch: 1400 | CrossEntropy-loss: 0.44711 | Correct: 1054/1280 | Difference: 1.0078533260853608
+Epoch: 07 | Batch: 1500 | CrossEntropy-loss: 0.48173 | Correct: 1029/1280 | Difference: 1.0076138057023647
+
+Epoch: 07 | Testing Accuracy: 416003/504607 (82.441%) | Historical Best: 82.441% 
+
+Epoch: 08 | Batch: 000 | CrossEntropy-loss: 0.43242 | Correct: 1065/1280 | Difference: 1.0074783624787882
+Epoch: 08 | Batch: 100 | CrossEntropy-loss: 0.43180 | Correct: 1049/1280 | Difference: 1.0077320272543822
+Epoch: 08 | Batch: 200 | CrossEntropy-loss: 0.44228 | Correct: 1051/1280 | Difference: 1.0078590302316197
+Epoch: 08 | Batch: 300 | CrossEntropy-loss: 0.42697 | Correct: 1070/1280 | Difference: 1.0089733418650615
+Epoch: 08 | Batch: 400 | CrossEntropy-loss: 0.43671 | Correct: 1060/1280 | Difference: 1.0093721118623022
+Epoch: 08 | Batch: 500 | CrossEntropy-loss: 0.41412 | Correct: 1084/1280 | Difference: 1.009765968894498
+Epoch: 08 | Batch: 600 | CrossEntropy-loss: 0.42376 | Correct: 1060/1280 | Difference: 1.0093509078619858
+Epoch: 08 | Batch: 700 | CrossEntropy-loss: 0.38689 | Correct: 1082/1280 | Difference: 1.009711435663531
+Epoch: 08 | Batch: 800 | CrossEntropy-loss: 0.43016 | Correct: 1055/1280 | Difference: 1.0096171875595767
+Epoch: 08 | Batch: 900 | CrossEntropy-loss: 0.41485 | Correct: 1078/1280 | Difference: 1.0093792031457849
+Epoch: 08 | Batch: 1000 | CrossEntropy-loss: 0.45052 | Correct: 1047/1280 | Difference: 1.0093964231424655
+Epoch: 08 | Batch: 1100 | CrossEntropy-loss: 0.43760 | Correct: 1061/1280 | Difference: 1.0103616891540308
+Epoch: 08 | Batch: 1200 | CrossEntropy-loss: 0.41610 | Correct: 1069/1280 | Difference: 1.0105624176099055
+Epoch: 08 | Batch: 1300 | CrossEntropy-loss: 0.38927 | Correct: 1095/1280 | Difference: 1.010797808031209
+Epoch: 08 | Batch: 1400 | CrossEntropy-loss: 0.45757 | Correct: 1051/1280 | Difference: 1.011972731431754
+Epoch: 08 | Batch: 1500 | CrossEntropy-loss: 0.46142 | Correct: 1045/1280 | Difference: 1.012743086080851
+
+Epoch: 08 | Testing Accuracy: 417754/504607 (82.788%) | Historical Best: 82.788% 
+
+Epoch: 09 | Batch: 000 | CrossEntropy-loss: 0.39632 | Correct: 1087/1280 | Difference: 1.0133216748813108
+Epoch: 09 | Batch: 100 | CrossEntropy-loss: 0.40148 | Correct: 1070/1280 | Difference: 1.013437384656579
+Epoch: 09 | Batch: 200 | CrossEntropy-loss: 0.44015 | Correct: 1057/1280 | Difference: 1.0132669360634086
+Epoch: 09 | Batch: 300 | CrossEntropy-loss: 0.42190 | Correct: 1075/1280 | Difference: 1.0137120743234955
+Epoch: 09 | Batch: 400 | CrossEntropy-loss: 0.41995 | Correct: 1081/1280 | Difference: 1.0144156369120354
+Epoch: 09 | Batch: 500 | CrossEntropy-loss: 0.43238 | Correct: 1061/1280 | Difference: 1.0143940892846706
+Traceback (most recent call last):
+  File "sdt_train.py", line 151, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 73, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 62, in forward
+    _mu, _penalty, _alpha = self._forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 114, in _forward
+    return mu, _penalty, torch.mean(torch.stack(half_alpha_list)).detach().cpu().numpy()   # mu contains the path probability for each leaf       
+RuntimeError: expected a non-empty list of Tensors
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+Epoch: 01 | Batch: 000 | CrossEntropy-loss: 1.38299 | Correct: 137/1280 | Difference: 1.0269822073525727
+Epoch: 01 | Batch: 100 | CrossEntropy-loss: 1.27252 | Correct: 401/1280 | Difference: 0.9880687130686701
+Epoch: 01 | Batch: 200 | CrossEntropy-loss: 1.16978 | Correct: 907/1280 | Difference: 0.9504613199837576
+Epoch: 01 | Batch: 300 | CrossEntropy-loss: 1.08541 | Correct: 863/1280 | Difference: 0.9563402552499654
+Epoch: 01 | Batch: 400 | CrossEntropy-loss: 0.98133 | Correct: 891/1280 | Difference: 0.9453844585266422
+Epoch: 01 | Batch: 500 | CrossEntropy-loss: 0.90018 | Correct: 959/1280 | Difference: 0.9255051448536386
+Epoch: 01 | Batch: 600 | CrossEntropy-loss: 0.80283 | Correct: 993/1280 | Difference: 0.90528061109555
+Epoch: 01 | Batch: 700 | CrossEntropy-loss: 0.79399 | Correct: 958/1280 | Difference: 0.8802922062957483
+Epoch: 01 | Batch: 800 | CrossEntropy-loss: 0.79666 | Correct: 906/1280 | Difference: 0.8607288385195396
+Epoch: 01 | Batch: 900 | CrossEntropy-loss: 0.71140 | Correct: 962/1280 | Difference: 0.8459771252366022
+Epoch: 01 | Batch: 1000 | CrossEntropy-loss: 0.73164 | Correct: 915/1280 | Difference: 0.8341189913398293
+Epoch: 01 | Batch: 1100 | CrossEntropy-loss: 0.69244 | Correct: 942/1280 | Difference: 0.8233025242800768
+Epoch: 01 | Batch: 1200 | CrossEntropy-loss: 0.65988 | Correct: 965/1280 | Difference: 0.8168712091002137
+Epoch: 01 | Batch: 1300 | CrossEntropy-loss: 0.65945 | Correct: 952/1280 | Difference: 0.8123414329343852
+Epoch: 01 | Batch: 1400 | CrossEntropy-loss: 0.65422 | Correct: 944/1280 | Difference: 0.8117654705364198
+Epoch: 01 | Batch: 1500 | CrossEntropy-loss: 0.59586 | Correct: 989/1280 | Difference: 0.8124341411652554
+
+Epoch: 01 | Testing Accuracy: 384321/504607 (76.162%) | Historical Best: 76.162% 
+
+Epoch: 02 | Batch: 000 | CrossEntropy-loss: 0.59227 | Correct: 991/1280 | Difference: 0.8157475095437832
+Epoch: 02 | Batch: 100 | CrossEntropy-loss: 0.57363 | Correct: 984/1280 | Difference: 0.8269424557485024
+Epoch: 02 | Batch: 200 | CrossEntropy-loss: 0.57465 | Correct: 978/1280 | Difference: 0.8422188477921011
+Epoch: 02 | Batch: 300 | CrossEntropy-loss: 0.55803 | Correct: 989/1280 | Difference: 0.8590367462805361
+Epoch: 02 | Batch: 400 | CrossEntropy-loss: 0.54385 | Correct: 997/1280 | Difference: 0.8764879554239039
+Epoch: 02 | Batch: 500 | CrossEntropy-loss: 0.53013 | Correct: 1006/1280 | Difference: 0.8967944680545049
+Epoch: 02 | Batch: 600 | CrossEntropy-loss: 0.52702 | Correct: 1009/1280 | Difference: 0.91589411772857
+Epoch: 02 | Batch: 700 | CrossEntropy-loss: 0.55111 | Correct: 998/1280 | Difference: 0.9328974090159612
+Epoch: 02 | Batch: 800 | CrossEntropy-loss: 0.50621 | Correct: 1038/1280 | Difference: 0.9443291802409017
+Epoch: 02 | Batch: 900 | CrossEntropy-loss: 0.52109 | Correct: 1016/1280 | Difference: 0.9557086173583852
+Epoch: 02 | Batch: 1000 | CrossEntropy-loss: 0.48962 | Correct: 1048/1280 | Difference: 0.9641605211480205
+Epoch: 02 | Batch: 1100 | CrossEntropy-loss: 0.48677 | Correct: 1039/1280 | Difference: 0.9705382742750183
+Epoch: 02 | Batch: 1200 | CrossEntropy-loss: 0.50035 | Correct: 1039/1280 | Difference: 0.9749682910441674
+Epoch: 02 | Batch: 1300 | CrossEntropy-loss: 0.50270 | Correct: 1031/1280 | Difference: 0.9739794785417588
+Epoch: 02 | Batch: 1400 | CrossEntropy-loss: 0.48773 | Correct: 1043/1280 | Difference: 0.9710390273718768
+Epoch: 02 | Batch: 1500 | CrossEntropy-loss: 0.47251 | Correct: 1058/1280 | Difference: 0.9626479588839854
+
+Epoch: 02 | Testing Accuracy: 411865/504607 (81.621%) | Historical Best: 81.621% 
+
+Epoch: 03 | Batch: 000 | CrossEntropy-loss: 0.48943 | Correct: 1031/1280 | Difference: 0.9561566995303884
+Epoch: 03 | Batch: 100 | CrossEntropy-loss: 0.47992 | Correct: 1042/1280 | Difference: 0.9580315971220312
+Epoch: 03 | Batch: 200 | CrossEntropy-loss: 0.46140 | Correct: 1044/1280 | Difference: 0.9684286673246737
+Epoch: 03 | Batch: 300 | CrossEntropy-loss: 0.45834 | Correct: 1055/1280 | Difference: 0.9779774330750824
+Epoch: 03 | Batch: 400 | CrossEntropy-loss: 0.47501 | Correct: 1042/1280 | Difference: 0.9758007741530625
+Epoch: 03 | Batch: 500 | CrossEntropy-loss: 0.43512 | Correct: 1046/1280 | Difference: 0.9774959482800984
+Epoch: 03 | Batch: 600 | CrossEntropy-loss: 0.45629 | Correct: 1059/1280 | Difference: 0.9769359267740221
+Epoch: 03 | Batch: 700 | CrossEntropy-loss: 0.43564 | Correct: 1073/1280 | Difference: 0.9774176687856786
+Traceback (most recent call last):
+  File "sdt_train.py", line 151, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 73, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 62, in forward
+    _mu, _penalty, _alpha = self._forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 114, in _forward
+    return mu, _penalty, torch.mean(torch.stack(half_alpha_list)).detach().cpu().numpy()   # mu contains the path probability for each leaf       
+RuntimeError: expected a non-empty list of Tensors
