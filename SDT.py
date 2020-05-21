@@ -109,7 +109,7 @@ class SDT(nn.Module):
         _mu = _mu.view(batch_size, 2**layer_idx)
         _path_prob = _path_prob.view(batch_size, 2**(layer_idx+1))
         for node in range(0, 2**(layer_idx+1)):
-            alpha = torch.sum(_path_prob[:, node]*_mu[:,node//2], dim=0) / torch.sum(_mu[:,node//2], dim=0)
+            alpha = torch.sum(_path_prob[:, node]*_mu[:,node//2], dim=0) / (torch.sum(_mu[:,node//2], dim=0) + 1e-7) 
             penalty -= self.penalty_list[layer_idx] * 0.5 * (torch.log(alpha) + torch.log(1-alpha))
         return penalty
     
