@@ -8,6 +8,7 @@ import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 # from heuristic_evaluation import difference_metric
 from cascade_tree import Cascade_DDT
+import argparse 
 
 parser = argparse.ArgumentParser(description='parse')
 parser.add_argument('--depth1', dest='feature_learning_depth', default=False)
@@ -39,13 +40,14 @@ learner_args = {
     'greatest_path_probability': True,
 
 }
-learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_id'+str(args.id)
+learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(args.id)
+
 
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_id'+str(args.id))
+    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
