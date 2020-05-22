@@ -9,6 +9,13 @@ from torch.utils.tensorboard import SummaryWriter
 # from heuristic_evaluation import difference_metric
 from cascade_tree import Cascade_DDT
 
+parser = argparse.ArgumentParser(description='parse')
+parser.add_argument('--depth1', dest='feature_learning_depth', default=False)
+parser.add_argument('--depth2', dest='decision_depth', default=False)
+parser.add_argument('--vars', dest='num_intermediate_variables', default=False)
+parser.add_argument('--id', dest='id', default=False)
+args = parser.parse_args()
+
 def onehot_coding(target, device, output_dim):
     target_onehot = torch.FloatTensor(target.size()[0], output_dim).to(device)
     target_onehot.data.zero_()
@@ -17,9 +24,9 @@ def onehot_coding(target, device, output_dim):
 
 use_cuda = True
 learner_args = {
-    'num_intermediate_variables': 3,
-    'feature_learning_depth': 2,
-    'decision_depth': 2,
+    'num_intermediate_variables': int(args.num_intermediate_variables),
+    'feature_learning_depth': int(args.feature_learning_depth),
+    'decision_depth': int(args.decision_depth),
     'input_dim': 8,
     'output_dim': 4,
     'lr': 1e-3,
@@ -32,13 +39,13 @@ learner_args = {
     'greatest_path_probability': True,
 
 }
-learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])
+learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_id'+str(args.id)
 
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])
+    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
