@@ -19,7 +19,7 @@ use_cuda = True
 learner_args = {
     'num_intermediate_variables': 3,
     'feature_learning_depth': 2,
-    'decision_depth': 3,
+    'decision_depth': 2,
     'input_dim': 8,
     'output_dim': 4,
     'lr': 1e-3,
@@ -29,15 +29,16 @@ learner_args = {
     'cuda': use_cuda,
     'epochs': 40,
     'log_interval': 100,
+    'greatest_path_probability': True,
 
 }
-learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])
+learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])
 
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth']))
+    writer = SummaryWriter(log_dir='runs/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         

@@ -98,7 +98,7 @@ class Cascade_DDT(nn.Module):
 
     def decision_leaves(self, p):
         distribution_per_leaf = self.softmax(self.dc_leaves)
-        average_distribution = torch.mm(p, distribution_per_leaf)
+        average_distribution = torch.mm(p, distribution_per_leaf)  # sum(probability of each leaf * leaf distribution)
         return average_distribution
 
     def forward(self, data, LogProb=True):
@@ -107,26 +107,28 @@ class Cascade_DDT(nn.Module):
         self.aug_data = self._data_augment_(data)
         fl_probs = self.feature_learning_forward()  # (batch_size, num_fl_leaves) 
         dc_probs = self.decision_forward()
-        dc_probs = dc_probs.view(self.batch_size, self.num_fl_leaves, -1)   # (batch_size, num_fl_leaves, output_dim)
+        dc_probs = dc_probs.view(self.batch_size, self.num_fl_leaves, -1)   # (batch_size, num_fl_leaves, num_dc_leaves)
 
-        _mu = torch.bmm(fl_probs.unsqueeze(1), dc_probs).squeeze(1)  # (batch_size, output_dim)
+        _mu = torch.bmm(fl_probs.unsqueeze(1), dc_probs).squeeze(1)  # (batch_size, num_dc_leaves)
         output = self.decision_leaves(_mu)
 
-        # if self.args['greatest_path_probability']:
-        #     one_hot_path_probability = torch.zeros(_mu.shape).to(self.device)
-        #     vs, ids = torch.max(_mu, 1)  # ids is the leaf index with maximal path probability
-        #     one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
- 
-        #     prediction = self.leaf_nodes(one_hot_path_probability)
-        #     self.max_leaf_idx = ids
+        if self.args['greatest_path_probability']:
+            # one_hot_path_probability = torch.zeros(fl_probs.shape).to(self.device)
+            vs, ids = torch.max(fl_probs, 1)  # ids is the leaf index with maximal path probability
+            # one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
+            
+            one_dc_probs = dc_probs[torch.arange(dc_probs.shape[0]), ids, :]  # select decision path probabilities of learned features with largest probability
+            one_hot_path_probability_dc = torch.zeros(one_dc_probs.shape).to(self.device)
+            vs_dc, ids_dc = torch.max(one_dc_probs, 1)  # ids is the leaf index with maximal path probability
+            one_hot_path_probability_dc.scatter_(1, ids_dc.view(-1,1), 1.)
+            prediction = self.decision_leaves(one_hot_path_probability_dc)
 
-        # else:  # prediction value equals to the average distribution
-        #     prediction = output
+        else:  # prediction value equals to the average distribution
+            prediction = output
 
         if LogProb:
             output = torch.log(output)
-            # prediction = torch.log(prediction)
-        prediction = output
+            prediction = torch.log(prediction)
 
         return prediction, output, 0
         
