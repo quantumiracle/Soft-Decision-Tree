@@ -38,7 +38,6 @@ learner_args = {
     'epochs': 40,
     'log_interval': 100,
     'greatest_path_probability': True,
-
 }
 learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(args.id)
 

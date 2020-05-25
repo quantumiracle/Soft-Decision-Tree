@@ -19,7 +19,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
     action_dim = env.action_space.n  # discrete
     if not os.path.exists(img_path):
         os.makedirs(img_path)
-    tree_weights = tree.get_tree_weights()
+    # tree_weights = tree.get_tree_weights()
     average_weight_list = []
 
     for n_epi in range(episodes):
@@ -68,8 +68,26 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
         plt.show()
 
 if __name__ == '__main__':
-    from cascade_tree_train import learner_args
+    # from cascade_tree_train import learner_args
     from cascade_tree import Cascade_DDT
+    learner_args = {
+    'num_intermediate_variables': 3,
+    'feature_learning_depth': 3,
+    'decision_depth': 3,
+    'input_dim': 8,
+    'output_dim': 4,
+    'lr': 1e-3,
+    'weight_decay': 0.,  # 5e-4
+    'batch_size': 1280,
+    'exp_scheduler_gamma': 1.,
+    'cuda': True,
+    'epochs': 40,
+    'log_interval': 100,
+    'greatest_path_probability': True,
+    }
+    learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
+        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)
+
 
     # for reproduciblility
     seed=3
@@ -81,7 +99,14 @@ if __name__ == '__main__':
     tree = Cascade_DDT(learner_args)
     tree.load_model(learner_args['model_path'])
 
+    # print(tree.state_dict())
+    num_params = 0
+    for key, v in tree.state_dict().items():
+        num_params+=v.reshape(-1).shape[0]
+    print('Total number of parameters in model: ', num_params)
+
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, \
+        img_path='img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth']))
 
     # plot_importance_single_episode(epi_id=0)

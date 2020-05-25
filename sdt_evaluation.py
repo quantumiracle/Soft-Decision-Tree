@@ -79,11 +79,17 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
 
     tree = SDT(learner_args)
-    Discretized=True
+    Discretized=False
     if Discretized:
         tree.load_model(learner_args['model_path']+'_discretized')
     else:
         tree.load_model(learner_args['model_path'])
+
+    num_params = 0
+    for key, v in tree.state_dict().items():
+        num_params+=v.reshape(-1).shape[0]
+    print('Total number of parameters in model: ', num_params)
+
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
     if Discretized:
