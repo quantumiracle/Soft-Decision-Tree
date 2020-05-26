@@ -33,7 +33,6 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         while not done:
             a = model(torch.Tensor([s]))
             if step%frameskip==0:
-                print(step, a)
                 draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_DM'+'/{:04}.png'.format(step))
             #     if DrawImportance:
             #         path_idx = get_path(tree, s)
