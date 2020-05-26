@@ -1,0 +1,53 @@
+compute004
+2
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+{'input_dim': 8, 'output_dim': 4, 'depth': 5, 'lamda': 0.001, 'lr': 0.001, 'weight_decay': 0.0, 'batch_size': 1280, 'epochs': 40, 'cuda': True, 'log_interval': 100, 'exp_scheduler_gamma': 1.0, 'beta': False, 'greatest_path_probability': True, 'model_path': './model/trees/sdt_0.001_id1beta'}
+Traceback (most recent call last):
+  File "sdt_train.py", line 155, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 77, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 61, in forward
+    _mu, _penalty, _alpha = self._forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 90, in _forward
+    path_prob = self.inner_nodes(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 49, in inner_nodes
+    output = self.sigmoid(self.beta*self.linear(x))
+RuntimeError: expected backend CPU and dtype Float but got backend CUDA and dtype Float
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+{'input_dim': 8, 'output_dim': 4, 'depth': 5, 'lamda': 0.001, 'lr': 0.001, 'weight_decay': 0.0, 'batch_size': 1280, 'epochs': 40, 'cuda': True, 'log_interval': 100, 'exp_scheduler_gamma': 1.0, 'beta': False, 'greatest_path_probability': True, 'model_path': './model/trees/sdt_0.001_id2beta'}
+Traceback (most recent call last):
+  File "sdt_train.py", line 155, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 77, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 61, in forward
+    _mu, _penalty, _alpha = self._forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 90, in _forward
+    path_prob = self.inner_nodes(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 49, in inner_nodes
+    output = self.sigmoid(self.beta*self.linear(x))
+RuntimeError: expected backend CPU and dtype Float but got backend CUDA and dtype Float
+slurmstepd: error: *** JOB 215128 ON compute004 CANCELLED AT 2020-05-25T17:18:13 ***
