@@ -7,6 +7,10 @@ from utils.dataset import Dataset
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
 from heuristic_evaluation import difference_metric
+import argparse 
+
+parser.add_argument('--id', dest='id', default=False)
+args = parser.parse_args()
 
 def onehot_coding(target, device, output_dim):
     target_onehot = torch.FloatTensor(target.size()[0], output_dim).to(device)
@@ -25,18 +29,18 @@ learner_args = {'input_dim': 8,
                 'cuda': use_cuda,
                 'log_interval': 100,
                 'exp_scheduler_gamma': 1.,
-                'beta' : True,  # temperature 
-                'l1_regularization': True,  # for feature sparsity on nodes
+                'beta' : False,  # temperature 
+                'l1_regularization': False,  # for feature sparsity on nodes
                 'greatest_path_probability': True  # when forwarding the SDT, \
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])
+learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(args.id)
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['depth']))
+    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['depth'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         

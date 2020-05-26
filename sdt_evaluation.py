@@ -87,7 +87,7 @@ if __name__ == '__main__':
 
     num_params = 0
     for key, v in tree.state_dict().items():
-        print(key)
+        print(key, v.shape)
         num_params+=v.reshape(-1).shape[0]
     print('Total number of parameters in model: ', num_params)
 
