@@ -24,12 +24,14 @@ class SDT(nn.Module):
         self.linear = nn.Linear(self.args['input_dim']+1, self.inner_node_num, bias=False)
         self.sigmoid = nn.Sigmoid()
         # temperature term
-        if self.args['beta']:
+        if self.args['beta'] is True:
             beta = torch.randn(self.inner_node_num)  # use different beta for each node
             # beta = torch.randn(1)     # or use one beta across all nodes
             self.beta = nn.Parameter(beta)
-        else:
+        elif self.args['beta'] is False:
             self.beta = torch.ones(1).to(self.device)   # or use one beta across all nodes
+        else:  # pass in value for beta
+            self.beta = torch.tensor(self.args['beta']).to(self.device)
 
         # leaf nodes operation
         # p*softmax(Q) instead of softmax(p*Q)

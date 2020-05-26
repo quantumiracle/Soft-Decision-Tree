@@ -1,0 +1,34 @@
+Increasing beta:
+Original Tree Accuracy: 95.3463 | Discretized Tree Accuracy: 40.0749
+Original Tree Accuracy: 95.2769 | Discretized Tree Accuracy: 33.6910
+Original Tree Accuracy: 96.8738 | Discretized Tree Accuracy: 41.1405
+
+Lambda=0.001:
+Original Tree Accuracy: 96.3338 | Discretized Tree Accuracy: 30.1326
+Original Tree Accuracy: 97.3546 | Discretized Tree Accuracy: 22.3838
+Original Tree Accuracy: 97.4299 | Discretized Tree Accuracy: 30.9276
+
+Lambda=0.01:
+Original Tree Accuracy: 96.9481 | Discretized Tree Accuracy: 32.1260
+Original Tree Accuracy: 96.6083 | Discretized Tree Accuracy: 40.8076
+Original Tree Accuracy: 96.8324 | Discretized Tree Accuracy: 52.6007
+
+Lambda=0.1:
+Original Tree Accuracy: 96.4059 | Discretized Tree Accuracy: 56.5198
+Original Tree Accuracy: 96.1305 | Discretized Tree Accuracy: 56.3716
+Original Tree Accuracy: 94.3857 | Discretized Tree Accuracy: 28.3316
+
+Lambda=-0.001:
+Original Tree Accuracy: 95.6848 | Discretized Tree Accuracy: 19.0138
+Original Tree Accuracy: 93.2100 | Discretized Tree Accuracy: 36.5889
+Original Tree Accuracy: 93.7074 | Discretized Tree Accuracy: 20.3705
+
+Lambda=-0.01:
+Original Tree Accuracy: 89.3995 | Discretized Tree Accuracy: 51.5140
+Original Tree Accuracy: 91.2274 | Discretized Tree Accuracy: 18.3252
+Original Tree Accuracy: 92.1816 | Discretized Tree Accuracy: 37.3019
+
+Lambda=-0.1:
+Original Tree Accuracy: 78.2558 | Discretized Tree Accuracy: 51.5140
+Original Tree Accuracy: 74.2964 | Discretized Tree Accuracy: 5.4169
+Original Tree Accuracy: 79.6705 | Discretized Tree Accuracy: 51.5140

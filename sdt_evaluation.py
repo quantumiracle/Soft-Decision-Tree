@@ -61,7 +61,7 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
     data = np.load(data_path, allow_pickle=True)[epi_id]
     for i, weights_per_feature in enumerate(np.array(data).T):
         plt.plot(weights_per_feature, label='Dim: {}'.format(i))
-    plt.legend(loc=4)
+    # plt.legend(loc=4)
     if save_path:
         plt.savefig(save_path)
         plt.close()
@@ -78,9 +78,12 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
+    learner_args['lamda'] = 0.001
+    # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'
+    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'+'_discretized'
 
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True)
-    plot_importance_single_episode(epi_id=0)
+    evaluate(model, tree, episodes=5, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False)
+    # plot_importance_single_episode(epi_id=0)
