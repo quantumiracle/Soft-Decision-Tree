@@ -79,7 +79,7 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
 
     tree = SDT(learner_args)
-    Discretized=False
+    Discretized=False  # whether load the discretized tree
     if Discretized:
         tree.load_model(learner_args['model_path']+'_discretized')
     else:
