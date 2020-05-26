@@ -17,6 +17,8 @@ class Cascade_DDT(nn.Module):
         self.feature_learning_init()
         self.decision_init()
 
+        self.max_leaf_idx = None
+
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.args['lr'], weight_decay=self.args['weight_decay'])
         self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=self.args['exp_scheduler_gamma'])
 
@@ -113,13 +115,16 @@ class Cascade_DDT(nn.Module):
         output = self.decision_leaves(_mu)
 
         if self.args['greatest_path_probability']:
-            # one_hot_path_probability = torch.zeros(fl_probs.shape).to(self.device)
             vs, ids = torch.max(fl_probs, 1)  # ids is the leaf index with maximal path probability
-            # one_hot_path_probability.scatter_(1, ids.view(-1,1), 1.)
-            
+            # get the path with greatest probability, get index of it, feature vector and feature value on that leaf
+            self.max_leaf_idx_fl = ids
+            self.max_feature_vector = self.fl_leaf_weights.view(self.num_fl_leaves, self.args['num_intermediate_variables'], self.args['input_dim'])[ids]
+            self.max_feature_value = self.features.view(-1, self.num_fl_leaves, self.args['num_intermediate_variables'])[:, ids, :]
+
             one_dc_probs = dc_probs[torch.arange(dc_probs.shape[0]), ids, :]  # select decision path probabilities of learned features with largest probability
             one_hot_path_probability_dc = torch.zeros(one_dc_probs.shape).to(self.device)
             vs_dc, ids_dc = torch.max(one_dc_probs, 1)  # ids is the leaf index with maximal path probability
+            self.max_leaf_idx_dc = ids_dc
             one_hot_path_probability_dc.scatter_(1, ids_dc.view(-1,1), 1.)
             prediction = self.decision_leaves(one_hot_path_probability_dc)
 

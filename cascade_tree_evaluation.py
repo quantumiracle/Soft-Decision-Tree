@@ -10,8 +10,9 @@ import numpy as np
 from tree_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
 import os
+import copy
 
-def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, img_path = 'img/eval_tree'):
+def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, DrawImportance=True, img_path = 'img/eval_tree'):
     env = gym.make('LunarLander-v2')
     if seed:
         env.seed(seed)
@@ -31,9 +32,9 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
         step=0
         while not done:
             a = model(torch.Tensor([s]))
-            # if step%frameskip==0:
-            #     if DrawTree:
-            #         draw_tree(tree, (tree.args['input_dim'],), input_img=s, savepath=img_path+'/{:04}.png'.format(step))
+            if step%frameskip==0:
+                print(step, a)
+                draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_DM'+'/{:04}.png'.format(step))
             #     if DrawImportance:
             #         path_idx = get_path(tree, s)
             #         weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
@@ -106,7 +107,7 @@ if __name__ == '__main__':
     print('Total number of parameters in model: ', num_params)
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, \
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='DM', DrawImportance=True, \
         img_path='img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth']))
 
     # plot_importance_single_episode(epi_id=0)

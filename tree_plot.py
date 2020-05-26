@@ -5,6 +5,7 @@ from SDT import SDT
 from torch.utils import data
 from utils.dataset import Dataset
 import numpy as np
+import copy
 
 def get_binary_index(tree):
     """
@@ -43,7 +44,7 @@ def path_from_prediction(tree, idx):
     int_idx_list.reverse() 
     return binary_idx_list, int_idx_list
 
-def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepath=''):
+def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=None, savepath=''):
 
     import itertools
     import numpy as np
@@ -51,15 +52,33 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     from matplotlib.gridspec import GridSpec
     from matplotlib.patches import ConnectionPatch
 
+    tree = copy.copy(original_tree)
+    if DrawTree=='FL': # draw the feature learning tree
+        tree.inner_node_num = tree.num_fl_inner_nodes
+        tree.max_depth = tree.args['feature_learning_depth']
+        tree.leaf_num = tree.num_fl_leaves
+        inner_nodes_name='fl_inner_nodes.weight'
+        leaf_nodes_name='fl_leaf_weights'
+        input_shape=(tree.args['input_dim'],)
+
+    elif DrawTree == 'DM':  # draw the decision making tree
+        tree.inner_node_num = tree.num_dc_inner_nodes
+        tree.max_depth = tree.args['decision_depth']
+        tree.leaf_num = tree.num_dc_leaves
+        inner_nodes_name='dc_inner_nodes.weight'
+        leaf_nodes_name='dc_leaves'
+        input_shape=(tree.args['num_intermediate_variables'],)
+        input_img=tree.max_feature_value.squeeze().detach().cpu().numpy()  # replace the original input image to be intermediate feature value
+
     def _add_arrow(ax_parent, ax_child, xyA, xyB, color='black'):
         '''Private utility function for drawing arrows between two axes.'''
         con = ConnectionPatch(xyA=xyA, xyB=xyB, coordsA='data', coordsB='data',
                               axesA=ax_child, axesB=ax_parent, arrowstyle='<|-',
-                              color=color, linewidth=tree.args['depth'])
+                              color=color, linewidth=tree.max_depth)
         ax_child.add_artist(con)
 
-    inner_nodes = tree.state_dict()['linear.weight']
-    leaf_nodes = tree.state_dict()['param']
+    inner_nodes = tree.state_dict()[inner_nodes_name]
+    leaf_nodes = tree.state_dict()[leaf_nodes_name]
     binary_indices = get_binary_index(tree)
     inner_indices = binary_indices[:tree.inner_node_num]
     leaf_indices = binary_indices[tree.inner_node_num:]
@@ -139,10 +158,13 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
         plt.title('{}'.format(title))
             
     # change the way to get path to be via the prediction by the tree
-    if input_img is not None:
-        tree.forward(torch.Tensor(input_img).unsqueeze(0))
-        max_leaf_idx = tree.max_leaf_idx
-        path, _ = path_from_prediction(tree, max_leaf_idx)
+    if DrawTree=='FL':
+        max_leaf_idx = tree.max_leaf_idx_fl
+    elif DrawTree=='DM':
+        max_leaf_idx = tree.max_leaf_idx_dc
+    path, _ = path_from_prediction(tree, max_leaf_idx)
+
+
 
     # draw tree leaves
     for pos, key in enumerate(sorted(leaves.keys(), key=lambda x:(len(x), x))):
