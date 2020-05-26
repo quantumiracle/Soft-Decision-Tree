@@ -33,6 +33,9 @@ if __name__ == '__main__':
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
+    learner_args['lamda'] = 0.001
+    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'
+
 
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
