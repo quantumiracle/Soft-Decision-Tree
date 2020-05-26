@@ -22,7 +22,6 @@ class Cascade_DDT(nn.Module):
         self.optimizer = torch.optim.Adam(self.parameters(), lr=self.args['lr'], weight_decay=self.args['weight_decay'])
         self.scheduler = torch.optim.lr_scheduler.ExponentialLR(self.optimizer, gamma=self.args['exp_scheduler_gamma'])
 
-
     def feature_learning_init(self):
         self.num_fl_inner_nodes = 2**self.args['feature_learning_depth'] -1
         self.num_fl_leaves = self.num_fl_inner_nodes + 1
@@ -31,12 +30,22 @@ class Cascade_DDT(nn.Module):
         fl_leaf_weights = torch.randn(self.num_fl_leaves*self.args['num_intermediate_variables'], self.args['input_dim'])
         self.fl_leaf_weights = nn.Parameter(fl_leaf_weights)
 
+        # temperature term
+        if self.args['beta_fl'] is True: # learnable
+            beta_fl = torch.randn(self.num_fl_inner_nodes)  # use different beta_fl for each node
+            # beta_fl = torch.randn(1)     # or use one beta_fl across all nodes
+            self.beta_fl = nn.Parameter(beta_fl)
+        elif self.args['beta_fl'] is False:
+            self.beta_fl = torch.ones(1).to(self.device)   # or use one beta_fl across all nodes
+        else:  # pass in value for beta_fl
+            self.beta_fl = torch.tensor(self.args['beta_fl']).to(self.device)
+
     def feature_learning_forward(self):
         """ 
         Forward the tree for feature learning.
         Return the probabilities for reaching each leaf.
         """
-        path_prob = self.sigmoid(self.fl_inner_nodes(self.aug_data))
+        path_prob = self.sigmoid(self.beta_fl*self.fl_inner_nodes(self.aug_data))
 
         path_prob = torch.unsqueeze(path_prob, dim=2)
         path_prob = torch.cat((path_prob, 1-path_prob), dim=2)
@@ -64,6 +73,16 @@ class Cascade_DDT(nn.Module):
         dc_leaves = torch.randn(self.num_dc_leaves, self.args['output_dim'])
         self.dc_leaves = nn.Parameter(dc_leaves)
 
+        # temperature term
+        if self.args['beta_dc'] is True: # learnable
+            beta_dc = torch.randn(self.num_dc_inner_nodes)  # use different beta_dc for each node
+            # beta_dc = torch.randn(1)     # or use one beta_dc across all nodes
+            self.beta_dc = nn.Parameter(beta_dc)
+        elif self.args['beta_dc'] is False:
+            self.beta_dc = torch.ones(1).to(self.device)   # or use one beta_dc across all nodes
+        else:  # pass in value for beta_dc
+            self.beta_dc = torch.tensor(self.args['beta_dc']).to(self.device)
+
     def decision_forward(self):
         """
         Forward the differentiable decision tree
@@ -71,7 +90,7 @@ class Cascade_DDT(nn.Module):
         """
         self.intermediate_features_construct()
         aug_features = self._data_augment_(self.features)
-        path_prob = self.sigmoid(self.dc_inner_nodes(aug_features))
+        path_prob = self.sigmoid(self.beta_dc*self.dc_inner_nodes(aug_features))
         feature_batch_size = self.features.shape[0]
 
         path_prob = torch.unsqueeze(path_prob, dim=2)

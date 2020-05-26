@@ -60,7 +60,7 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
     data = np.load(data_path, allow_pickle=True)[epi_id]
     for i, weights_per_feature in enumerate(np.array(data).T):
         plt.plot(weights_per_feature, label='Dim: {}'.format(i))
-    plt.legend(loc=4)
+    # plt.legend(loc=4)
     if save_path:
         plt.savefig(save_path)
         plt.close()
@@ -87,6 +87,7 @@ if __name__ == '__main__':
 
     num_params = 0
     for key, v in tree.state_dict().items():
+        print(key)
         num_params+=v.reshape(-1).shape[0]
     print('Total number of parameters in model: ', num_params)
 
@@ -95,6 +96,6 @@ if __name__ == '__main__':
     if Discretized:
         evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
     else:
-        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
 
     plot_importance_single_episode(epi_id=0)

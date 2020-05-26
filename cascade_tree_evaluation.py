@@ -84,6 +84,8 @@ if __name__ == '__main__':
     'epochs': 40,
     'log_interval': 100,
     'greatest_path_probability': True,
+    'beta_fl' : False,  # temperature for feature learning
+    'beta_dc' : False,  # temperature for decision making
     }
     learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
         +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)
@@ -102,6 +104,7 @@ if __name__ == '__main__':
     # print(tree.state_dict())
     num_params = 0
     for key, v in tree.state_dict().items():
+        print(key)
         num_params+=v.reshape(-1).shape[0]
     print('Total number of parameters in model: ', num_params)
 
