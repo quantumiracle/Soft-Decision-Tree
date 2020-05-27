@@ -70,6 +70,8 @@ if __name__ == '__main__':
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
+    learner_args['depth'] = 5
+    learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(1)
 
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
