@@ -1,5 +1,5 @@
-compute006
-2
+compute004
+1
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   _np_qint8 = np.dtype([("qint8", np.int8, 1)])
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
@@ -13,9 +13,13 @@ compute006
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   np_resource = np.dtype([("resource", np.ubyte, 1)])
 Traceback (most recent call last):
-  File "cascade_tree_train.py", line 12, in <module>
-    parser = argparse.ArgumentParser(description='parse')
-NameError: name 'argparse' is not defined
+  File "sdt_train.py", line 150, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 72, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 88, in forward
+    _penalty+=5e-3*L1_reg
+UnboundLocalError: local variable 'L1_reg' referenced before assignment
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   _np_qint8 = np.dtype([("qint8", np.int8, 1)])
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
@@ -29,9 +33,13 @@ NameError: name 'argparse' is not defined
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   np_resource = np.dtype([("resource", np.ubyte, 1)])
 Traceback (most recent call last):
-  File "cascade_tree_train.py", line 12, in <module>
-    parser = argparse.ArgumentParser(description='parse')
-NameError: name 'argparse' is not defined
+  File "sdt_train.py", line 150, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 72, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 88, in forward
+    _penalty+=5e-3*L1_reg
+UnboundLocalError: local variable 'L1_reg' referenced before assignment
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   _np_qint8 = np.dtype([("qint8", np.int8, 1)])
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
@@ -45,6 +53,10 @@ NameError: name 'argparse' is not defined
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
   np_resource = np.dtype([("resource", np.ubyte, 1)])
 Traceback (most recent call last):
-  File "cascade_tree_train.py", line 12, in <module>
-    parser = argparse.ArgumentParser(description='parse')
-NameError: name 'argparse' is not defined
+  File "sdt_train.py", line 150, in <module>
+    train_tree(tree)
+  File "sdt_train.py", line 72, in train_tree
+    prediction, output, penalty, weights = tree.forward(data)
+  File "/home/zihan/Soft-Decision-Tree/SDT.py", line 88, in forward
+    _penalty+=5e-3*L1_reg
+UnboundLocalError: local variable 'L1_reg' referenced before assignment
