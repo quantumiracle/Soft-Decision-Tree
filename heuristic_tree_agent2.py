@@ -242,6 +242,28 @@ def evaluate(model, episodes=1, frameskip=1, seed=None):
 
     env.close()
 
+
+def evaluate_offline(model, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True):
+    from heuristic_evaluation import normalize
+    from sdt_evaluation import plot_importance_single_episode
+
+    states = np.load(data_path, allow_pickle=True)
+    average_weight_list=[]
+    for n_epi in range(episodes):
+        average_weight_list_epi = []
+        for i, s in enumerate(states[n_epi]):
+            info = model(s)
+            if i%frameskip==0:
+                if DrawImportance:
+                    average_weight = np.mean(np.abs(normalize(np.array(info[2])[:, :-1])), axis=0) # take absolute to prevent that positive and negative will counteract
+                    average_weight_list_epi.append(average_weight)
+
+        average_weight_list.append(average_weight_list_epi)
+    path = 'data/heuristic_tree_importance_offline.npy'
+    np.save(path, average_weight_list)
+    plot_importance_single_episode(data_path=path, save_path='./img/heuristic_tree_importance_offline.png', epi_id=0)
+
+
 if __name__ == '__main__':  
     tree = HeuristicTree(node_list, child_list)
     # RL test
@@ -255,5 +277,6 @@ if __name__ == '__main__':
     # tree evaluation
     model = lambda x: tree.forward(x, Info=True)
     evaluate(model, episodes=1, seed=10)
+    evaluate_offline(model, episodes=1, seed=10)
     from sdt_evaluation import plot_importance_single_episode
-    plot_importance_single_episode(data_path='data/heuristic_tree_importance.npy', save_path='./img/heuristic_tree_importance.png', )
+    plot_importance_single_episode(data_path='data/heuristic_tree_importance.npy', save_path='./img/heuristic_tree_importance.png',)
