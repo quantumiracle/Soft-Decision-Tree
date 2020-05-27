@@ -9,6 +9,7 @@ from torch.utils.tensorboard import SummaryWriter
 from heuristic_evaluation import difference_metric
 import argparse 
 
+parser = argparse.ArgumentParser(description='parse')
 parser.add_argument('--id', dest='id', default=False)
 args = parser.parse_args()
 
