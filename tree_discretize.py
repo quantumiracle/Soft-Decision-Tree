@@ -4,8 +4,10 @@ import torch
 import torch.nn as nn
 from utils.dataset import Dataset
 import numpy as np
+import copy
 
-def discretize_tree(tree):
+def discretize_tree(original_tree):
+    tree = copy.deepcopy(original_tree)
     for name, parameter in tree.named_parameters():
         print(name)
         if name == 'beta':
@@ -27,6 +29,41 @@ def discretize_tree(tree):
                 parameters.append(new_weights)
             tree.linear.weight = nn.Parameter(torch.stack(parameters))
     print(tree.linear.weight.data)
+    return tree
+
+def onehot_coding(target, output_dim):
+    target_onehot = torch.FloatTensor(target.size()[0], output_dim)
+    target_onehot.data.zero_()
+    target_onehot.scatter_(1, target.view(-1, 1), 1.)
+    return target_onehot
+
+def discretization_evaluation(tree, discretized_tree):
+    # Load data
+    data_dir = './data/discrete_'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+
+    # a data loader with all data in dataset
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=int(1e4),
+                                    shuffle=True)
+    accuracy_list=[]
+    accuracy_list_=[]
+    correct=0.
+    correct_=0.
+    for batch_idx, (data, target) in enumerate(test_loader):
+        # data, target = data.to(device), target.to(device)
+        target_onehot = onehot_coding(target, tree.args['output_dim'])
+        prediction, _, _, _ = tree.forward(data)
+        prediction_, _, _, _ = discretized_tree.forward(data)
+        with torch.no_grad():
+            pred = prediction.data.max(1)[1]
+            correct += pred.eq(target.view(-1).data).sum()
+            pred_ = prediction_.data.max(1)[1]
+            correct_ += pred_.eq(target.view(-1).data).sum()
+    accuracy = 100. * float(correct) / len(test_loader.dataset)
+    accuracy_ = 100. * float(correct_) / len(test_loader.dataset)
+    print('Original Tree Accuracy: {:.4f} | Discretized Tree Accuracy: {:.4f}'.format(accuracy, accuracy_))
 
 if __name__ == '__main__':    
     from sdt_train import learner_args
@@ -37,6 +74,7 @@ if __name__ == '__main__':
     tree = SDT(learner_args)
     tree.load_model(learner_args['model_path'])
 
-    discretize_tree(tree)
+    discretized_tree = discretize_tree(tree)
+    discretization_evaluation(tree, discretized_tree)
 
     tree.save_model(model_path = learner_args['model_path']+'_discretized')
