@@ -53,6 +53,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
         average_weight_list.append(average_weight_list_epi)
         print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
     np.save('data/sdt_importance.npy', average_weight_list)
+    plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_online.png', epi_id=0)
 
     env.close()
 
@@ -121,7 +122,9 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
     markers=[".", "d", "o", "*", "^", "v", "p", "h"]
     for i, weights_per_feature in enumerate(np.array(data).T):
         plt.plot(weights_per_feature, label='Dim: {}'.format(i), marker=markers[i], markevery=8)
-    plt.legend(loc=4)
+    plt.legend(loc=1)
+    plt.xlabel('Step')
+    plt.ylabel('Feature Importance')
     if save_path:
         plt.savefig(save_path)
         plt.close()
@@ -140,7 +143,7 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
     learner_args['beta'] = True
     learner_args['lamda'] = 0.001
-    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(2)
+    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'+'_discretized'
 
@@ -149,7 +152,7 @@ if __name__ == '__main__':
     # collect_offline_states()
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
 
-    evaluate(model, tree, episodes=5, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
-    # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='gradient')
+    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False)
+    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='gradient')
 
     # plot_importance_single_episode(epi_id=0)

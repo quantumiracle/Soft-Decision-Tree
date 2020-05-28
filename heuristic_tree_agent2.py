@@ -243,7 +243,7 @@ def evaluate(model, episodes=1, frameskip=1, seed=None):
     env.close()
 
 
-def evaluate_offline(model, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True):
+def evaluate_offline(model, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight'):
     from heuristic_evaluation import normalize
     from sdt_evaluation import plot_importance_single_episode
 
@@ -255,8 +255,17 @@ def evaluate_offline(model, episodes=1, frameskip=1, seed=None, data_path='./dat
             info = model(s)
             if i%frameskip==0:
                 if DrawImportance:
-                    average_weight = np.mean(np.abs(normalize(np.array(info[2])[:, :-1])), axis=0) # take absolute to prevent that positive and negative will counteract
-                    average_weight_list_epi.append(average_weight)
+                    if method == 'weight': 
+                        average_weight = np.mean(np.abs(normalize(np.array(info[2])[:, :-1])), axis=0) # take absolute to prevent that positive and negative will counteract
+                        average_weight_list_epi.append(average_weight)
+                    elif method == 'gradient':  # not finished yet, need to write the heuristic decision tree with torch tensor rather than np
+                        x = torch.Tensor([s])
+                        x.requires_grad = True
+                        a = model(x)[0] # [1] is output, which requires gradient, but it's the expectation of leaves rather than the max-prob leaf 
+                        gradient = torch.autograd.grad(outputs=a, inputs=x, grad_outputs=torch.ones_like(a),
+                                            retain_graph=True, allow_unused=True)
+                        # print('grad:', gradient[0].squeeze())
+                        average_weight_list_epi.append(np.abs(gradient[0].squeeze().cpu().numpy()))
 
         average_weight_list.append(average_weight_list_epi)
     path = 'data/heuristic_tree_importance_offline.npy'
