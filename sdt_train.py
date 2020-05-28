@@ -21,7 +21,7 @@ def onehot_coding(target, device, output_dim):
 use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 4,
+                'depth': 7,
                 'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
