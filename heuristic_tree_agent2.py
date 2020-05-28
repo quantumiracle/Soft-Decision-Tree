@@ -203,6 +203,7 @@ def run(model, episodes=1, seed=None):
 
 def evaluate(model, episodes=1, frameskip=1, seed=None):
     from heuristic_evaluation import normalize
+    from sdt_evaluation import plot_importance_single_episode
 
     env = gym.make('LunarLander-v2')
     if seed:
@@ -238,7 +239,10 @@ def evaluate(model, episodes=1, frameskip=1, seed=None):
 
         average_weight_list.append(average_weight_list_epi)
         print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-    np.save('data/heuristic_tree_importance.npy', average_weight_list)
+    path = 'data/heuristic_tree_importance_offline.npy'
+    np.save(path, average_weight_list)
+    plot_importance_single_episode(data_path=path, save_path='./img/heuristic_tree_importance_online.png', epi_id=0)
+
 
     env.close()
 
@@ -285,7 +289,7 @@ if __name__ == '__main__':
 
     # tree evaluation
     model = lambda x: tree.forward(x, Info=True)
-    evaluate(model, episodes=1, seed=10)
-    evaluate_offline(model, episodes=1, seed=10)
+    evaluate(model, episodes=1, seed=3)
+    # evaluate_offline(model, episodes=1, seed=3)
     from sdt_evaluation import plot_importance_single_episode
     plot_importance_single_episode(data_path='data/heuristic_tree_importance.npy', save_path='./img/heuristic_tree_importance.png',)

@@ -52,7 +52,8 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
 
         average_weight_list.append(average_weight_list_epi)
         print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-    np.save('data/sdt_importance.npy', average_weight_list)
+    path = 'data/sdt_importance_online.npy'
+    np.save(path, average_weight_list)
     plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_online.png', epi_id=0)
 
     env.close()
