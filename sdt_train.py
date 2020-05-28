@@ -10,6 +10,7 @@ from heuristic_evaluation import difference_metric
 import argparse 
 
 parser = argparse.ArgumentParser(description='parse')
+parser.add_argument('--depth', dest='depth', default=False)
 parser.add_argument('--id', dest='id', default=False)
 args = parser.parse_args()
 
@@ -21,7 +22,7 @@ def onehot_coding(target, device, output_dim):
 use_cuda = True
 learner_args = {'input_dim': 8,
                 'output_dim': 4,
-                'depth': 7,
+                'depth': int(args.depth),
                 'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
