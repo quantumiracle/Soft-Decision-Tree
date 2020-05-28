@@ -57,10 +57,14 @@ nodes_in_heuristic_tree = [  # first dim is bias, the rest are weights
 def normalize(list_v):
     normalized_list = []
     for v in list_v:
-        v=np.array(v)/np.sum(np.abs(v))
+        if np.sum(np.abs(v)) == 0:
+            continue
+        else:
+            v =np.array(v)/np.sum(np.abs(v))
         normalized_list.append(v)
     return normalized_list
 
+    
 def l1_norm(a,b):
     return np.linalg.norm(np.array(a)-np.array(b), ord=1)
 
