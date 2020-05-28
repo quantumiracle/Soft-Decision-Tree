@@ -7,7 +7,7 @@ from torch.distributions import Categorical
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from tree_plot import draw_tree
+from tree_plot import draw_tree, get_path
 import os
 
 
