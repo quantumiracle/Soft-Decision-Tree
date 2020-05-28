@@ -153,7 +153,7 @@ if __name__ == '__main__':
     # collect_offline_states()
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
 
-    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False)
-    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='gradient')
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
+    # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='gradient')
 
     # plot_importance_single_episode(epi_id=0)
