@@ -5,6 +5,7 @@ from SDT import SDT
 from torch.utils import data
 from utils.dataset import Dataset
 import numpy as np
+import matplotlib as mpl
 
 def get_binary_index(tree):
     """
@@ -77,7 +78,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     assert len(leaves) == n_leaves
 
     # prepare figure and specify grid for subplots
-    fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor=(0.5, 0.5, 0.8))
+    fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor=(0.3, 0.4, 0.8, 0.8))  # background color
     gs = GridSpec(tree.max_depth+1, n_leaves*2,
                   height_ratios=[1]*tree.max_depth+[0.5])
 
@@ -88,7 +89,7 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     axes = {}
     path = ['0']
 
-    imshow_args = {'origin': 'upper', 'interpolation': 'None', 'cmap': 'gray'}
+    imshow_args = {'origin': 'upper', 'interpolation': 'None', 'cmap': plt.get_cmap('PuOr')}
 
     ''' some statistics '''
     # 1. kernel values
@@ -113,20 +114,11 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     for pos, key in enumerate(sorted(kernels.keys(), key=lambda x:(len(x), x))):
         ax = plt.subplot(gs[len(key)-1, gcx[pos]-2:gcx[pos]+2])
         axes[key] = ax
-        kernel_image = np.abs(kernels[key])  # absolute value
-        kernel_image = kernel_image/np.sum(kernel_image)  # normalization
-        # if input_img is not None and key in path:
-        #     # here the path is not correct, choose right whenever the logit > 0 does not ensure 
-        #     # the final path is the path with maximiaed probability.
+        # kernel_image = np.abs(kernels[key])  # absolute value
+        # kernel_image = kernel_image/np.sum(kernel_image)  # normalization
 
-        #     logit = tree.beta[int(key, 2)].cpu().detach().numpy() * (
-        #         np.sum( kernels[key]*input_img) + biases[key])
-        #     path.append(key + ('1' if (logit) >= 0 else '0'))
-        #     ax.text(img_cols//2, img_rows+2, '{:.2f}'.format(logit),
-        #             ha='center', va='center')
+        kernel_image = kernels[key]
 
-        #     if show_correlation:
-        #         kernel_image = input_img * kernels[key]
         if len(kernel_image.shape)==3: # 2D image (H, W, C)
             ax.imshow(kernel_image.squeeze(), **imshow_args)
         elif len(kernel_image.shape)==1:
@@ -179,6 +171,13 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
         plt.title('input')
         _add_arrow(ax, axes['0'],
                    (1, img_rows//2), (img_cols-1, img_rows//2), 'green')
+
+    min_val = np.min(list(kernels.values()))
+    max_val  = np.max(list(kernels.values()))
+    norm = mpl.colors.Normalize(vmin=min_val,vmax=max_val)
+    sm = plt.cm.ScalarMappable(cmap=imshow_args['cmap'], norm=norm)
+    sm.set_array([])
+    plt.colorbar(sm, ticks=np.linspace(min_val,max_val,10), )
 
     if savepath:
         plt.savefig(savepath, facecolor=fig.get_facecolor())
