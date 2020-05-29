@@ -53,6 +53,19 @@ nodes_in_heuristic_tree = [  # first dim is bias, the rest are weights
 
 ]
 
+intermediate_features_in_heuristic_tree = [ # first dim is constant, the rest are weights
+    # at
+    [0, 0,0,0,0,0,0,0,0],
+    [0.2, 0,0,0,0,-0.5,-1,0,0],
+    [-0.2, 0,0,0,0,-0.5,-1,0,0],
+    [0, 0.25,0,0.5,0,-0.5,-1,0,0],
+    
+    # ht
+    [0, 0,0,0,-0.5,0,0,0,0],
+    [0, 0.275,-0.5,0,-0.5,0,0,0,0],
+    [0, 0.275,-0.5,0,-0.5,0,0,0,0],
+]
+
 def normalize(list_v):
     normalized_list = []
     for v in list_v:

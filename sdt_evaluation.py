@@ -77,6 +77,8 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
+    learner_args['depth'] = 6
+    learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(1)
 
     tree = SDT(learner_args)
     Discretized=False  # whether load the discretized tree

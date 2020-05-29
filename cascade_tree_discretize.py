@@ -101,19 +101,20 @@ def discretization_evaluation(tree, discretized_tree):
 if __name__ == '__main__':    
     from cascade_tree_train import learner_args
     from cascade_tree import Cascade_DDT
-    learner_args['num_intermediate_variables']=3
+    learner_args['num_intermediate_variables']=2
     learner_args['feature_learning_depth']=3
     learner_args['decision_depth']=3
+    
+    for i in range(1,4):
+        learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
+            +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(i)
 
-    learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
-        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)
+        learner_args['cuda'] = False  # cpu
 
-    learner_args['cuda'] = False  # cpu
+        tree = Cascade_DDT(learner_args)
+        tree.load_model(learner_args['model_path'])
 
-    tree = Cascade_DDT(learner_args)
-    tree.load_model(learner_args['model_path'])
+        discretized_tree = discretize_tree(tree, FL=True, DC=False)
 
-    discretized_tree = discretize_tree(tree, FL=True, DC=False)
-
-    discretization_evaluation(tree, discretized_tree)
+        discretization_evaluation(tree, discretized_tree)
     discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')

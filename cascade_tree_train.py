@@ -6,7 +6,7 @@ from SDT import SDT
 from utils.dataset import Dataset
 import numpy as np
 from torch.utils.tensorboard import SummaryWriter
-# from heuristic_evaluation import difference_metric
+from heuristic_evaluation import difference_metric, intermediate_features_in_heuristic_tree
 from cascade_tree import Cascade_DDT
 import argparse 
 
@@ -76,7 +76,7 @@ def train_tree(tree):
     
     for epoch in range(1, learner_args['epochs']+1):
         epoch_training_loss_list = []
-        epoch_weight_difference_list = []
+        epoch_feature_difference_list = []
         
         # Training stage
         tree.train()
@@ -86,8 +86,9 @@ def train_tree(tree):
             prediction, output, penalty = tree.forward(data)
 
             difference=0
-            # difference = difference_metric(weights)
-            # epoch_weight_difference_list.append(difference)
+            intermediate_features = tree.fl_leaf_weights.detach().cpu().numpy()
+            difference = difference_metric(intermediate_features, list2=np.array(intermediate_features_in_heuristic_tree)[:, 1:]) # remove the constants for intermediate feature in heuristic 
+            epoch_feature_difference_list.append(difference)
             
             tree.optimizer.zero_grad()
             loss = criterion(output, target.view(-1))
@@ -107,7 +108,7 @@ def train_tree(tree):
 
                     tree.save_model(model_path = learner_args['model_path'])
         writer.add_scalar('Training Loss', np.mean(epoch_training_loss_list), epoch)
-        # writer.add_scalar('Training Weight Difference', np.mean(epoch_weight_difference_list), epoch)
+        writer.add_scalar('Training Feature Difference', np.mean(epoch_feature_difference_list), epoch)
 
         # Testing stage
         tree.eval()

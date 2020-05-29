@@ -9,13 +9,13 @@ import copy
 def discretize_tree(original_tree):
     tree = copy.deepcopy(original_tree)
     for name, parameter in tree.named_parameters():
-        print(name)
+        # print(name)
         if name == 'beta':
             setattr(tree, name, nn.Parameter(100*torch.ones(parameter.shape)))
 
         elif name == 'linear.weight':
             parameters=[]
-            print(parameter)
+            # print(parameter)
             for weights in parameter:
                 bias = weights[0]
                 max_id = np.argmax(np.abs(weights[1:].detach()))+1
@@ -28,7 +28,7 @@ def discretize_tree(original_tree):
                 new_weights[0] = bias/np.abs(max_v)
                 parameters.append(new_weights)
             tree.linear.weight = nn.Parameter(torch.stack(parameters))
-    print(tree.linear.weight.data)
+    # print(tree.linear.weight.data)
     return tree
 
 def onehot_coding(target, output_dim):
@@ -70,13 +70,14 @@ if __name__ == '__main__':
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 5
-    learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(1)
+    learner_args['depth'] = 6
+    for i in range(1,4):
+        learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
 
-    tree = SDT(learner_args)
-    tree.load_model(learner_args['model_path'])
+        tree = SDT(learner_args)
+        tree.load_model(learner_args['model_path'])
 
-    discretized_tree = discretize_tree(tree)
-    discretization_evaluation(tree, discretized_tree)
+        discretized_tree = discretize_tree(tree)
+        discretization_evaluation(tree, discretized_tree)
 
     tree.save_model(model_path = learner_args['model_path']+'_discretized')
