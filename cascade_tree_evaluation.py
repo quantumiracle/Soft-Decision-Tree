@@ -33,7 +33,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         while not done:
             a = model(torch.Tensor([s]))
             if step%frameskip==0:
-                draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_DM'+'/{:04}.png'.format(step))
+                draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
             #     if DrawImportance:
             #         path_idx = get_path(tree, s)
             #         weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
@@ -88,7 +88,7 @@ if __name__ == '__main__':
     'beta_dc' : False,  # temperature for decision making
     }
     learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
-        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)
+        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)+'_discretized'
 
 
     # for reproduciblility
@@ -101,7 +101,6 @@ if __name__ == '__main__':
     tree = Cascade_DDT(learner_args)
     tree.load_model(learner_args['model_path'])
 
-    # print(tree.state_dict())
     num_params = 0
     for key, v in tree.state_dict().items():
         print(key)
@@ -109,7 +108,7 @@ if __name__ == '__main__':
     print('Total number of parameters in model: ', num_params)
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='DM', DrawImportance=True, \
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='FL', DrawImportance=True, \
         img_path='img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth']))
 
     # plot_importance_single_episode(epi_id=0)

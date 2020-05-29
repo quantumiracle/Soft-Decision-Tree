@@ -114,6 +114,6 @@ if __name__ == '__main__':
     tree.load_model(learner_args['model_path'])
 
     discretized_tree = discretize_tree(tree, FL=True, DC=False)
-    discretization_evaluation(tree, discretized_tree)
 
-    tree.save_model(model_path = learner_args['model_path']+'_discretized')
+    discretization_evaluation(tree, discretized_tree)
+    discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')
