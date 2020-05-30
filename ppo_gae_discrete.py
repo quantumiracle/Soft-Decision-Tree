@@ -112,7 +112,7 @@ def plot(rewards):
     plt.clf()  
     plt.close()
 
-def run(train=False, test=False):
+def run(train=False, test=False, collect_data=False):
     # env = gym.make('CartPole-v1')
     env = gym.make('LunarLander-v2')
     state_dim = env.observation_space.shape[0]
@@ -122,19 +122,24 @@ def run(train=False, test=False):
     print_interval = 20
     if test:
         model.load_model()
+    a_list=[]
+    s_list=[]
     rewards_list=[]
     for n_epi in range(10000):
         s = env.reset()
         done = False
         reward = 0.0
         step=0
-        while not done:
+        while not done and step<1000:
             # for t in range(T_horizon):
             prob = model.pi(torch.from_numpy(s).float())
             m = Categorical(prob)
             a = m.sample().item()
+            if collect_data:
+                s_list.append(s)
+                a_list.append([a])
             s_prime, r, done, info = env.step(a)
-            if test:
+            if test and not collect_data:
                 env.render()
             model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
             # model.put_data((s, a, r, s_prime, prob[a].item(), done))
@@ -156,16 +161,51 @@ def run(train=False, test=False):
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
             print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-
+    np.save('ppo_state', s_list)
+    np.save('ppo_action', a_list)
     env.close()
+
+
+def collect_data():
+    env = gym.make('LunarLander-v2')
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.n  # discrete
+    model = PPO(state_dim, action_dim)
+    model.load_model()
+    a_list=[]
+    s_list=[]
+    for n_epi in range(10000):
+        print(n_epi)
+        s = env.reset()
+        done = False
+        reward = 0.0
+        step=0
+        while step<1000:
+            prob = model.pi(torch.from_numpy(s).float())
+            m = Categorical(prob)
+            a = m.sample().item()
+            s_list.append(s)
+            a_list.append([a])
+            s, r, done, info = env.step(a)
+            step+=1
+            if done:
+                break
+        if n_epi % 100 == 0:      
+            np.save('ppo_state', s_list)
+            np.save('ppo_action', a_list)
+    env.close()
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
     parser.add_argument('--train', dest='train', action='store_true', default=False)
     parser.add_argument('--test', dest='test', action='store_true', default=False)
+    parser.add_argument('--collect', dest='collect', action='store_true', default=False)
     args = parser.parse_args()
 
     if args.train:
         run(train=True, test=False)
     if args.test:
-        run(train=False, test=True)
+        run(train=False, test=True, collect_data=True)
+    if args.collect:
+        collect_data()

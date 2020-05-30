@@ -70,7 +70,7 @@ if __name__ == '__main__':
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 6
+    learner_args['depth'] = 7
     for i in range(1,4):
         learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
 

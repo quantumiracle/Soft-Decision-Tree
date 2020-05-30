@@ -100,7 +100,7 @@ def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=No
 
     # prepare figure and specify grid for subplots
     # fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor=(0.5, 0.5, 0.0, 0.8))
-    fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor='grey')
+    fig = plt.figure(figsize=(n_leaves, n_leaves//2), facecolor='white')
     gs = GridSpec(tree.max_depth+1, n_leaves*2,
                   height_ratios=[1]*tree.max_depth+[0.5])
 
