@@ -37,7 +37,7 @@ learner_args = {'input_dim': 8,
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
 # learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta'
-learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta_weight_3'
+learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_3'
 
 
 print(learner_args)
@@ -45,7 +45,7 @@ device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
     # writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta')
-    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta_weight_3')
+    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_3')
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
@@ -69,8 +69,8 @@ def train_tree(tree):
         epoch_weight_difference_list = []
 
         # increasing beta for sharpenning the decision boundaries
-        if epoch % 5 ==0:
-            tree.beta = tree.beta*2
+        # if epoch % 5 ==0:
+        #     tree.beta = tree.beta*2
 
         # Training stage
         tree.train()
