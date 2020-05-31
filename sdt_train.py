@@ -25,7 +25,7 @@ learner_args = {'input_dim': 8,
                 'depth': 5,
                 'lamda': float(args.lamda),  # 1e-3 as default value. If it's negative, it encourages more unbalanced nodes; otherwise encourages balanced nodes.
                 'lr': 1e-3,
-                'weight_decay': 5e-3,  # 5e-4
+                'weight_decay': 5e-4,  # 5e-4
                 'batch_size': 1280,
                 'epochs': 40,
                 'cuda': use_cuda,
@@ -37,7 +37,7 @@ learner_args = {'input_dim': 8,
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
 # learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta'
-learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_3'
+learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_4'
 
 
 print(learner_args)
@@ -45,7 +45,7 @@ device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
     # writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'beta')
-    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_3')
+    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['lamda'])+'_id'+str(args.id)+'weight_4')
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
