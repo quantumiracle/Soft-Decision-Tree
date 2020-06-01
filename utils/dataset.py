@@ -21,7 +21,7 @@ class Dataset(data.Dataset):
         # load data
         self.x = np.load(data_path)
         self.y = np.load(label_path)
-
+        print(np.array(self.x).shape, np.array(self.y).shape)
         total_size = np.array(self.x).shape[0]
         if partition == 'train':
             self.list_IDs = np.arange(int(total_size*train_ratio))
