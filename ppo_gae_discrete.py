@@ -15,7 +15,9 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 # T_horizon     = 20
-model_path = './model/ppo_discrete_lunarlandar'
+EnvName = 'CartPole-v1'
+model_path = './model/ppo_discrete_'+EnvName
+'
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
@@ -113,8 +115,7 @@ def plot(rewards):
     plt.close()
 
 def run(train=False, test=False, collect_data=False):
-    # env = gym.make('CartPole-v1')
-    env = gym.make('LunarLander-v2')
+    env = gym.make(EnvName)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
@@ -156,18 +157,19 @@ def run(train=False, test=False, collect_data=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/ppo_discrete', rewards_list)
+                np.save('./log/ppo_discrete_'+env.spec.id, rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
             print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-    np.save('ppo_state', s_list)
-    np.save('ppo_action', a_list)
+    np.save('ppo_state_'+env.spec.id, s_list)
+    np.save('ppo_action_'+env.spec.id, a_list)
     env.close()
 
 
 def collect_data():
-    env = gym.make('LunarLander-v2')
+    env = gym.make(EnvName)
+    print(env.spec.id)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     model = PPO(state_dim, action_dim)
@@ -191,8 +193,8 @@ def collect_data():
             if done:
                 break
         if n_epi % 100 == 0:      
-            np.save('ppo_state', s_list)
-            np.save('ppo_action', a_list)
+            np.save('ppo_state_'+env.spec.id, s_list)
+            np.save('ppo_action_'+env.spec.id, a_list)
     env.close()
 
 
@@ -206,6 +208,6 @@ if __name__ == '__main__':
     if args.train:
         run(train=True, test=False)
     if args.test:
-        run(train=False, test=True, collect_data=True)
+        run(train=False, test=True, collect_data=False)
     if args.collect:
         collect_data()
