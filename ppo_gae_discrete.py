@@ -17,7 +17,6 @@ K_epoch       = 3
 # T_horizon     = 20
 EnvName = 'CartPole-v1'
 model_path = './model/ppo_discrete_'+EnvName
-'
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):

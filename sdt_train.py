@@ -9,6 +9,8 @@ from torch.utils.tensorboard import SummaryWriter
 from heuristic_evaluation import difference_metric
 import argparse 
 
+__all__ = ["learner_args"]
+
 parser = argparse.ArgumentParser(description='parse')
 parser.add_argument('--depth', dest='depth', default=False)
 parser.add_argument('--id', dest='id', default=False)
@@ -147,5 +149,6 @@ def test_tree(tree, epochs=10):
 
 
 if __name__ == '__main__':    
+
     tree = SDT(learner_args).to(device)
     train_tree(tree)

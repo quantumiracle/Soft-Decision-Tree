@@ -7,7 +7,7 @@ from torch.distributions import Categorical
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from sdt_train import learner_args, device
+# from sdt_train import learner_args, device
 from SDT import SDT 
 
 #Hyperparameters
@@ -17,7 +17,33 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 # T_horizon     = 20
-model_path = './model/sdt_ppo_discrete_lunarlandar'
+EnvName = 'CartPole-v1'  # 'Pendulum-v0'
+model_path = './model/sdt_ppo_discrete_'+EnvName
+env = gym.make(EnvName)
+state_dim = env.observation_space.shape[0]
+action_dim = env.action_space.n  # discrete
+env.close()
+
+learner_args = {'input_dim': state_dim,
+                'output_dim': action_dim,
+                'depth': 3,
+                'lamda': 1e-3,  # 1e-3
+                'lr': 1e-3,
+                'weight_decay': 0.,  # 5e-4
+                'batch_size': 1280,
+                'epochs': 40,
+                'cuda': True,
+                'log_interval': 100,
+                'exp_scheduler_gamma': 1.,
+                'beta' : False,  # temperature 
+                'l1_regularization': False,  # for feature sparsity on nodes
+                'greatest_path_probability': True  # when forwarding the SDT, \
+                # choose the leaf with greatest path probability or average over distributions of all leaves; \
+                # the former one has better explainability while the latter one achieves higher accuracy
+                }
+
+device = torch.device('cuda' if learner_args['cuda'] else 'cpu')
+
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
@@ -115,8 +141,7 @@ def plot(rewards):
     plt.close()
 
 def run(train=False, test=False):
-    # env = gym.make('CartPole-v1')
-    env = gym.make('LunarLander-v2')
+    env = gym.make(EnvName)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
@@ -151,7 +176,7 @@ def run(train=False, test=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/sdt_ppo_discrete', rewards_list)
+                np.save('./log/sdt_ppo_discrete'+env.spec.id, rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
