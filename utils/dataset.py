@@ -47,6 +47,6 @@ class Dataset(data.Dataset):
         y = self.y[ID]
 
         if self.ToTensor:
-            x = torch.Tensor(x)
-            y = torch.Tensor(y)
+            x = torch.FloatTensor(x)
+            # y = torch.Tensor(y)
         return x, y
