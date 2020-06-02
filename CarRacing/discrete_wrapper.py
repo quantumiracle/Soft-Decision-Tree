@@ -43,11 +43,14 @@ class DiscreteActionWrapper(gym.Wrapper):
 if __name__ == '__main__':
     # test
     EnvName = 'CarRacing-v0'
-    env = DiscreteActionWrapper(gym.make(EnvName))
+    # env = DiscreteActionWrapper(gym.make(EnvName))
+    env =gym.make(EnvName)
+
     env.reset()
     for _ in range(10000):
         # env.render()
         a = env.action_space.sample()
+        print(a)
         env.step(a) # take a random action
     env.close()
 
