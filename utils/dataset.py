@@ -7,7 +7,7 @@ class Dataset(data.Dataset):
   '''
   Characterizes a dataset for PyTorch
   '''
-  def __init__(self, data_path, label_path, partition = 'all', train_ratio = 0.8, ToTensor = False):
+  def __init__(self, data_path, label_path, partition = 'all', train_ratio = 0.8, total_ratio=1., ToTensor = False):
         """
         Initialization
 
@@ -23,6 +23,7 @@ class Dataset(data.Dataset):
         self.y = np.load(label_path)
 
         total_size = np.array(self.x).shape[0]
+        total_size = int(total_size*total_ratio) # if only use partial dataset
         if partition == 'train':
             self.list_IDs = np.arange(int(total_size*train_ratio))
         elif partition == 'test':

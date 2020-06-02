@@ -33,30 +33,30 @@ learner_args = {'input_dim': 8,
                 'cuda': use_cuda,
                 'log_interval': 100,
                 'exp_scheduler_gamma': 1.,
-                'beta' : False,  # temperature 
+                'beta' : True,  # temperature 
                 'l1_regularization': False,  # for feature sparsity on nodes
                 'greatest_path_probability': True  # when forwarding the SDT, \
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(args.id)
+learner_args['model_path'] = './model_ppo/trees/sdt_'+str(learner_args['depth'])+'_id'+str(args.id)
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs/'+'sdt_'+str(learner_args['depth'])+'_id'+str(args.id))
+    writer = SummaryWriter(log_dir='runs_ppo/'+'sdt_'+str(learner_args['depth'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
     # Load data
-    data_dir = './data/discrete_'
+    data_dir = './data/ppo_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
-    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train'),
+    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train', total_ratio=0.3),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
 
-    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test', total_ratio=0.3),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
     # Utility variables
