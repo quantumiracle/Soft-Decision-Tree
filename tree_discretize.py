@@ -3,6 +3,7 @@
 import torch
 import torch.nn as nn
 from utils.dataset import Dataset
+from utils.common import onehot_coding
 import numpy as np
 import copy
 
@@ -29,12 +30,6 @@ def discretize_tree(original_tree):
             tree.linear.weight = nn.Parameter(torch.stack(parameters))
     tree.save_model(tree.args['model_path']+'_discretized')
     return tree
-
-def onehot_coding(target, output_dim):
-    target_onehot = torch.FloatTensor(target.size()[0], output_dim)
-    target_onehot.data.zero_()
-    target_onehot.scatter_(1, target.view(-1, 1), 1.)
-    return target_onehot
 
 def discretization_evaluation(tree, discretized_tree):
     # Load data

@@ -213,11 +213,14 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
     else:
         plt.show()
 
-def get_path(tree, input):
+def get_path(tree, input, Probs=False):
     tree.forward(torch.Tensor(input).unsqueeze(0))
     max_leaf_idx = tree.max_leaf_idx
     _, path_idx_int = path_from_prediction(tree, max_leaf_idx)
-    return path_idx_int
+    if Probs:
+        return path_idx_int, tree.inner_probs.squeeze().detach().cpu().numpy()
+    else:
+        return path_idx_int
 
 
 if __name__ == '__main__':
