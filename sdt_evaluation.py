@@ -9,6 +9,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from tree_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
+from utils.dataset import Dataset
+from utils.common import onehot_coding
 import os
 
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True):
@@ -58,7 +60,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
 
     env.close()
 
-def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight'):
+def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight', WeightedImportance=False):
     states = np.load(data_path, allow_pickle=True)
     tree_weights = tree.get_tree_weights()
     average_weight_list=[]
@@ -69,9 +71,25 @@ def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path=
             if i%frameskip==0:
                 if DrawImportance:
                     if method == 'weight': 
-                        path_idx = get_path(tree, s)
+                        path_idx, inner_probs = get_path(tree, s, Probs=True)
+
+                        # get probability on decision path (with greatest leaf probability)
+                        last_idx=0
+                        probs_on_path = []
+                        for idx in path_idx[1:]:
+                            if idx == 2*last_idx+1:  # parent node goes to left node
+                                probs_on_path.append(inner_probs[last_idx])
+                            elif idx == 2*last_idx+2:  # last index goes to right node, prob should be 1-prob
+                                probs_on_path.append(1-inner_probs[last_idx])
+                            else:
+                                raise ValueError
+                            last_idx = idx
+                            
                         weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
-                        average_weight = np.mean(np.abs(normalize(weights_on_path)), axis=0)  # take absolute to prevent that positive and negative will counteract
+                        weight_per_node = np.abs(normalize(weights_on_path))
+                        if WeightedImportance:
+                            weight_per_node = [probs*weights for probs, weights in zip (probs_on_path, weight_per_node)]
+                        average_weight = np.mean(weight_per_node, axis=0)  # take absolute to prevent that positive and negative will counteract
                         average_weight_list_epi.append(average_weight)
                     elif method == 'gradient':
                         x = torch.Tensor([s])
@@ -89,7 +107,27 @@ def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path=
     np.save(path, average_weight_list)
     plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_offline.png', epi_id=0)
 
+def prediction_evaluation(tree):
+    # Load data
+    data_dir = './data/discrete_'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
 
+    # a data loader with all data in dataset
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=int(1e4),
+                                    shuffle=True)
+    accuracy_list=[]
+    correct=0.
+    for batch_idx, (data, target) in enumerate(test_loader):
+        target_onehot = onehot_coding(target, tree.args['output_dim'])
+        prediction, _, _, _ = tree.forward(data)
+        with torch.no_grad():
+            pred = prediction.data.max(1)[1]
+            correct += pred.eq(target.view(-1).data).sum()
+    accuracy = 100. * float(correct) / len(test_loader.dataset)
+    print('Tree Accuracy: {:.4f}'.format(accuracy))
+   
 def collect_offline_states(episodes=100):
     """Collect episodes of states data from heuristic agent"""
     from lunar_lander_heuristic import Heuristic_agent
@@ -144,7 +182,7 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
     learner_args['beta'] = True
     learner_args['lamda'] = 0.001
-    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)
+    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(3)
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'+'_discretized'
 
@@ -153,7 +191,9 @@ if __name__ == '__main__':
     # collect_offline_states()
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
 
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
-    # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='gradient')
+    # prediction_evaluation(tree)  # get test accuracy of the tree with training dataset
+
+    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
+    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='weight')
 
     # plot_importance_single_episode(epi_id=0)
