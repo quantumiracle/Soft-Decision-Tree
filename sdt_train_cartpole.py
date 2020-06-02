@@ -22,8 +22,8 @@ def onehot_coding(target, device, output_dim):
     target_onehot.scatter_(1, target.view(-1, 1), 1.)
     return target_onehot
 use_cuda = True
-learner_args = {'input_dim': 8,
-                'output_dim': 4,
+learner_args = {'input_dim': 4,
+                'output_dim': 2,
                 'depth': int(args.depth),
                 'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
@@ -56,7 +56,7 @@ def train_tree(tree):
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
 
-    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test', ToTensor=True),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
     # Utility variables
@@ -70,6 +70,7 @@ def train_tree(tree):
         # Training stage
         tree.train()
         for batch_idx, (data, target) in enumerate(train_loader):
+            print(data.dtype)
             data, target = data.to(device), target.to(device)
             target_onehot = onehot_coding(target, device, learner_args['output_dim'])
             prediction, output, penalty, weights = tree.forward(data)
