@@ -107,9 +107,8 @@ def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path=
     np.save(path, average_weight_list)
     plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_offline.png', epi_id=0)
 
-def prediction_evaluation(tree):
+def prediction_evaluation(tree, data_dir='./data/discrete_'):
     # Load data
-    data_dir = './data/discrete_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
 
@@ -180,9 +179,9 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
-    learner_args['beta'] = True
+    # learner_args['beta'] = True
     learner_args['lamda'] = 0.001
-    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(3)
+    learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'
     # learner_args['model_path']='./model/trees/sdt_'+str(learner_args['lamda'])+'_id'+str(1)+'beta'+'_discretized'
 
@@ -191,9 +190,9 @@ if __name__ == '__main__':
     # collect_offline_states()
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
 
-    # prediction_evaluation(tree)  # get test accuracy of the tree with training dataset
+    prediction_evaluation(tree)  # get test accuracy of the tree with training dataset
 
-    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
-    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='weight')
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=False)
+    # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='weight')
 
     # plot_importance_single_episode(epi_id=0)
