@@ -97,10 +97,12 @@ class PPO(nn.Module):
         prob = self.pi(torch.from_numpy(s).float())
         if Greedy:
             a = torch.argmax(prob, dim=-1).item()
+            # print('greedy: ', prob, a)
             return a
         else:
             m = Categorical(prob)
             a = m.sample().item()
+            # print('not greedy: ', prob, a)
             return a, prob  
 
     def load_model(self, ):
@@ -142,7 +144,8 @@ def run(mode='train'):
             if mode=='train':
                 a, prob=model.choose_action(s)
             else:
-                a = model.choose_action(s, Greedy=True)
+                # a = model.choose_action(s, Greedy=True)
+                a, prob=model.choose_action(s)
 
             if collect_data:
                 s_list.append(s)
@@ -186,23 +189,27 @@ def collect_data():
     model.load_model()
     a_list=[]
     s_list=[]
-    for n_epi in range(10000):
+    prob_list=[]
+    for n_epi in range(3000):
         print(n_epi)
         s = env.reset()
         done = False
         reward = 0.0
         step=0
         while step<1000:
+            # a, prob=model.choose_action(s)
             a = model.choose_action(s, Greedy=True)
             s_list.append(s)
             a_list.append([a])
+            # prob_list.append(prob.detach().cpu().numpy())
             s, r, done, info = env.step(a)
             step+=1
             if done:
                 break
         if n_epi % 100 == 0:      
-            np.save('greedy_ppo_state_'+env.spec.id, s_list)
-            np.save('greedy_ppo_action_'+env.spec.id, a_list)
+            np.save(env.spec.id+'_greedy_ppo_state', s_list)
+            np.save(env.spec.id+'_greedy_ppo_action', a_list)
+            # np.save(env.spec.id+'_ppo_prob', prob_list)
     env.close()
 
 
