@@ -15,7 +15,9 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 # T_horizon     = 20
-EnvName = 'CartPole-v1'
+# EnvName = 'CartPole-v1'  # LunarLander-v2
+EnvName = 'LunarLander-v2'  # LunarLander-v2
+
 model_path = './model/ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
@@ -91,14 +93,15 @@ class PPO(nn.Module):
             loss.mean().backward()
             self.optimizer.step()
 
-    def choose_action(self, s, DIST=False):
+    def choose_action(self, s, Greedy=False):
         prob = self.pi(torch.from_numpy(s).float())
-        m = Categorical(prob)
-        a = m.sample().item()
-        if DIST:
-            return a, m  
-        else:
+        if Greedy:
+            a = torch.argmax(prob, dim=-1).item()
             return a
+        else:
+            m = Categorical(prob)
+            a = m.sample().item()
+            return a, prob  
 
     def load_model(self, ):
         self.load_state_dict(torch.load(model_path))
@@ -113,14 +116,14 @@ def plot(rewards):
     plt.clf()  
     plt.close()
 
-def run(train=False, test=False, collect_data=False):
+def run(mode='train'):
     env = gym.make(EnvName)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
     model = PPO(state_dim, action_dim)
     print_interval = 20
-    if test:
+    if mode=='test':
         model.load_model()
     a_list=[]
     s_list=[]
@@ -132,17 +135,25 @@ def run(train=False, test=False, collect_data=False):
         step=0
         while not done and step<1000:
             # for t in range(T_horizon):
-            prob = model.pi(torch.from_numpy(s).float())
-            m = Categorical(prob)
-            a = m.sample().item()
+            # prob = model.pi(torch.from_numpy(s).float())
+            # m = Categorical(prob)
+            # print(prob)
+            # a = m.sample().item()
+            if mode=='train':
+                a, prob=model.choose_action(s)
+            else:
+                a = model.choose_action(s, Greedy=True)
+
             if collect_data:
                 s_list.append(s)
                 a_list.append([a])
             s_prime, r, done, info = env.step(a)
-            if test and not collect_data:
+
+            if mode=='test':
                 env.render()
-            model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-            # model.put_data((s, a, r, s_prime, prob[a].item(), done))
+            else:
+                model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+                # model.put_data((s, a, r, s_prime, prob[a].item(), done))
 
             s = s_prime
 
@@ -150,10 +161,8 @@ def run(train=False, test=False, collect_data=False):
             step+=1
             if done:
                 break
-        if train:
+        if  mode=='train':
             model.train_net()
-        rewards_list.append(reward)
-        if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
                 np.save('./log/ppo_discrete_'+env.spec.id, rewards_list)
@@ -161,8 +170,10 @@ def run(train=False, test=False, collect_data=False):
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
             print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-    np.save('ppo_state_'+env.spec.id, s_list)
-    np.save('ppo_action_'+env.spec.id, a_list)
+        rewards_list.append(reward)
+
+    # np.save('ppo_state_'+env.spec.id, s_list)
+    # np.save('ppo_action_'+env.spec.id, a_list)
     env.close()
 
 
@@ -182,9 +193,7 @@ def collect_data():
         reward = 0.0
         step=0
         while step<1000:
-            prob = model.pi(torch.from_numpy(s).float())
-            m = Categorical(prob)
-            a = m.sample().item()
+            a = model.choose_action(s, Greedy=True)
             s_list.append(s)
             a_list.append([a])
             s, r, done, info = env.step(a)
@@ -192,8 +201,8 @@ def collect_data():
             if done:
                 break
         if n_epi % 100 == 0:      
-            np.save('ppo_state_'+env.spec.id, s_list)
-            np.save('ppo_action_'+env.spec.id, a_list)
+            np.save('greedy_ppo_state_'+env.spec.id, s_list)
+            np.save('greedy_ppo_action_'+env.spec.id, a_list)
     env.close()
 
 
@@ -205,8 +214,8 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.train:
-        run(train=True, test=False)
+        run(mode='train')
     if args.test:
-        run(train=False, test=True, collect_data=False)
+        run(mode='test')
     if args.collect:
         collect_data()

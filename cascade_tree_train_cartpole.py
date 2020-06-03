@@ -47,12 +47,12 @@ learner_args['model_path'] = './model_cartpole/trees/cascade_'+str(learner_args[
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs_cartpole/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(args.id))
+    writer = SummaryWriter(log_dir='runs_cartpole_greedy/'+'cascade_'+str(learner_args['feature_learning_depth'])+'_'+str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
     # Load data
-    data_dir = './data/cartpole_ppo_'
+    data_dir = './data/cartpole_greedy_ppo_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
     train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train', ToTensor=True),
