@@ -25,11 +25,11 @@ use_cuda = True
 learner_args = {'input_dim': 4,
                 'output_dim': 2,
                 'depth': int(args.depth),
-                'lamda': 1e-3,  # 1e-3
+                'lamda': 0.,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 1280,
-                'epochs': 40,
+                'epochs': 80,
                 'cuda': use_cuda,
                 'log_interval': 100,
                 'exp_scheduler_gamma': 1.,
@@ -39,12 +39,12 @@ learner_args = {'input_dim': 4,
                 # choose the leaf with greatest path probability or average over distributions of all leaves; \
                 # the former one has better explainability while the latter one achieves higher accuracy
                 }
-learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(args.id)
+learner_args['model_path'] = './model_cartpole_80/trees/sdt_'+str(learner_args['depth'])+'_id'+str(args.id)
 
 device = torch.device('cuda' if use_cuda else 'cpu')
 
 def train_tree(tree):
-    writer = SummaryWriter(log_dir='runs_cartpole_greedy/'+'sdt_'+str(learner_args['depth'])+'_id'+str(args.id))
+    writer = SummaryWriter(log_dir='runs_cartpole_greedy_80/'+'sdt_'+str(learner_args['depth'])+'_id'+str(args.id))
     # criterion = nn.CrossEntropyLoss()  # torch CrossEntropyLoss = LogSoftmax + NLLLoss
     criterion = nn.NLLLoss()  # since we already have log probability, simply using Negative Log-likelihood loss can provide cross-entropy loss
         
