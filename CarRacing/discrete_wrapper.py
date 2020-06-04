@@ -47,7 +47,7 @@ class ObservationWrapper(gym.Wrapper):
         self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, dim1, dim2))
 
     def step(self, action):
-            observation, reward, done, info = self.env.step(action)
+        observation, reward, done, info = self.env.step(action)
         return np.moveaxis(observation, 2, 0), reward, done, info
 
     def reset(self, **kwargs):
