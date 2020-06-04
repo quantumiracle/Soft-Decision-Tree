@@ -8,7 +8,7 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 # from sdt_train import learner_args, device
-from SDT import SDT 
+from cascade_tree import Cascade_DDT 
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
 parser.add_argument('--train', dest='train', action='store_true', default=False)
@@ -27,29 +27,29 @@ K_epoch       = 3
 Episodes      = 3000
 # T_horizon     = 20
 EnvName = 'CartPole-v1'  # 'Pendulum-v0'
-model_path = './model_sdt_ppo/sdt_ppo_discrete_'+EnvName+'_id'+str(args.id)
+model_path = './model_cdt_ppo/cdt_ppo_discrete_'+EnvName+'_id'+str(args.id)
 env = gym.make(EnvName)
 state_dim = env.observation_space.shape[0]
 action_dim = env.action_space.n  # discrete
 env.close()
 
-learner_args = {'input_dim': state_dim,
-                'output_dim': action_dim,
-                'depth': 3,
-                'lamda': 1e-3,  # 1e-3
-                'lr': 1e-3,
-                'weight_decay': 0.,  # 5e-4
-                'batch_size': 1280,
-                'epochs': 40,
-                'cuda': True,
-                'log_interval': 100,
-                'exp_scheduler_gamma': 1.,
-                'beta' : False,  # temperature 
-                'l1_regularization': False,  # for feature sparsity on nodes
-                'greatest_path_probability': True  # when forwarding the SDT, \
-                # choose the leaf with greatest path probability or average over distributions of all leaves; \
-                # the former one has better explainability while the latter one achieves higher accuracy
-                }
+learner_args = {
+    'num_intermediate_variables': 2,
+    'feature_learning_depth': 1,
+    'decision_depth': 2,
+    'input_dim': 4,
+    'output_dim': 2,
+    'lr': 1e-3,
+    'weight_decay': 0.,  # 5e-4
+    'batch_size': 1280,
+    'exp_scheduler_gamma': 1.,
+    'cuda': True,
+    'epochs': 40,
+    'log_interval': 100,
+    'greatest_path_probability': True,
+    'beta_fl' : False,  # temperature for feature learning
+    'beta_dc' : False,  # temperature for decision making
+}
 
 device = torch.device('cuda' if learner_args['cuda'] else 'cpu')
 
@@ -63,10 +63,10 @@ class PPO(nn.Module):
         # self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
 
-        self.sdt = SDT(learner_args).to(device)
-        self.pi = lambda x: self.sdt.forward(x, LogProb=False)[1]
+        self.cdt = Cascade_DDT(learner_args).to(device)
+        self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
 
-        self.optimizer = optim.Adam(list(self.parameters())+list(self.sdt.parameters()), lr=learning_rate)
+        self.optimizer = optim.Adam(list(self.parameters())+list(self.cdt.parameters()), lr=learning_rate)
 
     # def pi(self, x, softmax_dim = -1):
     #     x = F.relu(self.fc1(x))
@@ -144,7 +144,7 @@ def plot(rewards):
     # clear_output(True)
     plt.figure(figsize=(10,5))
     plt.plot(rewards)
-    plt.savefig('sdt_ppo_discrete_lunarlandar.png')
+    plt.savefig('cdt_ppo_discrete_lunarlandar.png')
     # plt.show()
     plt.clf()  
     plt.close()
@@ -185,7 +185,7 @@ def run(train=False, test=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/sdt_ppo_discrete_'+env.spec.id+'_id'+str(args.id), rewards_list)
+                np.save('./log/cdt_ppo_discrete_'+env.spec.id+'_id'+str(args.id), rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:

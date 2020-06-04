@@ -51,7 +51,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
                     average_weight_list_epi.append(average_weight)
 
             s_prime, r, done, info = env.step(a)
-            # env.render()
+            env.render()
             s = s_prime
 
             reward += r
@@ -68,7 +68,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
     env.close()
 
 
-def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='gradient', WeightedImportance=True):
+def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight', WeightedImportance=False):
     states = np.load(data_path, allow_pickle=True)
     tree_weights = tree.get_tree_weights()
     average_weight_list=[]
@@ -139,9 +139,12 @@ def prediction_evaluation(tree, data_dir='./data/discrete_'):
 
 def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_path='./img/sdt_importance.png', epi_id=0):
     data = np.load(data_path, allow_pickle=True)[epi_id]
+    markers=[".", "d", "o", "*", "^", "v", "p", "h"]
     for i, weights_per_feature in enumerate(np.array(data).T):
-        plt.plot(weights_per_feature, label='Dim: {}'.format(i))
-    # plt.legend(loc=4)
+        plt.plot(weights_per_feature, label='Dim: {}'.format(i), marker=markers[i], markevery=8)
+    plt.legend(loc=1)
+    plt.xlabel('Step')
+    plt.ylabel('Feature Importance')
     if save_path:
         plt.savefig(save_path)
         plt.close()
@@ -220,6 +223,6 @@ if __name__ == '__main__':
 
     prediction_evaluation(tree, data_dir='data/LunarLander-v2_ppo_')
 
-    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
-    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True)
+    evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+    # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True)
 
