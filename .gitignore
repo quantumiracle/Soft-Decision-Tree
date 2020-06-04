@@ -1,4 +1,5 @@
 data/
-*.npy
+data/*.npy
 *.png
 *.gif
+CarRacing/model/ppo_discrete_Freeway-v0
