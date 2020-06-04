@@ -54,9 +54,10 @@ class PPO(nn.Module):
             self.CONV_KERNEL_SIZE=6   # 4
             self.CONV_STRIDE=1
             self.CONV_PADDING=0
-            self.in_layer = nn.Sequential(
+            self.in_layer1 = nn.Sequential(
                 nn.Conv2d(X_channel, self.CONV_NUM_FEATURE_MAP, self.CONV_KERNEL_SIZE, self.CONV_STRIDE, self.CONV_PADDING, bias=False),  # in_channels, out_channels, kernel_size, stride=1, padding=0
-                nn.ReLU(),
+                nn.ReLU())
+            self.in_layer2 = nn.Sequential(
                 nn.Conv2d(self.CONV_NUM_FEATURE_MAP, self.CONV_NUM_FEATURE_MAP * 2, self.CONV_KERNEL_SIZE, self.CONV_STRIDE, self.CONV_PADDING, bias=False),
                 nn.BatchNorm2d(self.CONV_NUM_FEATURE_MAP * 2),
                 nn.ReLU(),
@@ -76,10 +77,12 @@ class PPO(nn.Module):
         if len(x.shape) >1:
             if len(x.shape) ==3:
                 x = x.unsqueeze(0)
-            x = SiLU(self.in_layer(x))
+            x = self.in_layer1(x)
+            x = self.in_layer2(x)
             x = x.view(x.shape[0], -1)
         else:
-            x = F.relu(self.in_layer(x))
+            x = self.in_layer1(x)
+            x = self.in_layer2(x)
         x = dSiLU(self.fc_h1(x))
         x = self.fc_pi(x)
         prob = F.softmax(x, dim=softmax_dim)
@@ -89,11 +92,13 @@ class PPO(nn.Module):
         if len(x.shape) >1:
             if len(x.shape) ==3:
                 x = x.unsqueeze(0)
-            x = SiLU(self.in_layer(x))
+            x = self.in_layer1(x)
+            x = self.in_layer2(x)            
             x = x.view(x.shape[0], -1)
         else:
-            x = F.relu(self.in_layer(x))
-        x = dSiLU(self.fc_h2(x))
+            x = self.in_layer1(x)
+            x = self.in_layer2(x)
+            x = dSiLU(self.fc_h2(x))
         v = self.fc_v(x)
         return v
       
