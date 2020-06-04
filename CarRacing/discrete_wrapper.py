@@ -46,18 +46,18 @@ class ObservationWrapper(gym.Wrapper):
         dim1, dim2, channel = env.observation_space.shape  
         self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, int(dim1/2), int(dim2/2)))
 
-    def prepro(I):
+    def prepro(self, I):
         """Downsample 210x160x3 uint8 frame into 105x80x3."""
         I = I[::2, ::2]
         return I
 
     def step(self, action):
         observation, reward, done, info = self.env.step(action)
-        return np.moveaxis(prepro(observation), 2, 0), reward, done, info
+        return np.moveaxis(self.prepro(observation), 2, 0), reward, done, info
 
     def reset(self, **kwargs):
         observation = self.env.reset(**kwargs)
-        return np.moveaxis(prepro(observation), 2, 0)  # (H, W, C) -> (C, H, W)     
+        return np.moveaxis(self.prepro(observation), 2, 0)  # (H, W, C) -> (C, H, W)     
 
 
 if __name__ == '__main__':
