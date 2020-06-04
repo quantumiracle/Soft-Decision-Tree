@@ -61,9 +61,79 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
 
         average_weight_list.append(average_weight_list_epi)
         print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
-    np.save('data/sdt_importance.npy', average_weight_list)
+    path = 'data/sdt_importance_online.npy'
+    np.save(path, average_weight_list)
+    plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_online.png', epi_id=0)
 
     env.close()
+
+
+def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight', WeightedImportance=False):
+    states = np.load(data_path, allow_pickle=True)
+    tree_weights = tree.get_tree_weights()
+    average_weight_list=[]
+    for n_epi in range(episodes):
+        average_weight_list_epi = []
+        for i, s in enumerate(states[n_epi]):
+            a = model(torch.Tensor([s]))    
+            if i%frameskip==0:
+                if DrawImportance:
+                    if method == 'weight': 
+                        path_idx, inner_probs = get_path(tree, s, Probs=True)
+
+                        # get probability on decision path (with greatest leaf probability)
+                        last_idx=0
+                        probs_on_path = []
+                        for idx in path_idx[1:]:
+                            if idx == 2*last_idx+1:  # parent node goes to left node
+                                probs_on_path.append(inner_probs[last_idx])
+                            elif idx == 2*last_idx+2:  # last index goes to right node, prob should be 1-prob
+                                probs_on_path.append(1-inner_probs[last_idx])
+                            else:
+                                raise ValueError
+                            last_idx = idx
+                            
+                        weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
+                        weight_per_node = np.abs(normalize(weights_on_path))
+                        if WeightedImportance:
+                            weight_per_node = [probs*weights for probs, weights in zip (probs_on_path, weight_per_node)]
+                        average_weight = np.mean(weight_per_node, axis=0)  # take absolute to prevent that positive and negative will counteract
+                        average_weight_list_epi.append(average_weight)
+                    elif method == 'gradient':
+                        x = torch.Tensor([s])
+                        x.requires_grad = True
+                        a = tree.forward(x)[1] # [1] is output, which requires gradient, but it's the expectation of leaves rather than the max-prob leaf 
+                        gradient = torch.autograd.grad(outputs=a, inputs=x, grad_outputs=torch.ones_like(a),
+                                            retain_graph=True, allow_unused=True)
+                        # print('grad:', gradient[0].squeeze())
+                        average_weight_list_epi.append(np.abs(gradient[0].squeeze().cpu().numpy()))
+                        # average_weight_list_epi.append(gradient[0].squeeze().cpu().numpy())
+
+
+        average_weight_list.append(average_weight_list_epi)
+    path = 'data/sdt_importance_offline.npy'
+    np.save(path, average_weight_list)
+    plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_offline.png', epi_id=0)
+
+def prediction_evaluation(tree, data_dir='./data/discrete_'):
+    # Load data
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+
+    # a data loader with all data in dataset
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=int(1e4),
+                                    shuffle=True)
+    accuracy_list=[]
+    correct=0.
+    for batch_idx, (data, target) in enumerate(test_loader):
+        target_onehot = onehot_coding(target, tree.args['output_dim'])
+        prediction, _, _, _ = tree.forward(data)
+        with torch.no_grad():
+            pred = prediction.data.max(1)[1]
+            correct += pred.eq(target.view(-1).data).sum()
+    accuracy = 100. * float(correct) / len(test_loader.dataset)
+    print('Tree Accuracy: {:.4f}'.format(accuracy))
 
 
 def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_path='./img/sdt_importance.png', epi_id=0):
@@ -145,8 +215,7 @@ if __name__ == '__main__':
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
     if Discretized:
-        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
-    else:
-        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+        img_path+='_discretized'
+    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True)
 
-    plot_importance_single_episode(epi_id=0)
