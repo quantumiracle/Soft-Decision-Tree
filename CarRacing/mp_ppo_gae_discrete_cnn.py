@@ -98,7 +98,7 @@ class PPO(nn.Module):
         else:
             x = self.in_layer1(x)
             x = self.in_layer2(x)
-            x = dSiLU(self.fc_h2(x))
+        x = dSiLU(self.fc_h2(x))
         v = self.fc_v(x)
         return v
       
