@@ -50,7 +50,7 @@ class PPO(nn.Module):
             X_dim2 = self.obs_space.shape[2]
             print(self.obs_space)
             # assert self.obs_space.shape[1] == self.obs_space.shape[2]
-            self.CONV_NUM_FEATURE_MAP=16
+            self.CONV_NUM_FEATURE_MAP=12
             self.CONV_KERNEL_SIZE=4
             self.CONV_STRIDE=1
             self.CONV_PADDING=0
@@ -59,7 +59,7 @@ class PPO(nn.Module):
                 nn.ReLU())
             self.in_layer2 = nn.Sequential(
                 nn.Conv2d(self.CONV_NUM_FEATURE_MAP, self.CONV_NUM_FEATURE_MAP * 2, self.CONV_KERNEL_SIZE, self.CONV_STRIDE, self.CONV_PADDING, bias=False),
-                nn.BatchNorm2d(self.CONV_NUM_FEATURE_MAP * 2),
+                # nn.BatchNorm2d(self.CONV_NUM_FEATURE_MAP * 2),
                 nn.ReLU(),
             )
             dim1_conv_size1 = int((X_dim1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
