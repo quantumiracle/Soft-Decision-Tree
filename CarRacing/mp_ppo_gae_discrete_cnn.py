@@ -30,7 +30,7 @@ NUM_WORKERS   = 1
 MODEL_PATH = './model/ppo_discrete_'+EnvName
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
+print(device)
 dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
 SiLU = lambda x: x*torch.sigmoid(x)
 
