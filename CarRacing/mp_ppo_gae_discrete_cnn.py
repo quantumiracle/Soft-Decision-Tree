@@ -51,7 +51,7 @@ class PPO(nn.Module):
             print(self.obs_space)
             # assert self.obs_space.shape[1] == self.obs_space.shape[2]
             self.CONV_NUM_FEATURE_MAP=16
-            self.CONV_KERNEL_SIZE=6   # 4
+            self.CONV_KERNEL_SIZE=4
             self.CONV_STRIDE=1
             self.CONV_PADDING=0
             self.in_layer1 = nn.Sequential(
