@@ -181,7 +181,7 @@ def ShareParameters(adamoptim):
     
 def run(id, model, rewards_queue, train=False, test=False):
     with torch.cuda.device(id % torch.cuda.device_count()):
-        model.to_cuda()
+        model.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
         env = ObservationWrapper(gym.make(EnvName))
 
