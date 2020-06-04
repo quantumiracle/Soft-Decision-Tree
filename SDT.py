@@ -46,8 +46,8 @@ class SDT(nn.Module):
         return average_distribution
 
     def inner_nodes(self, x):
-        output = self.sigmoid(self.beta*self.linear(x))
-        return output
+        self.inner_probs = self.sigmoid(self.beta*self.linear(x))
+        return self.inner_probs
 
     def get_tree_weights(self, Bias=False):
         """Return tree weights as a list"""

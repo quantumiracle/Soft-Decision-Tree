@@ -68,7 +68,7 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
     env.close()
 
 
-def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='weight', WeightedImportance=False):
+def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path='./data/evaluate_state.npy', DrawImportance=True, method='gradient', WeightedImportance=True):
     states = np.load(data_path, allow_pickle=True)
     tree_weights = tree.get_tree_weights()
     average_weight_list=[]
@@ -116,6 +116,7 @@ def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path=
     plot_importance_single_episode(data_path=path, save_path='./img/sdt_importance_offline.png', epi_id=0)
 
 def prediction_evaluation(tree, data_dir='./data/discrete_'):
+    from utils.dataset import Dataset
     # Load data
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
@@ -127,7 +128,7 @@ def prediction_evaluation(tree, data_dir='./data/discrete_'):
     accuracy_list=[]
     correct=0.
     for batch_idx, (data, target) in enumerate(test_loader):
-        target_onehot = onehot_coding(target, tree.args['output_dim'])
+        # target_onehot = onehot_coding(target, tree.args['output_dim'])
         prediction, _, _, _ = tree.forward(data)
         with torch.no_grad():
             pred = prediction.data.max(1)[1]
@@ -196,7 +197,7 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 3
+    learner_args['depth'] = 5
     learner_args['model_path'] = './model_ppo/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
 
     tree = SDT(learner_args)
@@ -216,6 +217,9 @@ if __name__ == '__main__':
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
     if Discretized:
         img_path+='_discretized'
+
+    prediction_evaluation(tree, data_dir='data/LunarLander-v2_ppo_')
+
     # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
     evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True)
 
