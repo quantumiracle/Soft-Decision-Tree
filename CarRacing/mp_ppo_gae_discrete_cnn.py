@@ -11,6 +11,7 @@ import matplotlib.pyplot as plt
 import torch.multiprocessing as mp
 from torch.multiprocessing import Process
 from discrete_wrapper import DiscreteActionWrapper, ObservationWrapper
+import math
 
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
@@ -26,7 +27,7 @@ eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 200000
-NUM_WORKERS   = 2
+NUM_WORKERS   = 5
 MODEL_PATH = './model/ppo_discrete_'+EnvName
 
 dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
