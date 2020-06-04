@@ -16,7 +16,7 @@ import math
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
 # EnvName = 'CarRacing-v0'
-EnvName = 'Freeway-v0'
+EnvName = 'Enduro-v0'
 
 
 #Hyperparameters
