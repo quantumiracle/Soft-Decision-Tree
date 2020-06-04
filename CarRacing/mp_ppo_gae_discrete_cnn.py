@@ -377,7 +377,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('learn', rewards)
+                np.save('learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 
