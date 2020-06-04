@@ -13,6 +13,7 @@ def discretize_tree(original_tree, FL=True, DC=True):
     if DC: discretize the decision making tree.
     """
     tree = copy.deepcopy(original_tree)
+    # tree = copy.copy(original_tree)
     for name, parameter in tree.named_parameters():
         # print(name)
 
@@ -119,17 +120,22 @@ if __name__ == '__main__':
     'beta_fl' : False,  # temperature for feature learning
     'beta_dc' : False,  # temperature for decision making
     }
-    
-    for i in range(4,7):
-        learner_args['model_path'] = './model_cartpole/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
-            +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(i)
+    # discretize_type=[[True, False], [False, True], [True, True]]
+    discretize_type=[[True, True]]
+    print(learner_args['num_intermediate_variables'], learner_args['feature_learning_depth'], learner_args['decision_depth'])
 
-        learner_args['cuda'] = False  # cpu
+    for dis_type in discretize_type:
+        print(dis_type)
+        for i in range(4,7):
+            learner_args['model_path'] = './model_cartpole/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
+                +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(i)
 
-        tree = Cascade_DDT(learner_args)
-        tree.load_model(learner_args['model_path'])
+            learner_args['cuda'] = False  # cpu
 
-        discretized_tree = discretize_tree(tree, FL=True, DC=True)
+            tree = Cascade_DDT(learner_args)
+            tree.load_model(learner_args['model_path'])
+        
+            discretized_tree = discretize_tree(tree, FL=dis_type[0], DC=dis_type[1])
+            discretization_evaluation(tree, discretized_tree)
 
-        discretization_evaluation(tree, discretized_tree)
-        discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')
+            discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')

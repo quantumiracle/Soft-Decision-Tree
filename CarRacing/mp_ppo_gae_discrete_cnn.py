@@ -328,9 +328,9 @@ def run(id, model, rewards_queue, train=False, test=False):
             if n_epi%print_interval==0 and n_epi!=0:
                 if train:
                     torch.save(model.state_dict(), MODEL_PATH)
-                print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
-                Epi_length = []
-                Epi_r = []
+            print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
+            Epi_length = []
+            Epi_r = []
         env.close()
 
 

@@ -124,7 +124,7 @@ if __name__ == '__main__':
     img_path = 'img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth'])
     if Discretized:
         img_path += '_discretized'
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='FL', DrawImportance=True, \
+    evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=None, DrawImportance=False, \
         img_path=img_path)
 
     # plot_importance_single_episode(epi_id=0)

@@ -11,7 +11,9 @@ from tree_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
 import os
 
-EnvName = 'CartPole-v1'  # LunarLander-v2
+# EnvName = 'CartPole-v1'  # LunarLander-v2
+EnvName = 'LunarLander-v2' 
+
 
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, img_path = 'img/eval_tree'):
     env = gym.make(EnvName)
@@ -76,7 +78,46 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
         plt.show()
 
 if __name__ == '__main__':
-    from sdt_train_cartpole import learner_args
+    # Cartpole
+    # from sdt_train_cartpole import learner_args
+    # from SDT import SDT
+
+    # # for reproduciblility
+    # seed=3
+    # if seed:
+    #     torch.manual_seed(seed)
+    #     np.random.seed(seed)
+    # learner_args['cuda'] = False  # cpu
+    # learner_args['depth'] = 3
+    # learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
+
+    # tree = SDT(learner_args)
+    # Discretized=True  # whether load the discretized tree
+    # if Discretized:
+    #     tree.load_model(learner_args['model_path']+'_discretized')
+    # else:
+    #     tree.load_model(learner_args['model_path'])
+
+    # num_params = 0
+    # for key, v in tree.state_dict().items():
+    #     print(key, v.shape)
+    #     num_params+=v.reshape(-1).shape[0]
+    # print('Total number of parameters in model: ', num_params)
+
+
+    # model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
+    # if Discretized:
+    #     evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
+    # else:
+    #     evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
+
+    # plot_importance_single_episode(epi_id=0)
+
+
+
+
+    # LunarLander PPO
+    from sdt_train_ppo import learner_args
     from SDT import SDT
 
     # for reproduciblility
@@ -86,10 +127,10 @@ if __name__ == '__main__':
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
     learner_args['depth'] = 3
-    learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
+    learner_args['model_path'] = './model_ppo/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
 
     tree = SDT(learner_args)
-    Discretized=True  # whether load the discretized tree
+    Discretized=False  # whether load the discretized tree
     if Discretized:
         tree.load_model(learner_args['model_path']+'_discretized')
     else:
@@ -106,6 +147,6 @@ if __name__ == '__main__':
     if Discretized:
         evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
     else:
-        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
+        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
 
     plot_importance_single_episode(epi_id=0)
