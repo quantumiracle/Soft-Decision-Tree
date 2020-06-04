@@ -11,8 +11,10 @@ from tree_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
 import os
 
+EnvName = 'CartPole-v1'  # LunarLander-v2
+
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, img_path = 'img/eval_tree'):
-    env = gym.make('LunarLander-v2')
+    env = gym.make(EnvName)
     if seed:
         env.seed(seed)
     state_dim = env.observation_space.shape[0]
@@ -21,6 +23,12 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
         os.makedirs(img_path)
     tree_weights = tree.get_tree_weights()
     average_weight_list = []
+
+    # show values on tree nodes
+    print(tree.get_tree_weights(Bias=True))
+    # show probs on tree leaves
+    softmax = nn.Softmax(dim=-1)
+    print(softmax(tree.state_dict()['param']).detach().cpu().numpy())
 
     for n_epi in range(episodes):
         print('Episode: ', n_epi)
@@ -68,7 +76,7 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
         plt.show()
 
 if __name__ == '__main__':
-    from sdt_train import learner_args
+    from sdt_train_cartpole import learner_args
     from SDT import SDT
 
     # for reproduciblility
@@ -77,11 +85,11 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 7
-    learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(1)
+    learner_args['depth'] = 3
+    learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
 
     tree = SDT(learner_args)
-    Discretized=False  # whether load the discretized tree
+    Discretized=True  # whether load the discretized tree
     if Discretized:
         tree.load_model(learner_args['model_path']+'_discretized')
     else:
@@ -96,8 +104,8 @@ if __name__ == '__main__':
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
     if Discretized:
-        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=True, DrawImportance=True, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
+        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
     else:
-        evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
+        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
 
     plot_importance_single_episode(epi_id=0)

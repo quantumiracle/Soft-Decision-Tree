@@ -10,11 +10,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.multiprocessing as mp
 from torch.multiprocessing import Process
-from discrete_wrapper import DiscreteActionWrapper
+from discrete_wrapper import DiscreteActionWrapper, ObservationWrapper
 
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
-EnvName = 'CarRacing-v0'
+# EnvName = 'CarRacing-v0'
+EnvName = 'Freeway-v0'
+
 
 #Hyperparameters
 learning_rate = 0.0005
@@ -44,11 +46,12 @@ class PPO(nn.Module):
             in_layer_dim = hidden_dim
         else: # high-dimensional inputs
             X_channel = self.obs_space.shape[0]
-            X_dim = self.obs_space.shape[1]
+            X_dim1 = self.obs_space.shape[1]
+            X_dim2 = self.obs_space.shape[2]
             print(self.obs_space)
-            assert self.obs_space.shape[1] == self.obs_space.shape[2]
+            # assert self.obs_space.shape[1] == self.obs_space.shape[2]
             self.CONV_NUM_FEATURE_MAP=16
-            self.CONV_KERNEL_SIZE=4
+            self.CONV_KERNEL_SIZE=6   # 4
             self.CONV_STRIDE=1
             self.CONV_PADDING=0
             self.in_layer = nn.Sequential(
@@ -58,9 +61,11 @@ class PPO(nn.Module):
                 nn.BatchNorm2d(self.CONV_NUM_FEATURE_MAP * 2),
                 nn.ReLU(),
             )
-            conv1_size = int((X_dim-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            conv2_size = int((conv1_size-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            in_layer_dim = int(self.CONV_NUM_FEATURE_MAP*2* (conv2_size)**2)
+            dim1_conv_size1 = int((X_dim1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
+            dim1_conv_size2 = int((dim1_conv_size1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
+            dim2_conv_size1 = int((X_dim2-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
+            dim2_conv_size2 = int((dim2_conv_size1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
+            in_layer_dim = int(self.CONV_NUM_FEATURE_MAP*2* dim1_conv_size2*dim2_conv_size2)
         self.fc_h1 = nn.Linear(in_layer_dim, hidden_dim)
         self.fc_h2 = nn.Linear(in_layer_dim, hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim,self.action_dim)  
@@ -172,7 +177,9 @@ def ShareParameters(adamoptim):
             state['exp_avg_sq'].share_memory_()
     
 def run(id, model, rewards_queue, train=False, test=False):
-    env = DiscreteActionWrapper(gym.make(EnvName))
+    # env = DiscreteActionWrapper(gym.make(EnvName))
+    env = ObservationWrapper(gym.make(EnvName))
+
     episode_r = 0.0
     print_interval = 10        
     Epi_r = []
@@ -230,7 +237,9 @@ if __name__ == '__main__':
     # parser.add_argument("--game", "-g", type=str)
     args = parser.parse_args()
     
-    env = DiscreteActionWrapper(gym.make(EnvName))
+    # env = DiscreteActionWrapper(gym.make(EnvName))
+    env = ObservationWrapper(gym.make(EnvName))
+
     model = PPO(env.observation_space, env.action_space).to(device)
 
     if args.train:

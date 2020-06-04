@@ -12,8 +12,10 @@ from heuristic_evaluation import normalize
 import os
 import copy
 
+EnvName = 'CartPole-v1'  # LunarLander-v2
+
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, DrawImportance=True, img_path = 'img/eval_tree'):
-    env = gym.make('LunarLander-v2')
+    env = gym.make(EnvName)
     if seed:
         env.seed(seed)
     state_dim = env.observation_space.shape[0]
@@ -22,6 +24,12 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         os.makedirs(img_path)
     # tree_weights = tree.get_tree_weights()
     average_weight_list = []
+
+    # show values on tree nodes
+    print(tree.state_dict())
+    # show probs on tree leaves
+    softmax = nn.Softmax(dim=-1)
+    print(softmax(tree.state_dict()['dc_leaves']).detach().cpu().numpy())
 
     for n_epi in range(episodes):
         print('Episode: ', n_epi)
@@ -33,7 +41,8 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         while not done:
             a = model(torch.Tensor([s]))
             if step%frameskip==0:
-                draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
+                if DrawTree is not None:
+                    draw_tree(tree, input_img=s, DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
             #     if DrawImportance:
             #         path_idx = get_path(tree, s)
             #         weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
@@ -72,10 +81,10 @@ if __name__ == '__main__':
     from cascade_tree import Cascade_DDT
     learner_args = {
     'num_intermediate_variables': 2,
-    'feature_learning_depth': 3,
-    'decision_depth': 3,
-    'input_dim': 8,
-    'output_dim': 4,
+    'feature_learning_depth': 1,
+    'decision_depth': 2,
+    'input_dim': 4,
+    'output_dim': 2,
     'lr': 1e-3,
     'weight_decay': 0.,  # 5e-4
     'batch_size': 1280,
@@ -87,8 +96,8 @@ if __name__ == '__main__':
     'beta_fl' : False,  # temperature for feature learning
     'beta_dc' : False,  # temperature for decision making
     }
-    learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
-        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(2)
+    learner_args['model_path'] = './model_cartpole/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
+        +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(4)
 
 
     # for reproduciblility
@@ -99,7 +108,11 @@ if __name__ == '__main__':
     learner_args['cuda'] = False  # cpu
 
     tree = Cascade_DDT(learner_args)
-    tree.load_model(learner_args['model_path'])
+    Discretized=True  # whether load the discretized tree
+    if Discretized:
+        tree.load_model(learner_args['model_path']+'_discretized')
+    else:
+        tree.load_model(learner_args['model_path'])
 
     num_params = 0
     for key, v in tree.state_dict().items():
@@ -108,7 +121,10 @@ if __name__ == '__main__':
     print('Total number of parameters in model: ', num_params)
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
-    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='DM', DrawImportance=True, \
-        img_path='img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth']))
+    img_path = 'img/eval_tree_{}_{}'.format(tree.args['feature_learning_depth'], tree.args['decision_depth'])
+    if Discretized:
+        img_path += '_discretized'
+    evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree='FL', DrawImportance=True, \
+        img_path=img_path)
 
     # plot_importance_single_episode(epi_id=0)

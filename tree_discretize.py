@@ -39,12 +39,13 @@ def onehot_coding(target, output_dim):
 
 def discretization_evaluation(tree, discretized_tree):
     # Load data
-    data_dir = './data/discrete_'
+    # data_dir = './data/discrete_'
+    data_dir = './data/cartpole_greedy_ppo_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
 
     # a data loader with all data in dataset
-    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test', ToTensor=True),
                                     batch_size=int(1e4),
                                     shuffle=True)
     accuracy_list=[]
@@ -66,13 +67,13 @@ def discretization_evaluation(tree, discretized_tree):
     print('Original Tree Accuracy: {:.4f} | Discretized Tree Accuracy: {:.4f}'.format(accuracy, accuracy_))
 
 if __name__ == '__main__':    
-    from sdt_train import learner_args
+    from sdt_train_cartpole import learner_args
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 7
-    for i in range(1,4):
-        learner_args['model_path'] = './model/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
+    learner_args['depth'] = 3
+    for i in range(4,7):
+        learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
 
         tree = SDT(learner_args)
         tree.load_model(learner_args['model_path'])
@@ -80,4 +81,4 @@ if __name__ == '__main__':
         discretized_tree = discretize_tree(tree)
         discretization_evaluation(tree, discretized_tree)
 
-    tree.save_model(model_path = learner_args['model_path']+'_discretized')
+        discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')

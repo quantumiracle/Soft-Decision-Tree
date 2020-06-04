@@ -52,11 +52,11 @@ def train_tree(tree):
     data_dir = './data/discrete_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
-    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train', total_ratio=0.3),
+    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train'),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
 
-    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test', total_ratio=0.3),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
     # Utility variables

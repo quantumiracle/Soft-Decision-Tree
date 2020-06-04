@@ -37,6 +37,15 @@ class DiscreteActionWrapper(gym.Wrapper):
 
     def render(self, **kwargs):
         pass
+
+
+class ObservationWrapper(gym.Wrapper):
+    def __init__(self, env):
+        super(ObservationWrapper, self).__init__(env)
+        # switch order for observation space
+        dim1, dim2, channel = env.observation_space.shape  
+        self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, dim1, dim2))
+
         
 
 

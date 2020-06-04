@@ -71,12 +71,13 @@ def onehot_coding(target, output_dim):
 
 def discretization_evaluation(tree, discretized_tree):
     # Load data
-    data_dir = './data/discrete_'
+    # data_dir = './data/discrete_'
+    data_dir = './data/cartpole_greedy_ppo_'
     data_path = data_dir+'state.npy'
     label_path = data_dir+'action.npy'
 
     # a data loader with all data in dataset
-    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test', ToTensor=True),
                                     batch_size=int(1e4),
                                     shuffle=True)
     accuracy_list=[]
@@ -99,14 +100,28 @@ def discretization_evaluation(tree, discretized_tree):
     
 
 if __name__ == '__main__':    
-    from cascade_tree_train import learner_args
+    # from cascade_tree_train import learner_args
     from cascade_tree import Cascade_DDT
-    learner_args['num_intermediate_variables']=2
-    learner_args['feature_learning_depth']=3
-    learner_args['decision_depth']=3
+    learner_args = {
+    'num_intermediate_variables': 2,
+    'feature_learning_depth': 1,
+    'decision_depth': 2,
+    'input_dim': 4,
+    'output_dim': 2,
+    'lr': 1e-3,
+    'weight_decay': 0.,  # 5e-4
+    'batch_size': 1280,
+    'exp_scheduler_gamma': 1.,
+    'cuda': True,
+    'epochs': 40,
+    'log_interval': 100,
+    'greatest_path_probability': True,
+    'beta_fl' : False,  # temperature for feature learning
+    'beta_dc' : False,  # temperature for decision making
+    }
     
-    for i in range(1,4):
-        learner_args['model_path'] = './model/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
+    for i in range(4,7):
+        learner_args['model_path'] = './model_cartpole/trees/cascade_'+str(learner_args['feature_learning_depth'])+'_'\
             +str(learner_args['decision_depth'])+'_var'+str(learner_args['num_intermediate_variables'])+'_id'+str(i)
 
         learner_args['cuda'] = False  # cpu
@@ -114,7 +129,7 @@ if __name__ == '__main__':
         tree = Cascade_DDT(learner_args)
         tree.load_model(learner_args['model_path'])
 
-        discretized_tree = discretize_tree(tree, FL=True, DC=False)
+        discretized_tree = discretize_tree(tree, FL=True, DC=True)
 
         discretization_evaluation(tree, discretized_tree)
-    discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')
+        discretized_tree.save_model(model_path = learner_args['model_path']+'_discretized')
