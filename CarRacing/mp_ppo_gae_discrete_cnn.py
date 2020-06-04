@@ -29,8 +29,6 @@ TRAIN_EPI     = 200000
 NUM_WORKERS   = 1
 MODEL_PATH = './model/ppo_discrete_'+EnvName
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
 dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
 SiLU = lambda x: x*torch.sigmoid(x)
 
@@ -118,9 +116,9 @@ class PPO(nn.Module):
             done_mask = 0 if done else 1
             done_lst.append([done_mask])
             
-        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).to(device), torch.tensor(a_lst).to(device), \
-                                          torch.tensor(r_lst).to(device), torch.tensor(s_prime_lst, dtype=torch.float).to(device), \
-                                          torch.tensor(done_lst, dtype=torch.float).to(device), torch.tensor(prob_a_lst).to(device)
+        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).cuda(), torch.tensor(a_lst).cuda(), \
+                                          torch.tensor(r_lst).cuda(), torch.tensor(s_prime_lst, dtype=torch.float).cuda(), \
+                                          torch.tensor(done_lst, dtype=torch.float).cuda(), torch.tensor(prob_a_lst).cuda()
         self.data = []
         return s, a, r, s_prime, done_mask, prob_a
         
@@ -138,7 +136,7 @@ class PPO(nn.Module):
                 advantage = gamma * lmbda * advantage + delta_t[0]
                 advantage_lst.append([advantage])
             advantage_lst.reverse()
-            advantage = torch.tensor(advantage_lst, dtype=torch.float).to(device)
+            advantage = torch.tensor(advantage_lst, dtype=torch.float).cuda()
             pi = self.pi(s, softmax_dim=1)
             pi_a = pi.gather(1,a)
             ratio = torch.exp(torch.log(pi_a) - torch.log(prob_a))  # a/b == exp(log(a)-log(b))
@@ -152,7 +150,7 @@ class PPO(nn.Module):
             self.optimizer.step()
 
     def choose_action(self, s, DIST=False):
-        prob = model.pi(torch.Tensor(s.astype(float)).to(device)).squeeze().detach().cpu()
+        prob = model.pi(torch.Tensor(s.astype(float)).cuda()).squeeze().detach().cpu()
         m = Categorical(prob)
         a = m.sample().item()
         if DIST:
@@ -182,48 +180,50 @@ def ShareParameters(adamoptim):
             state['exp_avg_sq'].share_memory_()
     
 def run(id, model, rewards_queue, train=False, test=False):
-    # env = DiscreteActionWrapper(gym.make(EnvName))
-    env = ObservationWrapper(gym.make(EnvName))
+    with torch.cuda.device(id % torch.cuda.device_count()):
+        model.to_cuda()
+        # env = DiscreteActionWrapper(gym.make(EnvName))
+        env = ObservationWrapper(gym.make(EnvName))
 
-    episode_r = 0.0
-    print_interval = 10        
-    Epi_r = []
-    Epi_length = []
-    for n_epi in range(TRAIN_EPI):
-        s = env.reset()
         episode_r = 0.0
-        done = False
-        while not done:
-            for t in range(T_horizon):
-                # prob = model.pi(torch.from_numpy(s).float()).squeeze()
-                # s = torch.Tensor(s.astype(float)).to(device)
-                prob = model.pi(torch.Tensor(s.astype(float)).to(device)).squeeze().detach().cpu()
-                m = Categorical(prob)
-                a = m.sample().item()
-                s_prime, r, done, info = env.step(a)
-                if test:
-                    env.render()
-                # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-                model.put_data((s, a, r, s_prime, prob[a].item(), done))
+        print_interval = 10        
+        Epi_r = []
+        Epi_length = []
+        for n_epi in range(TRAIN_EPI):
+            s = env.reset()
+            episode_r = 0.0
+            done = False
+            while not done:
+                for t in range(T_horizon):
+                    # prob = model.pi(torch.from_numpy(s).float()).squeeze()
+                    # s = torch.Tensor(s.astype(float)).to(device)
+                    prob = model.pi(torch.Tensor(s.astype(float)).cuda()).squeeze().detach().cpu()
+                    m = Categorical(prob)
+                    a = m.sample().item()
+                    s_prime, r, done, info = env.step(a)
+                    if test:
+                        env.render()
+                    # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+                    model.put_data((s, a, r, s_prime, prob[a].item(), done))
 
-                s = s_prime
+                    s = s_prime
 
-                episode_r += r
-                if done:
-                    break
-            if train:
-                model.train_net()
-        if rewards_queue is not None:
-            rewards_queue.put(episode_r)
-        Epi_r.append(episode_r)
-        Epi_length.append(t)
-        if n_epi%print_interval==0 and n_epi!=0:
-            if train:
-                torch.save(model.state_dict(), MODEL_PATH)
-            print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
-            Epi_length = []
-            Epi_r = []
-    env.close()
+                    episode_r += r
+                    if done:
+                        break
+                if train:
+                    model.train_net()
+            if rewards_queue is not None:
+                rewards_queue.put(episode_r)
+            Epi_r.append(episode_r)
+            Epi_length.append(t)
+            if n_epi%print_interval==0 and n_epi!=0:
+                if train:
+                    torch.save(model.state_dict(), MODEL_PATH)
+                print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
+                Epi_length = []
+                Epi_r = []
+        env.close()
 
 
 def plot(rewards):
@@ -245,7 +245,7 @@ if __name__ == '__main__':
     # env = DiscreteActionWrapper(gym.make(EnvName))
     env = ObservationWrapper(gym.make(EnvName))
 
-    model = PPO(env.observation_space, env.action_space).to(device)
+    model = PPO(env.observation_space, env.action_space)
 
     if args.train:
         model.share_memory()
