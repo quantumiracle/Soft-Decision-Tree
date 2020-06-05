@@ -28,7 +28,7 @@ Episodes      = 5000
 # EnvName = 'CartPole-v1' 
 EnvName = 'LunarLander-v2'  
 
-path='mlp'+args.hidden_dim'_ppo_discrete_'+EnvName+'_id'+str(args.id)
+path='mlp_ppo_discrete_'+EnvName+'_id'+str(args.id)
 
 model_path = './model/'+path
 
@@ -36,11 +36,16 @@ class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim=args.hidden_dim
-        self.fc1   = nn.Linear(state_dim,hidden_dim)
-        self.fc_pi = nn.Linear(hidden_dim,action_dim)
-        self.fc_v  = nn.Linear(hidden_dim,1)
+        hidden_dim1=args.hidden_dim  # policy
+        hidden_dim2=128
+        self.fc1   = nn.Linear(state_dim,hidden_dim1)
+        self.fc2   = nn.Linear(state_dim,hidden_dim2)
+        self.fc_pi = nn.Linear(hidden_dim1,action_dim)
+        self.fc_v  = nn.Linear(hidden_dim2,1)
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
+
+        # for p in self.parameters():
+        #     print(p, p.numel())
 
     def pi(self, x, softmax_dim = -1):
         x = F.relu(self.fc1(x))
@@ -51,7 +56,7 @@ class PPO(nn.Module):
     def v(self, x):
         if isinstance(x, (np.ndarray, np.generic) ):
             x = torch.tensor(x)
-        x = F.relu(self.fc1(x))
+        x = F.relu(self.fc2(x))
         v = self.fc_v(x)
         return v
       

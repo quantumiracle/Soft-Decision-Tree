@@ -11,6 +11,8 @@ import numpy as np
 from cascade_tree import Cascade_DDT 
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
+parser.add_argument('--depth1', dest='feature_learning_depth', default=False)
+parser.add_argument('--depth2', dest='decision_depth', default=False)
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
 parser.add_argument('--id', dest='id', default=False)
@@ -24,12 +26,11 @@ gamma         = 0.98
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-Episodes      = 3000
+Episodes      = 5000
 # T_horizon     = 20
-EnvName = 'CartPole-v1'  # 'Pendulum-v0'
-depth1=2
-depth2=2
-path='cdt_ppo_discrete_'+EnvName+'depth_'+str(depth1)+str(depth2)+'_id'+str(args.id)
+# EnvName = 'CartPole-v1' # LunarLander-v2
+EnvName = 'LunarLander-v2' 
+path='cdt_ppo_discrete_'+EnvName+'depth_'+args.feature_learning_depth+args.decision_depth+'_id'+str(args.id)
 model_path = './model_cdt_ppo/'+path
 env = gym.make(EnvName)
 state_dim = env.observation_space.shape[0]
@@ -38,10 +39,10 @@ env.close()
 
 learner_args = {
     'num_intermediate_variables': 2,
-    'feature_learning_depth': depth1,
-    'decision_depth': depth2,
-    'input_dim': 4,
-    'output_dim': 2,
+    'feature_learning_depth': int(args.feature_learning_depth),
+    'decision_depth': int(args.decision_depth),
+    'input_dim': 8,
+    'output_dim': 4,
     'lr': 1e-3,
     'weight_decay': 0.,  # 5e-4
     'batch_size': 1280,

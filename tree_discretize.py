@@ -71,9 +71,9 @@ if __name__ == '__main__':
     from SDT import SDT
 
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 3
+    learner_args['depth'] = 4
     for i in range(4,7):
-        learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
+        learner_args['model_path'] = './model_cartpole_80/trees/sdt_'+str(learner_args['depth'])+'_id'+str(i)
 
         tree = SDT(learner_args)
         tree.load_model(learner_args['model_path'])
