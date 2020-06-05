@@ -11,6 +11,7 @@ import numpy as np
 from SDT import SDT 
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
+parser.add_argument('--depth', dest='depth', default=False)
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
 parser.add_argument('--id', dest='id', default=False)
@@ -24,11 +25,11 @@ gamma         = 0.98
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-Episodes      = 3000
+Episodes      = 5000  # 3000 for CartPole, 5000 for LunarLander
 # T_horizon     = 20
-EnvName = 'CartPole-v1'  # 'Pendulum-v0'
-depth=2
-path='sdt_ppo_discrete_'+EnvName+'depth_'+str(depth)+'_id'+str(args.id)
+# EnvName = 'CartPole-v1' # LunarLander-v2
+EnvName = 'LunarLander-v2' 
+path='sdt_ppo_discrete_'+EnvName+'depth_'+args.depth+'_id'+str(args.id)
 model_path = './model_sdt_ppo/'+path
 env = gym.make(EnvName)
 state_dim = env.observation_space.shape[0]
@@ -37,7 +38,7 @@ env.close()
 
 learner_args = {'input_dim': state_dim,
                 'output_dim': action_dim,
-                'depth': depth,
+                'depth': int(args.depth),
                 'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
