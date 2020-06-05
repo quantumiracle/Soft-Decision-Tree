@@ -81,7 +81,7 @@ if __name__ == '__main__':
     from cascade_tree import Cascade_DDT
     learner_args = {
     'num_intermediate_variables': 2,
-    'feature_learning_depth': 1,
+    'feature_learning_depth': 2,
     'decision_depth': 2,
     'input_dim': 4,
     'output_dim': 2,
