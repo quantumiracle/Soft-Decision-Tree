@@ -16,9 +16,9 @@ do
     #python3 sdt_train.py --depth=3 --id="$i"
     #python3 sdt_train_ppo.py --depth=7 --id="$i"
     # python3 sdt_train_cartpole.py --depth=4 --id="$i"
-    python3 sdt_ppo_gae_discrete.py --train --id="$i"
-    # python3 ppo_gae_discrete.py --train --id="$i"
-    #python3 cdt_ppo_gae_discrete.py --train --id="$i"
+    #python3 sdt_ppo_gae_discrete.py --train --id="$i"
+    python3 ppo_gae_discrete.py --train --id="$i"
+    python3 cdt_ppo_gae_discrete.py --train --id="$i"
     #python3 sdf_train.py --num_trees=3 --depth=9 --id="$i"
     #python3 sdf_module_train.py --num_trees=7 --depth=5 --id="$i"
 done
