@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-file_name='sdt_ppo_discreteCartPole-v1'
+file_name='cdt_ppo_discrete_CartPole-v1_id5'
 
 r = np.load(file_name+'.npy')
 x=np.arange(r.shape[0])
