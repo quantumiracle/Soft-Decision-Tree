@@ -8,6 +8,14 @@ import argparse
 import matplotlib.pyplot as plt
 import numpy as np
 
+parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
+parser.add_argument('--train', dest='train', action='store_true', default=False)
+parser.add_argument('--test', dest='test', action='store_true', default=False)
+parser.add_argument('--collect', dest='collect', action='store_true', default=False)
+parser.add_argument('--id', dest='id', default=False)
+
+args = parser.parse_args()
+
 #Hyperparameters
 learning_rate = 0.0005
 gamma         = 0.98
@@ -15,16 +23,18 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 # T_horizon     = 20
-# EnvName = 'CartPole-v1'  # LunarLander-v2
-EnvName = 'LunarLander-v2'  # LunarLander-v2
+EnvName = 'CartPole-v1' 
+# EnvName = 'LunarLander-v2'  
 
-model_path = './model/ppo_discrete_'+EnvName
+path='mlp_ppo_discrete_'+EnvName+'_id'+str(args.id)
+
+model_path = './model/'+path
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim=128
+        hidden_dim=24
         self.fc1   = nn.Linear(state_dim,hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
@@ -168,7 +178,7 @@ def run(mode='train'):
             model.train_net()
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/ppo_discrete_'+env.spec.id, rewards_list)
+                np.save('./log/'+path, rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
@@ -214,12 +224,6 @@ def collect_data():
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
-    parser.add_argument('--train', dest='train', action='store_true', default=False)
-    parser.add_argument('--test', dest='test', action='store_true', default=False)
-    parser.add_argument('--collect', dest='collect', action='store_true', default=False)
-    args = parser.parse_args()
-
     if args.train:
         run(mode='train')
     if args.test:

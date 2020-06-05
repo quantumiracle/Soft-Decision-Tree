@@ -27,7 +27,9 @@ K_epoch       = 3
 Episodes      = 3000
 # T_horizon     = 20
 EnvName = 'CartPole-v1'  # 'Pendulum-v0'
-model_path = './model_sdt_ppo/sdt_ppo_discrete_'+EnvName+'_id'+str(args.id)
+depth=2
+path='sdt_ppo_discrete_'+EnvName+'depth_'+str(depth)+'_id'+str(args.id)
+model_path = './model_sdt_ppo/'+path
 env = gym.make(EnvName)
 state_dim = env.observation_space.shape[0]
 action_dim = env.action_space.n  # discrete
@@ -35,7 +37,7 @@ env.close()
 
 learner_args = {'input_dim': state_dim,
                 'output_dim': action_dim,
-                'depth': 3,
+                'depth': depth,
                 'lamda': 1e-3,  # 1e-3
                 'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
@@ -185,7 +187,7 @@ def run(train=False, test=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/sdt_ppo_discrete_'+env.spec.id+'_id'+str(args.id), rewards_list)
+                np.save('./log/'+path, rewards_list)
                 torch.save(model.state_dict(), model_path)
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
