@@ -147,7 +147,7 @@ def run(mode='train'):
     a_list=[]
     s_list=[]
     rewards_list=[]
-    for n_epi in range(3000):
+    for n_epi in range(Episodes):
         s = env.reset()
         done = False
         reward = 0.0
