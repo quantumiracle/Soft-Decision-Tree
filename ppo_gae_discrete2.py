@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
-parser.add_argument('--dim', dest='hidden_dim', action='store_true', default=False)
+parser.add_argument('--dim', dest='hidden_dim', default=False)
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
 parser.add_argument('--collect', dest='collect', action='store_true', default=False)
@@ -36,7 +36,7 @@ class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim1=args.hidden_dim  # policy
+        hidden_dim1=int(args.hidden_dim)  # policy
         hidden_dim2=128
         self.fc1   = nn.Linear(state_dim,hidden_dim1)
         self.fc2   = nn.Linear(state_dim,hidden_dim2)

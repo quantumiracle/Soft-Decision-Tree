@@ -1,0 +1,11 @@
+compute002
+1
+usage: ppo_gae_discrete2.py [-h] [--dim] [--train] [--test] [--collect]
+                            [--id ID]
+ppo_gae_discrete2.py: error: argument --dim: ignored explicit argument '128'
+usage: ppo_gae_discrete2.py [-h] [--dim] [--train] [--test] [--collect]
+                            [--id ID]
+ppo_gae_discrete2.py: error: argument --dim: ignored explicit argument '128'
+usage: ppo_gae_discrete2.py [-h] [--dim] [--train] [--test] [--collect]
+                            [--id ID]
+ppo_gae_discrete2.py: error: argument --dim: ignored explicit argument '128'
