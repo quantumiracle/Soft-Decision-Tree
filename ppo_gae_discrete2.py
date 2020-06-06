@@ -28,7 +28,7 @@ Episodes      = 5000
 # EnvName = 'CartPole-v1' 
 EnvName = 'LunarLander-v2'  
 
-path='mlp_ppo_discrete_'+EnvName+'_id'+str(args.id)
+path='mlp'+args.hidden_dim+'_ppo_discrete_'+EnvName+'_id'+str(args.id)
 
 model_path = './model/'+path
 

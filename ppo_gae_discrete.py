@@ -9,7 +9,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
-parser.add_argument('--dim', dest='hidden_dim', action='store_true', default=False)
 parser.add_argument('--train', dest='train', action='store_true', default=False)
 parser.add_argument('--test', dest='test', action='store_true', default=False)
 parser.add_argument('--collect', dest='collect', action='store_true', default=False)
@@ -28,7 +27,7 @@ Episodes      = 5000
 # EnvName = 'CartPole-v1' 
 EnvName = 'LunarLander-v2'  
 
-path='mlp'+args.hidden_dim'_ppo_discrete_'+EnvName+'_id'+str(args.id)
+path='mlp'+args.hidden_dim+'_ppo_discrete_'+EnvName+'_id'+str(args.id)
 
 model_path = './model/'+path
 
