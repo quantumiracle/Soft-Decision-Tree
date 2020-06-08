@@ -151,7 +151,7 @@ class PPO(nn.Module):
 
     def choose_action(self, s):
         # reshape the input
-        s= torch.from_numpy(s).contiguous().view(-1).unsqueeze(0).float().cuda()
+        s= torch.from_numpy(s).float().cuda()
         prob = self.pi(s).squeeze()
         m = Categorical(prob)
         a = m.sample().item()
