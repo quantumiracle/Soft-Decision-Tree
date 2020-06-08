@@ -7,18 +7,7 @@ from torch.distributions import Categorical
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-# from sdt_train import learner_args, device
 from cascade_tree import Cascade_DDT 
-
-parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
-parser.add_argument('--depth1', dest='feature_learning_depth', default=False)
-parser.add_argument('--depth2', dest='decision_depth', default=False)
-parser.add_argument('--train', dest='train', action='store_true', default=False)
-parser.add_argument('--test', dest='test', action='store_true', default=False)
-parser.add_argument('--id', dest='id', default=False)
-
-args = parser.parse_args()
-
 
 #Hyperparameters
 learning_rate = 0.0005
@@ -30,44 +19,19 @@ Episodes      = 5000
 # T_horizon     = 20
 # EnvName = 'CartPole-v1' # LunarLander-v2
 EnvName = 'LunarLander-v2' 
-path='cdt_ppo_discrete_'+EnvName+'depth_'+args.feature_learning_depth+args.decision_depth+'_id'+str(args.id)
-model_path = './model_cdt_ppo/'+path
-env = gym.make(EnvName)
-state_dim = env.observation_space.shape[0]
-action_dim = env.action_space.n  # discrete
-env.close()
-
-learner_args = {
-    'num_intermediate_variables': 2,
-    'feature_learning_depth': int(args.feature_learning_depth),
-    'decision_depth': int(args.decision_depth),
-    'input_dim': 8,
-    'output_dim': 4,
-    'lr': 1e-3,
-    'weight_decay': 0.,  # 5e-4
-    'batch_size': 1280,
-    'exp_scheduler_gamma': 1.,
-    'cuda': True,
-    'epochs': 40,
-    'log_interval': 100,
-    'greatest_path_probability': True,
-    'beta_fl' : False,  # temperature for feature learning
-    'beta_dc' : False,  # temperature for decision making
-}
-
-device = torch.device('cuda' if learner_args['cuda'] else 'cpu')
-
 
 class PPO(nn.Module):
-    def __init__(self, state_dim, action_dim):
+    def __init__(self, state_dim, action_dim, learner_args):
         super(PPO, self).__init__()
         self.data = []
+        self.model_path = learner_args['model_path']
+        self.device = learner_args['device']
         hidden_dim=128
         self.fc1   = nn.Linear(state_dim,hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
 
-        self.cdt = Cascade_DDT(learner_args).to(device)
+        self.cdt = Cascade_DDT(learner_args).to(self.device)
         self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
 
         self.optimizer = optim.Adam(list(self.parameters())+list(self.cdt.parameters()), lr=learning_rate)
@@ -101,9 +65,9 @@ class PPO(nn.Module):
             done_mask = 0 if done else 1
             done_lst.append([done_mask])
             
-        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).to(device), torch.tensor(a_lst).to(device), \
-                                          torch.tensor(r_lst).to(device), torch.tensor(s_prime_lst, dtype=torch.float).to(device), \
-                                          torch.tensor(done_lst, dtype=torch.float).to(device), torch.tensor(prob_a_lst).to(device)
+        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).to(self.device), torch.tensor(a_lst).to(self.device), \
+                                          torch.tensor(r_lst).to(self.device), torch.tensor(s_prime_lst, dtype=torch.float).to(self.device), \
+                                          torch.tensor(done_lst, dtype=torch.float).to(self.device), torch.tensor(prob_a_lst).to(self.device)
         self.data = []
         return s, a, r, s_prime, done_mask, prob_a
         
@@ -121,7 +85,7 @@ class PPO(nn.Module):
                 advantage = gamma * lmbda * advantage + delta_t[0]
                 advantage_lst.append([advantage])
             advantage_lst.reverse()
-            advantage = torch.tensor(advantage_lst, dtype=torch.float).to(device)
+            advantage = torch.tensor(advantage_lst, dtype=torch.float).to(self.device)
 
             pi = self.pi(s)
             pi_a = pi.gather(1,a)
@@ -135,13 +99,13 @@ class PPO(nn.Module):
             self.optimizer.step()
 
     def choose_action(self, s):
-        prob = self.pi(torch.from_numpy(s).unsqueeze(0).float().to(device)).squeeze()
+        prob = self.pi(torch.from_numpy(s).unsqueeze(0).float().to(self.device)).squeeze()
         m = Categorical(prob)
         a = m.sample().item()
         return a, prob
 
     def load_model(self, ):
-        self.load_state_dict(torch.load(model_path))
+        self.load_state_dict(torch.load(self.model_path))
 
 
 def plot(rewards):
@@ -153,12 +117,12 @@ def plot(rewards):
     plt.clf()  
     plt.close()
 
-def run(train=False, test=False):
+def run(EnvName, learner_args, train=False, test=False):
     env = gym.make(EnvName)
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
-    model = PPO(state_dim, action_dim).to(device)
+    model = PPO(state_dim, action_dim, learner_args,).to(learner_args['device'])
     print_interval = 20
     if test:
         model.load_model()
@@ -169,7 +133,6 @@ def run(train=False, test=False):
         reward = 0.0
         step=0
         while not done:
-            # for t in range(T_horizon):
             a, prob = model.choose_action(s)
             s_prime, r, done, info = env.step(a)
             if test:
@@ -189,8 +152,8 @@ def run(train=False, test=False):
         if train:   
             if n_epi%print_interval==0 and n_epi!=0:
                 # plot(rewards_list)
-                np.save('./log/'+path, rewards_list)
-                torch.save(model.state_dict(), model_path)
+                np.save('./log/'+learner_args['path'], rewards_list)
+                torch.save(model.state_dict(), learner_args['model_path'])
                 print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
         else:
             print("# of episode :{}, reward : {:.1f}, episode length: {}".format(n_epi, reward, step))
@@ -198,7 +161,46 @@ def run(train=False, test=False):
     env.close()
 
 if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
+    parser.add_argument('--depth1', dest='feature_learning_depth', default=False)
+    parser.add_argument('--depth2', dest='decision_depth', default=False)
+    parser.add_argument('--train', dest='train', action='store_true', default=False)
+    parser.add_argument('--test', dest='test', action='store_true', default=False)
+    parser.add_argument('--id', dest='id', default=False)
+
+    args = parser.parse_args()
+
+    env = gym.make(EnvName)
+    state_dim = env.observation_space.shape[0]
+    action_dim = env.action_space.n  # discrete
+    env.close()
+
+    learner_args = {
+        'num_intermediate_variables': 2,
+        'feature_learning_depth': int(args.feature_learning_depth),
+        'decision_depth': int(args.decision_depth),
+        'input_dim': 8,
+        'output_dim': 4,
+        'lr': 1e-3,
+        'weight_decay': 0.,  # 5e-4
+        'batch_size': 1280,
+        'exp_scheduler_gamma': 1.,
+        'cuda': True,
+        'epochs': 40,
+        'log_interval': 100,
+        'greatest_path_probability': True,
+        'beta_fl' : False,  # temperature for feature learning
+        'beta_dc' : False,  # temperature for decision making
+    }
+
+    path='cdt_ppo_discrete_'+EnvName+'depth_'+args.feature_learning_depth+args.decision_depth+'_id'+str(args.id)
+    learner_args['path'] = path
+    learner_args['model_path'] = './model_cdt_ppo/'+path
+    learner_args['device'] = torch.device('cuda' if learner_args['cuda'] else 'cpu')
+
+
     if args.train:
-        run(train=True, test=False)
+        run(EnvName, learner_args, train=True, test=False)
     if args.test:
-        run(train=False, test=True)
+        run(EnvName, learner_args,train=False, test=True)

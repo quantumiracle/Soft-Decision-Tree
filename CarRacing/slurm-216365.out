@@ -1,9 +1,0 @@
-compute005
-NoDevFiles
-[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
-Box(3, 95, 80)
-/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
-  result = entry_point.load(False)
-slurmstepd: error: *** JOB 216365 ON compute005 CANCELLED AT 2020-06-03T23:35:58 ***
-/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
-  len(cache))

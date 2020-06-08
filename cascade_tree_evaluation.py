@@ -14,6 +14,10 @@ import copy
 
 EnvName = 'CartPole-v1'  # LunarLander-v2
 
+__all__ = ['evaluate',
+            'plot_importance_single_episode'
+            ]
+
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, DrawImportance=True, img_path = 'img/eval_tree'):
     env = gym.make(EnvName)
     if seed:

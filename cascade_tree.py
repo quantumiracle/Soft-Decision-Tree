@@ -86,7 +86,6 @@ class Cascade_DDT(nn.Module):
     def decision_forward(self):
         """
         Forward the differentiable decision tree
-
         """
         self.intermediate_features_construct()
         aug_features = self._data_augment_(self.features)
