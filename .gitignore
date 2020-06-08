@@ -2,4 +2,5 @@ data/
 data/*.npy
 *.png
 *.gif
-CarRacing/model/
+image_based_envs/model/
+image_based_envs/cdt_model/
