@@ -18,7 +18,8 @@ import math
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
 # EnvName = 'CarRacing-v0'
-EnvName = 'Enduro-v0'
+# EnvName = 'Enduro-v0'
+EnvName = 'Freeway-v0'
 
 
 #Hyperparameters
@@ -28,8 +29,8 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
-TRAIN_EPI     = 200000
-NUM_WORKERS   = 5
+TRAIN_EPI     = 20000
+NUM_WORKERS   = 1
 MODEL_PATH = './model/ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
@@ -239,7 +240,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('learn_'+EnvName, rewards)
+                np.save('ppo_learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 
