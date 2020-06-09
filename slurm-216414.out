@@ -1,8 +1,0 @@
-compute003
-3
-/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
-  result = entry_point.load(False)
-/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
-  result = entry_point.load(False)
-/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
-  result = entry_point.load(False)

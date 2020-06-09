@@ -33,7 +33,7 @@ eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 200000
-NUM_WORKERS   = 2
+NUM_WORKERS   = 1
 MODEL_PATH = './cdt_model/ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
