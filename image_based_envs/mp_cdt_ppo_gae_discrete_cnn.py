@@ -21,6 +21,7 @@ torch.multiprocessing.set_start_method('forkserver', force=True) # critical for 
 # EnvName = 'CarRacing-v0'
 # EnvName = 'Enduro-v0'
 EnvName = 'Freeway-v0'
+# EnvName = 'CartPole-v1'
 
 
 #Hyperparameters
@@ -71,9 +72,10 @@ class PPO(nn.Module):
         self.fc_h2 = nn.Linear(in_layer_dim, hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,self.action_dim)  
         self.fc_v  = nn.Linear(hidden_dim,1)
-        self.optimizer = SharedAdam(self.parameters(), lr=learning_rate)
-
         self.cdt = Cascade_DDT(learner_args).cuda()
+
+        self.optimizer = SharedAdam(list(self.parameters())+list(self.cdt.parameters()), lr=learning_rate)
+
         # self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
 
     def pi(self, x):
@@ -87,23 +89,21 @@ class PPO(nn.Module):
     #         x = self.in_layer2(x)
     #         x = x.view(x.shape[0], -1)
     #     else:
-    #         x = self.in_layer1(x)
-    #         x = self.in_layer2(x)
+    #         x = self.in_layer(x)
     #     x = dSiLU(self.fc_h1(x))
     #     x = self.fc_pi(x)
     #     prob = F.softmax(x, dim=softmax_dim)
     #     return prob
     
     def v(self, x):
-        if len(x.shape) >1:
+        if len(x.shape) >2:
             if len(x.shape) ==3:
                 x = x.unsqueeze(0)
             x = self.in_layer1(x)
             x = self.in_layer2(x)            
             x = x.view(x.shape[0], -1)
         else:
-            x = self.in_layer1(x)
-            x = self.in_layer2(x)
+            x = self.in_layer(x)
         x = dSiLU(self.fc_h2(x))
         v = self.fc_v(x)
         return v
@@ -145,7 +145,7 @@ class PPO(nn.Module):
                 advantage_lst.append([advantage])
             advantage_lst.reverse()
             advantage = torch.tensor(advantage_lst, dtype=torch.float).cuda()
-            pi = self.pi(s, softmax_dim=1)
+            pi = self.pi(s)
             pi_a = pi.gather(1,a)
             ratio = torch.exp(torch.log(pi_a) - torch.log(prob_a))  # a/b == exp(log(a)-log(b))
 
@@ -177,15 +177,16 @@ def run(id, model, rewards_queue, train=False, test=False):
         model.cuda()
         model.cdt.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
+        # env = gym.make(EnvName)
         env = ObservationWrapper(gym.make(EnvName))
 
-        episode_r = 0.0
-        print_interval = 10        
+        print_interval = 10   
         Epi_r = []
         Epi_length = []
         for n_epi in range(TRAIN_EPI):
             s = env.reset()
             episode_r = 0.0
+            step=0     
             done = False
             while not done:
                 a, prob = model.choose_action(s)
@@ -198,6 +199,7 @@ def run(id, model, rewards_queue, train=False, test=False):
                 s = s_prime
 
                 episode_r += r
+                step+=1
                 if done:
                     break
             if train:
@@ -205,11 +207,11 @@ def run(id, model, rewards_queue, train=False, test=False):
             if rewards_queue is not None:
                 rewards_queue.put(episode_r)
             Epi_r.append(episode_r)
-            Epi_length.append(t)
+            Epi_length.append(step)
             if n_epi%print_interval==0 and n_epi!=0:
                 if train:
                     torch.save(model.state_dict(), MODEL_PATH)
-            print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
+            print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
             Epi_length = []
             Epi_r = []
         env.close()
@@ -222,10 +224,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     # env = DiscreteActionWrapper(gym.make(EnvName))
+    # env = gym.make(EnvName)
     env = ObservationWrapper(gym.make(EnvName))
-    state_dim=1
-    for dim in env.observation_space.shape:
-        state_dim*=dim
+
+    if len(env.observation_space.shape)>1:
+        state_dim=1
+        for dim in env.observation_space.shape:
+            state_dim*=dim
+    else:
+        state_dim=env.observation_space.shape[0]
     action_dim = env.action_space.n
     print(state_dim, action_dim)
 
