@@ -33,7 +33,7 @@ eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 200000
-NUM_WORKERS   = 1
+NUM_WORKERS   = 2
 MODEL_PATH = './cdt_model/ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
@@ -80,7 +80,7 @@ class PPO(nn.Module):
         # self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
 
     def pi(self, x):
-        return self.cdt.forward(x, LogProb=False)[1].to(x.device)
+        return self.cdt.forward(x, LogProb=False)[1]
 
     # def pi(self, x, softmax_dim = -1):
     #     if len(x.shape) >1:
@@ -174,9 +174,8 @@ class PPO(nn.Module):
         self.eval()
     
 def run(id, model, rewards_queue, train=False, test=False):
-    with torch.cuda.device(id+1 % torch.cuda.device_count()):
-        model.cdt.cuda()
     with torch.cuda.device(id % torch.cuda.device_count()):
+        model.cdt.cuda()
         model.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
         # env = gym.make(EnvName)
@@ -263,6 +262,7 @@ if __name__ == '__main__':
 
     if args.train:
         model.share_memory()
+        model.cdt.share_memory()
         ShareParameters(model.optimizer)
         rewards_queue=mp.Queue()  # used for get rewards from all processes and plot the curve
         processes=[]
