@@ -44,12 +44,14 @@ class ObservationWrapper(gym.Wrapper):
         super(ObservationWrapper, self).__init__(env)
         # switch order for observation space
         dim1, dim2, channel = env.observation_space.shape  
-        self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, int((dim1-30)/3), int((dim2-10)/3)))
-
+        self.downsample_rate=3
+        self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, int((dim1-30)/self.downsample_rate), int((dim2-10)/self.downsample_rate)))
+        print(self.observation_space)
+    
     def prepro(self, I):
         """Downsample 210x160x3 uint8 frame into 95x80x3."""
         I=I[10:190, 10:]
-        I = I[::3, ::3]
+        I = I[::self.downsample_rate, ::self.downsample_rate]
         return I
 
     def step(self, action):
