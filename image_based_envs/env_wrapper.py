@@ -44,12 +44,13 @@ class ObservationWrapper(gym.Wrapper):
         super(ObservationWrapper, self).__init__(env)
         # switch order for observation space
         dim1, dim2, channel = env.observation_space.shape  
-        self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, int((dim1-20)/2), int(dim2/2)))
+        self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, int((dim1-60)/3), int((dim2-10)/3)))
+        print(self.observation_space)
 
     def prepro(self, I):
         """Downsample 210x160x3 uint8 frame into 95x80x3."""
-        I=I[10:200]
-        I = I[::2, ::2]
+        I=I[20:190, 10:]
+        I = I[::3, ::3]
         return I
 
     def step(self, action):
@@ -62,17 +63,24 @@ class ObservationWrapper(gym.Wrapper):
 
 
 if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+
     # test
-    EnvName = 'CarRacing-v0'
+    # EnvName = 'CarRacing-v0'
     # env = DiscreteActionWrapper(gym.make(EnvName))
-    env =gym.make(EnvName)
+    # env =gym.make(EnvName)
+
+    EnvName = 'Freeway-v0'
+    env = ObservationWrapper(gym.make(EnvName))
 
     env.reset()
     for _ in range(10000):
         # env.render()
         a = env.action_space.sample()
         print(a)
-        env.step(a) # take a random action
+        s, r, d, _ = env.step(a) # take a random action
+        plt.imshow(np.moveaxis(s, 0, 2))
+        plt.show()
     env.close()
 
 
