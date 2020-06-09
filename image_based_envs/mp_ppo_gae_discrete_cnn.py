@@ -178,6 +178,7 @@ def run(id, model, rewards_queue, train=False, test=False):
         for n_epi in range(TRAIN_EPI):
             s = env.reset()
             episode_r = 0.0
+            step=0
             done = False
             while not done:
                 a, prob = model.choose_action(s)
@@ -191,6 +192,7 @@ def run(id, model, rewards_queue, train=False, test=False):
                 s = s_prime
 
                 episode_r += r
+                step+=1
                 if done:
                     break
             if train:
@@ -198,7 +200,7 @@ def run(id, model, rewards_queue, train=False, test=False):
             if rewards_queue is not None:
                 rewards_queue.put(episode_r)
             Epi_r.append(episode_r)
-            Epi_length.append(t)
+            Epi_length.append(step)
             if n_epi%print_interval==0 and n_epi!=0:
                 if train:
                     torch.save(model.state_dict(), MODEL_PATH)
