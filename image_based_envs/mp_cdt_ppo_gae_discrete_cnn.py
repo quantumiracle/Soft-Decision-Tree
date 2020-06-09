@@ -174,10 +174,10 @@ class PPO(nn.Module):
         self.eval()
     
 def run(id, model, rewards_queue, train=False, test=False):
-    with torch.cuda.device(id % torch.cuda.device_count()):
-        model.cuda()
     with torch.cuda.device(id+1 % torch.cuda.device_count()):
         model.cdt.cuda()
+    with torch.cuda.device(id % torch.cuda.device_count()):
+        model.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
         # env = gym.make(EnvName)
         env = ObservationWrapper(gym.make(EnvName))
