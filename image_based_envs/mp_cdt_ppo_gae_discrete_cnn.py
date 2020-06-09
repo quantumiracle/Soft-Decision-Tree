@@ -73,14 +73,14 @@ class PPO(nn.Module):
         self.fc_h2 = nn.Linear(in_layer_dim, hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,self.action_dim)  
         self.fc_v  = nn.Linear(hidden_dim,1)
-        self.cdt = Cascade_DDT(learner_args).cuda()
+        self.cdt = Cascade_DDT(learner_args)
 
         self.optimizer = SharedAdam(list(self.parameters())+list(self.cdt.parameters()), lr=learning_rate)
 
         # self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
 
     def pi(self, x):
-        return self.cdt.forward(x, LogProb=False)[1]
+        return self.cdt.forward(x, LogProb=False)[1].to(x.device)
 
     # def pi(self, x, softmax_dim = -1):
     #     if len(x.shape) >1:
