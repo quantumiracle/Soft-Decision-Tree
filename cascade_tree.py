@@ -2,7 +2,6 @@
 """ Cascade a feature learning tree and a soft decision tree (sparse in features) """
 import torch
 import torch.nn as nn
-from utils.dataset import Dataset
 import numpy as np
 
 class Cascade_DDT(nn.Module):
