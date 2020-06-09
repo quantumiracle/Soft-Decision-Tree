@@ -12,9 +12,10 @@ from torch.multiprocessing import Process
 from env_wrapper import DiscreteActionWrapper, ObservationWrapper
 import math
 from common.utils import *
-import sys
-sys.path.insert(0,'..')
-from cascade_tree import Cascade_DDT 
+# import sys
+# sys.path.insert(0,'..')
+# from cascade_tree import Cascade_DDT 
+from image_cascade_tree import Cascade_DDT
 
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
