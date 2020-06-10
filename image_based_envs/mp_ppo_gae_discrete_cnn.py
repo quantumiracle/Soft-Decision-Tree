@@ -31,7 +31,7 @@ K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 20000
 NUM_WORKERS   = 1
-MODEL_PATH = './model/single_ppo_discrete_'+EnvName
+MODEL_PATH = './model/ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
     def __init__(self, obs_space, action_space, hidden_dim=128):
@@ -169,7 +169,7 @@ def run(id, model, rewards_queue, train=False, test=False):
     with torch.cuda.device(id % torch.cuda.device_count()):
         model.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
-        env = ObservationWrapper(gym.make(EnvName), selected_channel=2)
+        env = ObservationWrapper(gym.make(EnvName), selected_channel=None)
 
         episode_r = 0.0
         print_interval = 10        
@@ -216,7 +216,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     
     # env = DiscreteActionWrapper(gym.make(EnvName))
-    env = ObservationWrapper(gym.make(EnvName), selected_channel=2)
+    env = ObservationWrapper(gym.make(EnvName), selected_channel=None)
 
     model = PPO(env.observation_space, env.action_space)
 
@@ -242,7 +242,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('single_ppo_learn_'+EnvName, rewards)
+                np.save('ppo_learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 

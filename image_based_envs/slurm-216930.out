@@ -1,0 +1,7 @@
+compute004
+0
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+Box(1, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
