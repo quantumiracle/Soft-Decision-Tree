@@ -44,8 +44,7 @@ class ObservationWrapper(gym.Wrapper):
         """  
         Transform the observation for Atari games: downsample, select channel, truncate the edge pixels
 
-        selected_channel: selected channel index if not None
-
+        selected_channel: selected channel index if not None; also can be 'grey' to transform into grey-scale image
         """
         super(ObservationWrapper, self).__init__(env)
         # switch order for observation space for using PyTorch model
@@ -54,7 +53,7 @@ class ObservationWrapper(gym.Wrapper):
         self.selected_channel = selected_channel
         self.dim1 = int((dim1-30)/self.downsample_rate)
         self.dim2 = int((dim2-10)/self.downsample_rate)
-        if isinstance(self.selected_channel, int):
+        if isinstance(self.selected_channel, int) or self.selected_channel == 'grey':
             self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(1, self.dim1, self.dim2))
         elif self.selected_channel is None:
             self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, self.dim1, self.dim2))
@@ -64,25 +63,28 @@ class ObservationWrapper(gym.Wrapper):
     
     def prepro(self, I):
         """Downsample 210x160x3 uint8 frame into 95x80x3."""
+        cropped_I = I[10:190, 10:]
         if isinstance(self.selected_channel, int):
-            I=I[10:190, 10:, self.selected_channel:self.selected_channel+1]  # preserve the third dimension
-        elif self.selected_channel is None:
-            I=I[10:190, 10:]
+            I=cropped_I[:, :, self.selected_channel:self.selected_channel+1]  # preserve the third dimension
+        elif self.selected_channel is 'grey':
+            # transform RGB image to grey-scale image, following: https://pillow.readthedocs.io/en/3.2.x/reference/Image.html#PIL.Image.Image.convert
+            I = np.expand_dims(np.dot(cropped_I[...,:3], [0.2989, 0.5870, 0.1140]), 2)
         else:
-            raise NotImplementedError
+            I = cropped_I
 
         I = I[::self.downsample_rate, ::self.downsample_rate]
         return I
 
     def step(self, action):
+        # normalize the value and swap axis
         observation, reward, done, info = self.env.step(action)
-        return np.moveaxis(self.prepro(observation), 2, 0), reward, done, info
+        return np.moveaxis(self.prepro(observation), 2, 0)/255., reward, done, info
 
 
 
     def reset(self, **kwargs):
         observation = self.env.reset(**kwargs)
-        return np.moveaxis(self.prepro(observation), 2, 0)  # (H, W, C) -> (C, H, W)     
+        return np.moveaxis(self.prepro(observation), 2, 0)/255.  # (H, W, C) -> (C, H, W)     
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
@@ -93,16 +95,18 @@ if __name__ == '__main__':
     # env =gym.make(EnvName)
 
     EnvName = 'Freeway-v0'
-    env = ObservationWrapper(gym.make(EnvName), selected_channel=None)
+    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
 
     env.reset()
     for _ in range(10000):
         # env.render()
         a = env.action_space.sample()
         print(a)
-        s, r, d, _ = env.step(a) # take a random action\
-        plt.imshow(np.moveaxis(s, 0, 2))
-        # plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0])  # when selected channel is int
+        s, r, d, _ = env.step(a) # take a random action
+        print(s.shape)
+        # plt.imshow(np.moveaxis(s, 0, 2))
+        # plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0], vmin=0, vmax=1)  # when selected channel is int
+        plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0], cmap=plt.get_cmap('gray'), vmin=0, vmax=1)  # when selected channel is 'grey'
         plt.show()
     env.close()
 
