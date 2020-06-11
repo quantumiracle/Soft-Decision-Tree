@@ -1,0 +1,30 @@
+compute005
+0
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(3, 60, 50)
+9000 3
+Box(3, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(3, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 207, in run
+    model.train_net()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 149, in train_net
+    pi = self.pi(s)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 83, in pi
+    return self.cdt.forward(x, LogProb=False)[1]
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/image_cascade_tree.py", line 143, in forward
+    self.max_feature_value = self.features.view(-1, self.num_fl_leaves, self.args['num_intermediate_variables'])[:, ids, :]
+RuntimeError: CUDA out of memory. Tried to allocate 8.30 GiB (GPU 0; 10.92 GiB total capacity; 2.15 GiB already allocated; 7.37 GiB free; 233.19 MiB cached)
+slurmstepd: error: *** JOB 216983 ON compute005 CANCELLED AT 2020-06-10T17:15:12 ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))

@@ -238,7 +238,7 @@ if __name__ == '__main__':
     print(state_dim, action_dim)
 
     learner_args = {
-    'num_intermediate_variables': 10,
+    'num_intermediate_variables': 50,
     'feature_learning_depth': 2,
     'decision_depth': 2,
     'input_dim': state_dim,
