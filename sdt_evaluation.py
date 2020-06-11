@@ -7,15 +7,15 @@ from torch.distributions import Categorical
 import argparse
 import matplotlib.pyplot as plt
 import numpy as np
-from tree_plot import draw_tree, get_path
+from sdt_plot import draw_tree, get_path
 from heuristic_evaluation import normalize
 import os
 
-EnvName = 'CartPole-v1'  # LunarLander-v2
-# EnvName = 'LunarLander-v2' 
+# EnvName = 'CartPole-v1'  # LunarLander-v2
+EnvName = 'LunarLander-v2' 
 
 
-def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, img_path = 'img/eval_tree'):
+def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, DrawImportance=True, WeightedImportance=True, img_path = 'img/eval_tree'):
     env = gym.make(EnvName)
     if seed:
         env.seed(seed)
@@ -45,13 +45,27 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=True, Dra
                 if DrawTree:
                     draw_tree(tree, (tree.args['input_dim'],), input_img=s, savepath=img_path+'/{:04}.png'.format(step))
                 if DrawImportance:
-                    path_idx = get_path(tree, s)
+                    path_idx, inner_probs = get_path(tree, s, Probs=True)
+                    last_idx=0
+                    probs_on_path = []
+                    for idx in path_idx[1:]:
+                        if idx == 2*last_idx+1:  # parent node goes to left node
+                            probs_on_path.append(inner_probs[last_idx])
+                        elif idx == 2*last_idx+2:  # last index goes to right node, prob should be 1-prob
+                            probs_on_path.append(1-inner_probs[last_idx])
+                        else:
+                            raise ValueError
+                        last_idx = idx
+                        
                     weights_on_path = tree_weights[path_idx[:-1]]  # remove leaf node, i.e. the last index 
-                    average_weight = np.mean(np.abs(normalize(weights_on_path)), axis=0)  # take absolute to prevent that positive and negative will counteract
+                    weight_per_node = np.abs(normalize(weights_on_path))
+                    if WeightedImportance:  # average weights on path weighted by probabilities
+                        weight_per_node = [probs*weights for probs, weights in zip (probs_on_path, weight_per_node)]
+                    average_weight = np.mean(weight_per_node, axis=0)  # take absolute to prevent that positive and negative will counteract
                     average_weight_list_epi.append(average_weight)
 
             s_prime, r, done, info = env.step(a)
-            env.render()
+            # env.render()
             s = s_prime
 
             reward += r
@@ -78,7 +92,7 @@ def evaluate_offline(model, tree, episodes=1, frameskip=1, seed=None, data_path=
             a = model(torch.Tensor([s]))    
             if i%frameskip==0:
                 if DrawImportance:
-                    if method == 'weight': 
+                    if method == 'weight': # average weights weighted by probabilities on path
                         path_idx, inner_probs = get_path(tree, s, Probs=True)
 
                         # get probability on decision path (with greatest leaf probability)
@@ -153,7 +167,45 @@ def plot_importance_single_episode(data_path='data/sdt_importance.npy', save_pat
 
 if __name__ == '__main__':
     # Cartpole
-    from sdt_train_cartpole import learner_args
+    # from sdt_train_cartpole import learner_args
+    # from SDT import SDT
+
+    # # for reproduciblility
+    # seed=3
+    # if seed:
+    #     torch.manual_seed(seed)
+    #     np.random.seed(seed)
+    # learner_args['cuda'] = False  # cpu
+    # learner_args['depth'] = 2
+    # learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
+
+    # tree = SDT(learner_args)
+    # Discretized=False  # whether load the discretized tree
+    # if Discretized:
+    #     tree.load_model(learner_args['model_path']+'_discretized')
+    # else:
+    #     tree.load_model(learner_args['model_path'])
+
+    # num_params = 0
+    # for key, v in tree.state_dict().items():
+    #     print(key, v.shape)
+    #     num_params+=v.reshape(-1).shape[0]
+    # print('Total number of parameters in model: ', num_params)
+
+
+    # model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
+    # img_path = 'img/eval_tree_{}'.format(tree.args['depth'])
+
+    # if Discretized:
+    #     img_path+='_discretized'
+    # evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path=img_path)
+
+    # plot_importance_single_episode(epi_id=0)
+
+
+
+    # Lunarlander
+    from sdt_train import learner_args
     from SDT import SDT
 
     # for reproduciblility
@@ -162,8 +214,8 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
     learner_args['cuda'] = False  # cpu
-    learner_args['depth'] = 2
-    learner_args['model_path'] = './model_cartpole/trees/sdt_'+str(learner_args['depth'])+'_id'+str(4)
+    learner_args['depth'] = 5
+    learner_args['model_path'] = './model_lunarlander_80/trees/sdt_'+str(learner_args['depth'])+'_id'+str(6)
 
     tree = SDT(learner_args)
     Discretized=False  # whether load the discretized tree
@@ -180,10 +232,12 @@ if __name__ == '__main__':
 
 
     model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
+    img_path = 'img/eval_tree_{}'.format(tree.args['depth'])
+
     if Discretized:
-        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}_discretized'.format(tree.args['depth']))
-    else:
-        evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path='img/eval_tree{}'.format(tree.args['depth']))
+        img_path+='_discretized'
+    # evaluate(model, tree, episodes=1, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path=img_path, WeightedImportance=True)
+    evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True, method='weight', WeightedImportance=False)
 
     plot_importance_single_episode(epi_id=0)
 
@@ -218,11 +272,13 @@ if __name__ == '__main__':
 
 
     # model = lambda x: tree.forward(x)[0].data.max(1)[1].squeeze().detach().numpy()
+    # img_path = 'img/eval_tree_{}'.format(tree.args['depth'])
+
     # if Discretized:
     #     img_path+='_discretized'
 
     # prediction_evaluation(tree, data_dir='data/LunarLander-v2_ppo_')
 
-    # evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=True, img_path='img/eval_tree{}'.format(tree.args['depth']))
+    # evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree=False, DrawImportance=False, img_path=img_path)
     # # evaluate_offline(model, tree, episodes=1, frameskip=1, seed=seed, DrawImportance=True)
 

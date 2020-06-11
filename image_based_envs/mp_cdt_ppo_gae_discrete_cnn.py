@@ -9,7 +9,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import torch.multiprocessing as mp
 from torch.multiprocessing import Process
-from env_wrapper import DiscreteActionWrapper, ObservationWrapper
+from env_wrapper import ObservationWrapper
 import math
 from common.utils import *
 # import sys
@@ -77,7 +77,7 @@ class PPO(nn.Module):
 
         self.optimizer = SharedAdam(list(self.parameters())+list(self.cdt.parameters()), lr=learning_rate)
 
-        # self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]
+        # self.pi = lambda x: self.cdt.forward(x, LogProb=False)[1]  # cannot be paralled
 
     def pi(self, x):
         return self.cdt.forward(x, LogProb=False)[1]
@@ -169,8 +169,9 @@ class PPO(nn.Module):
     def save_model(self, path=MODEL_PATH):
         torch.save(self.state_dict(), path+'_ac')
 
-    def load_model(self, path=MODEL_PATH):
-        self.load_state_dict(torch.load(MODEL_PATH, map_location='cuda:0'))
+    def load_model(self, path=MODEL_PATH, device='cuda:0'):
+        self.load_state_dict(torch.load(MODEL_PATH, map_location=device))
+        self.cdt.to(device)
         self.eval()
     
 def run(id, model, rewards_queue, train=False, test=False):
