@@ -32,9 +32,9 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
-TRAIN_EPI     = 200000
+TRAIN_EPI     = 20000
 NUM_WORKERS   = 1
-MODEL_PATH = './cdt_model/20ppo_discrete_'+EnvName
+MODEL_PATH = './cdt_model/single_ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
     def __init__(self, obs_space, action_space, learner_args, hidden_dim=128):
@@ -239,7 +239,7 @@ if __name__ == '__main__':
     print(state_dim, action_dim)
 
     learner_args = {
-    'num_intermediate_variables': 20,
+    'num_intermediate_variables': 50,
     'feature_learning_depth': 2,
     'decision_depth': 2,
     'input_dim': state_dim,
@@ -284,7 +284,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('20learn_'+EnvName, rewards)
+                np.save('single_learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 
