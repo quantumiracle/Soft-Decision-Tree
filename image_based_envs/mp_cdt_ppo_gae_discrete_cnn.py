@@ -180,7 +180,7 @@ def run(id, model, rewards_queue, train=False, test=False):
         model.cuda()
         # env = DiscreteActionWrapper(gym.make(EnvName))
         # env = gym.make(EnvName)
-        env = ObservationWrapper(gym.make(EnvName))
+        env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
 
         print_interval = 10   
         Epi_r = []
@@ -227,7 +227,7 @@ if __name__ == '__main__':
     
     # env = DiscreteActionWrapper(gym.make(EnvName))
     # env = gym.make(EnvName)
-    env = ObservationWrapper(gym.make(EnvName))
+    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
 
     if len(env.observation_space.shape)>1:
         state_dim=1
