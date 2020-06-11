@@ -60,7 +60,10 @@ def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=No
         tree.leaf_num = tree.num_fl_leaves
         inner_nodes_name='fl_inner_nodes.weight'
         leaf_nodes_name='fl_leaf_weights'
-        input_shape=(tree.args['input_dim'],)
+        if len(input_img.shape) ==3: 
+            input_shape = input_img.shape
+        else:
+            input_shape=(tree.args['input_dim'],)
 
     elif DrawTree == 'DM':  # draw the decision making tree
         tree.inner_node_num = tree.num_dc_inner_nodes
