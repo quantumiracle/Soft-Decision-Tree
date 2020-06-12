@@ -21,11 +21,15 @@ torch.multiprocessing.set_start_method('forkserver', force=True) # critical for 
 
 # EnvName = 'CarRacing-v0'
 # EnvName = 'Enduro-v0'
-EnvName = 'Freeway-v0'
+#EnvName = 'Freeway-v0'
+#EnvName = 'ChopperCommand-v0'
+#EnvName = 'MsPacman-v0'
+EnvName = 'Phoenix-v0'
 # EnvName = 'CartPole-v1'
 
 
 #Hyperparameters
+
 learning_rate = 0.0005
 gamma         = 0.99
 lmbda         = 0.95

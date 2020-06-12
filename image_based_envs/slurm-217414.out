@@ -1,0 +1,33 @@
+compute005
+1
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+3000 18
+Box(1, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 219, in run
+    break
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 141, in train_net
+    for i in range(K_epoch):
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 106, in v
+    x = x.unsqueeze(0)
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/nn/modules/container.py", line 92, in forward
+    input = module(input)
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/nn/modules/module.py", line 493, in __call__
+    result = self.forward(*input, **kwargs)
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/nn/modules/conv.py", line 338, in forward
+    self.padding, self.dilation, self.groups)
+RuntimeError: CUDA out of memory. Tried to allocate 2.12 GiB (GPU 0; 10.92 GiB total capacity; 9.32 GiB already allocated; 420.50 MiB free; 20.81 MiB cached)

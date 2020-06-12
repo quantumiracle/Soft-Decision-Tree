@@ -1,0 +1,43 @@
+compute005
+3
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+3000 8
+Box(1, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+Worker ID: 0 | Episode :0 | Average episode reward : 440.000 | Episode length: 972.0
+Worker ID: 0 | Episode :1 | Average episode reward : 460.000 | Episode length: 2138.0
+Worker ID: 0 | Episode :2 | Average episode reward : 440.000 | Episode length: 673.0
+Worker ID: 0 | Episode :3 | Average episode reward : 480.000 | Episode length: 690.0
+Worker ID: 0 | Episode :4 | Average episode reward : 920.000 | Episode length: 1133.0
+Worker ID: 0 | Episode :5 | Average episode reward : 1050.000 | Episode length: 1296.0
+Worker ID: 0 | Episode :6 | Average episode reward : 1010.000 | Episode length: 1133.0
+Worker ID: 0 | Episode :7 | Average episode reward : 380.000 | Episode length: 1285.0
+Worker ID: 0 | Episode :8 | Average episode reward : 220.000 | Episode length: 694.0
+Worker ID: 0 | Episode :9 | Average episode reward : 1370.000 | Episode length: 1102.0
+Worker ID: 0 | Episode :10 | Average episode reward : 860.000 | Episode length: 2201.0
+Worker ID: 0 | Episode :11 | Average episode reward : 1150.000 | Episode length: 934.0
+Worker ID: 0 | Episode :12 | Average episode reward : 1590.000 | Episode length: 1066.0
+Worker ID: 0 | Episode :13 | Average episode reward : 890.000 | Episode length: 1088.0
+Worker ID: 0 | Episode :14 | Average episode reward : 1510.000 | Episode length: 1098.0
+Worker ID: 0 | Episode :15 | Average episode reward : 1820.000 | Episode length: 1189.0
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 221, in run
+    model.train_net()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 162, in train_net
+    loss.mean().backward()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/tensor.py", line 107, in backward
+    torch.autograd.backward(self, gradient, retain_graph, create_graph)
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/autograd/__init__.py", line 93, in backward
+    allow_unreachable=True)  # allow_unreachable flag
+RuntimeError: CUDA out of memory. Tried to allocate 860.00 MiB (GPU 0; 10.92 GiB total capacity; 8.42 GiB already allocated; 784.50 MiB free; 579.44 MiB cached)
