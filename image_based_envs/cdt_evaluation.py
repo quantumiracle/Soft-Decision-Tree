@@ -19,7 +19,7 @@ import os
 EnvName = 'Freeway-v0'
 
 def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, DrawImportance=True, img_path = 'img/eval_tree'):
-    env = ObservationWrapper(gym.make(EnvName))
+    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
     if seed:
         env.seed(seed)
     state_dim = env.observation_space.shape[0]
@@ -42,13 +42,16 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         reward = 0.0
         step=0
         while not done:
-            a = model(s)
-            if step%frameskip==0:
-                if DrawTree is not None:
-                    draw_tree(tree, input_img=np.moveaxis(s, 0, 2), DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
+            # a = model(s)
+            a=1
+            print(a)
+            if a==0:
+                if step%frameskip==0:
+                    if DrawTree is not None:
+                        draw_tree(tree, input_img=np.moveaxis(s, 0, 2), DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
 
             s_prime, r, done, info = env.step(a)
-            # env.render()
+            env.render()
             s = s_prime
 
             reward += r
@@ -89,7 +92,7 @@ if __name__ == '__main__':
         torch.manual_seed(seed)
         np.random.seed(seed)
 
-    env = ObservationWrapper(gym.make(EnvName))
+    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
 
     if len(env.observation_space.shape)>1:
         state_dim=1
@@ -127,7 +130,7 @@ if __name__ == '__main__':
         num_params+=v.reshape(-1).shape[0]
     print('Total number of parameters in model: ', num_params)
 
-    model = lambda x: ppo.choose_action(x)[0]
+    model = lambda x: ppo.choose_action(x, Greedy=True)
     img_path = 'img/eval_tree_{}'.format(tree.args['num_intermediate_variables'])
 
     evaluate(model, tree, episodes=10, frameskip=1, seed=seed, DrawTree='FL', DrawImportance=False, img_path=img_path)

@@ -96,8 +96,8 @@ def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=No
         leaf_nodes = leaf_nodes.view(tree.leaf_num, tree.args['num_intermediate_variables'])
         # leaf_nodes = leaf_nodes.view(tree.leaf_num, 10, 5)
 
-
-    kernels = dict([(node_idx, node_value.cpu().numpy().reshape(input_shape)) for node_idx, node_value in zip (inner_indices, inner_nodes[:, 1:]) ])
+    # kernels = dict([(node_idx, node_value.cpu().numpy().reshape(input_shape)) for node_idx, node_value in zip (inner_indices, inner_nodes[:, 1:]) ])
+    kernels = dict([(node_idx, np.multiply(input_img, node_value.cpu().numpy().reshape(input_shape))) for node_idx, node_value in zip (inner_indices, inner_nodes[:, 1:]) ])
     biases = dict([(node_idx, node_value.cpu().numpy().squeeze()) for node_idx, node_value in zip (inner_indices, inner_nodes[:, :1]) ])
     leaves = dict([(leaf_idx, np.array([leaf_dist.cpu().numpy()])) for leaf_idx, leaf_dist in zip (leaf_indices, leaf_nodes) ])
     n_leaves = tree.leaf_num
@@ -117,6 +117,8 @@ def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=No
     path = ['0']
 
     imshow_args = {'origin': 'upper', 'interpolation': 'None', 'cmap': plt.get_cmap('coolwarm')}
+    # imshow_args = {'origin': 'upper', 'interpolation': 'None', 'cmap': plt.get_cmap('gray')}
+
     # get mininal and maximal values for kernels and leaves separately, to give proper color mapping ranges.
     kernel_min_val = np.min(list(kernels.values()))
     kernel_max_val  = np.max(list(kernels.values()))
@@ -132,7 +134,6 @@ def draw_tree(original_tree, input_img=None, show_correlation=False, DrawTree=No
         kernel_image = kernels[key]
 
         if len(kernel_image.shape)==3: # 2D image (H, W, C), if C==1, it will be squeezed to (H,W)
-            print(pos, key)
             ax.imshow(kernel_image.squeeze(), vmin=kernel_min_val, vmax=kernel_max_val, **imshow_args)
         elif len(kernel_image.shape)==1:
             vector_image = np.ones((kernel_image.shape[0], 1)) @ [kernel_image]

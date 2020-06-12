@@ -158,12 +158,16 @@ class PPO(nn.Module):
             loss.mean().backward()
             self.optimizer.step()
 
-    def choose_action(self, s):
+    def choose_action(self, s, Greedy=False):
         # reshape the input
         s= torch.from_numpy(s).contiguous().view(-1).unsqueeze(0).float().cuda()
         prob = self.pi(s).squeeze()
-        m = Categorical(prob)
-        a = m.sample().item()
+        if Greedy:
+            a = torch.argmax(prob, dim=-1).item()
+            return a
+        else:
+            m = Categorical(prob)
+            a = m.sample().item()
         return a, prob
 
     def save_model(self, path=MODEL_PATH):
@@ -191,12 +195,17 @@ def run(id, model, rewards_queue, train=False, test=False):
             step=0     
             done = False
             while not done:
-                a, prob = model.choose_action(s)
-                s_prime, r, done, info = env.step(a)
                 if test:
+                    a = model.choose_action(s, Greedy=True)
+                    if a == 0:
+                        print(a)
+                    s_prime, r, done, info = env.step(a)
                     env.render()
-                # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-                model.put_data((s, a, r, s_prime, prob[a].item(), done))
+                else:
+                    a, prob = model.choose_action(s)
+                    s_prime, r, done, info = env.step(a)
+                    # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+                    model.put_data((s, a, r, s_prime, prob[a].item(), done))
 
                 s = s_prime
 
