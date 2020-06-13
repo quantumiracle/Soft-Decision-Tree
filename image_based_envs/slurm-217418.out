@@ -1,0 +1,316 @@
+compute005
+1
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+3000 8
+Box(1, 60, 50)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+Box(1, 60, 50)
+Worker ID: 0 | Episode :0 | Average episode reward : 460.000 | Episode length: 900.0
+Worker ID: 0 | Episode :1 | Average episode reward : 260.000 | Episode length: 602.0
+Worker ID: 0 | Episode :2 | Average episode reward : 300.000 | Episode length: 612.0
+Worker ID: 0 | Episode :3 | Average episode reward : 280.000 | Episode length: 771.0
+Worker ID: 0 | Episode :4 | Average episode reward : 1290.000 | Episode length: 900.0
+Worker ID: 0 | Episode :5 | Average episode reward : 140.000 | Episode length: 641.0
+Worker ID: 0 | Episode :6 | Average episode reward : 420.000 | Episode length: 1078.0
+Worker ID: 0 | Episode :7 | Average episode reward : 970.000 | Episode length: 1100.0
+Worker ID: 0 | Episode :8 | Average episode reward : 2400.000 | Episode length: 1214.0
+Worker ID: 0 | Episode :9 | Average episode reward : 460.000 | Episode length: 743.0
+Worker ID: 0 | Episode :10 | Average episode reward : 420.000 | Episode length: 1026.0
+Worker ID: 0 | Episode :11 | Average episode reward : 320.000 | Episode length: 798.0
+Worker ID: 0 | Episode :12 | Average episode reward : 820.000 | Episode length: 1106.0
+Worker ID: 0 | Episode :13 | Average episode reward : 1130.000 | Episode length: 1335.0
+Worker ID: 0 | Episode :14 | Average episode reward : 1640.000 | Episode length: 1067.0
+Worker ID: 0 | Episode :15 | Average episode reward : 360.000 | Episode length: 1296.0
+Worker ID: 0 | Episode :16 | Average episode reward : 880.000 | Episode length: 988.0
+Worker ID: 0 | Episode :17 | Average episode reward : 340.000 | Episode length: 795.0
+Worker ID: 0 | Episode :18 | Average episode reward : 400.000 | Episode length: 807.0
+Worker ID: 0 | Episode :19 | Average episode reward : 300.000 | Episode length: 1210.0
+Worker ID: 0 | Episode :20 | Average episode reward : 2390.000 | Episode length: 1220.0
+Worker ID: 0 | Episode :21 | Average episode reward : 540.000 | Episode length: 759.0
+Worker ID: 0 | Episode :22 | Average episode reward : 140.000 | Episode length: 654.0
+Worker ID: 0 | Episode :23 | Average episode reward : 920.000 | Episode length: 1053.0
+Worker ID: 0 | Episode :24 | Average episode reward : 2620.000 | Episode length: 1164.0
+Worker ID: 0 | Episode :25 | Average episode reward : 1710.000 | Episode length: 1271.0
+Worker ID: 0 | Episode :26 | Average episode reward : 340.000 | Episode length: 1186.0
+Worker ID: 0 | Episode :27 | Average episode reward : 800.000 | Episode length: 1441.0
+Worker ID: 0 | Episode :28 | Average episode reward : 320.000 | Episode length: 724.0
+Worker ID: 0 | Episode :29 | Average episode reward : 560.000 | Episode length: 1501.0
+Worker ID: 0 | Episode :30 | Average episode reward : 480.000 | Episode length: 980.0
+Worker ID: 0 | Episode :31 | Average episode reward : 300.000 | Episode length: 801.0
+Worker ID: 0 | Episode :32 | Average episode reward : 500.000 | Episode length: 837.0
+Worker ID: 0 | Episode :33 | Average episode reward : 2010.000 | Episode length: 1557.0
+Worker ID: 0 | Episode :34 | Average episode reward : 440.000 | Episode length: 750.0
+Worker ID: 0 | Episode :35 | Average episode reward : 380.000 | Episode length: 941.0
+Worker ID: 0 | Episode :36 | Average episode reward : 840.000 | Episode length: 1055.0
+Worker ID: 0 | Episode :37 | Average episode reward : 1400.000 | Episode length: 1096.0
+Worker ID: 0 | Episode :38 | Average episode reward : 1730.000 | Episode length: 1111.0
+Worker ID: 0 | Episode :39 | Average episode reward : 360.000 | Episode length: 833.0
+Worker ID: 0 | Episode :40 | Average episode reward : 500.000 | Episode length: 858.0
+Worker ID: 0 | Episode :41 | Average episode reward : 480.000 | Episode length: 1474.0
+Worker ID: 0 | Episode :42 | Average episode reward : 560.000 | Episode length: 989.0
+Worker ID: 0 | Episode :43 | Average episode reward : 1820.000 | Episode length: 1521.0
+Worker ID: 0 | Episode :44 | Average episode reward : 140.000 | Episode length: 638.0
+Worker ID: 0 | Episode :45 | Average episode reward : 200.000 | Episode length: 590.0
+Worker ID: 0 | Episode :46 | Average episode reward : 900.000 | Episode length: 909.0
+Worker ID: 0 | Episode :47 | Average episode reward : 1210.000 | Episode length: 1826.0
+Worker ID: 0 | Episode :48 | Average episode reward : 420.000 | Episode length: 794.0
+Worker ID: 0 | Episode :49 | Average episode reward : 1950.000 | Episode length: 1113.0
+Worker ID: 0 | Episode :50 | Average episode reward : 930.000 | Episode length: 899.0
+Worker ID: 0 | Episode :51 | Average episode reward : 560.000 | Episode length: 901.0
+Worker ID: 0 | Episode :52 | Average episode reward : 440.000 | Episode length: 968.0
+Worker ID: 0 | Episode :53 | Average episode reward : 280.000 | Episode length: 600.0
+Worker ID: 0 | Episode :54 | Average episode reward : 280.000 | Episode length: 769.0
+Worker ID: 0 | Episode :55 | Average episode reward : 1640.000 | Episode length: 1196.0
+Worker ID: 0 | Episode :56 | Average episode reward : 740.000 | Episode length: 1693.0
+Worker ID: 0 | Episode :57 | Average episode reward : 260.000 | Episode length: 636.0
+Worker ID: 0 | Episode :58 | Average episode reward : 640.000 | Episode length: 932.0
+Worker ID: 0 | Episode :59 | Average episode reward : 520.000 | Episode length: 1365.0
+Worker ID: 0 | Episode :60 | Average episode reward : 480.000 | Episode length: 1091.0
+Worker ID: 0 | Episode :61 | Average episode reward : 1640.000 | Episode length: 1303.0
+Worker ID: 0 | Episode :62 | Average episode reward : 1360.000 | Episode length: 1108.0
+Worker ID: 0 | Episode :63 | Average episode reward : 1380.000 | Episode length: 1123.0
+Worker ID: 0 | Episode :64 | Average episode reward : 2990.000 | Episode length: 1286.0
+Worker ID: 0 | Episode :65 | Average episode reward : 1660.000 | Episode length: 964.0
+Worker ID: 0 | Episode :66 | Average episode reward : 600.000 | Episode length: 1573.0
+Worker ID: 0 | Episode :67 | Average episode reward : 2380.000 | Episode length: 1247.0
+Worker ID: 0 | Episode :68 | Average episode reward : 1780.000 | Episode length: 1692.0
+Worker ID: 0 | Episode :69 | Average episode reward : 2570.000 | Episode length: 1316.0
+Worker ID: 0 | Episode :70 | Average episode reward : 1040.000 | Episode length: 1458.0
+Worker ID: 0 | Episode :71 | Average episode reward : 280.000 | Episode length: 688.0
+Worker ID: 0 | Episode :72 | Average episode reward : 300.000 | Episode length: 706.0
+Worker ID: 0 | Episode :73 | Average episode reward : 2960.000 | Episode length: 1678.0
+Worker ID: 0 | Episode :74 | Average episode reward : 280.000 | Episode length: 802.0
+Worker ID: 0 | Episode :75 | Average episode reward : 380.000 | Episode length: 726.0
+Worker ID: 0 | Episode :76 | Average episode reward : 1260.000 | Episode length: 1493.0
+Worker ID: 0 | Episode :77 | Average episode reward : 440.000 | Episode length: 977.0
+Worker ID: 0 | Episode :78 | Average episode reward : 1040.000 | Episode length: 986.0
+Worker ID: 0 | Episode :79 | Average episode reward : 1220.000 | Episode length: 1290.0
+Worker ID: 0 | Episode :80 | Average episode reward : 1410.000 | Episode length: 1346.0
+Worker ID: 0 | Episode :81 | Average episode reward : 560.000 | Episode length: 945.0
+Worker ID: 0 | Episode :82 | Average episode reward : 180.000 | Episode length: 606.0
+Worker ID: 0 | Episode :83 | Average episode reward : 420.000 | Episode length: 927.0
+Worker ID: 0 | Episode :84 | Average episode reward : 480.000 | Episode length: 1417.0
+Worker ID: 0 | Episode :85 | Average episode reward : 140.000 | Episode length: 568.0
+Worker ID: 0 | Episode :86 | Average episode reward : 520.000 | Episode length: 1066.0
+Worker ID: 0 | Episode :87 | Average episode reward : 420.000 | Episode length: 793.0
+Worker ID: 0 | Episode :88 | Average episode reward : 870.000 | Episode length: 1651.0
+Worker ID: 0 | Episode :89 | Average episode reward : 380.000 | Episode length: 859.0
+Worker ID: 0 | Episode :90 | Average episode reward : 340.000 | Episode length: 658.0
+Worker ID: 0 | Episode :91 | Average episode reward : 380.000 | Episode length: 828.0
+Worker ID: 0 | Episode :92 | Average episode reward : 520.000 | Episode length: 923.0
+Worker ID: 0 | Episode :93 | Average episode reward : 1600.000 | Episode length: 1012.0
+Worker ID: 0 | Episode :94 | Average episode reward : 280.000 | Episode length: 866.0
+Worker ID: 0 | Episode :95 | Average episode reward : 480.000 | Episode length: 1031.0
+Worker ID: 0 | Episode :96 | Average episode reward : 200.000 | Episode length: 745.0
+Worker ID: 0 | Episode :97 | Average episode reward : 520.000 | Episode length: 1085.0
+Worker ID: 0 | Episode :98 | Average episode reward : 500.000 | Episode length: 805.0
+Worker ID: 0 | Episode :99 | Average episode reward : 360.000 | Episode length: 1075.0
+Worker ID: 0 | Episode :100 | Average episode reward : 260.000 | Episode length: 592.0
+Worker ID: 0 | Episode :101 | Average episode reward : 910.000 | Episode length: 1059.0
+Worker ID: 0 | Episode :102 | Average episode reward : 440.000 | Episode length: 975.0
+Worker ID: 0 | Episode :103 | Average episode reward : 1560.000 | Episode length: 1029.0
+Worker ID: 0 | Episode :104 | Average episode reward : 500.000 | Episode length: 1151.0
+Worker ID: 0 | Episode :105 | Average episode reward : 460.000 | Episode length: 674.0
+Worker ID: 0 | Episode :106 | Average episode reward : 280.000 | Episode length: 581.0
+Worker ID: 0 | Episode :107 | Average episode reward : 280.000 | Episode length: 872.0
+Worker ID: 0 | Episode :108 | Average episode reward : 500.000 | Episode length: 717.0
+Worker ID: 0 | Episode :109 | Average episode reward : 2170.000 | Episode length: 1158.0
+Worker ID: 0 | Episode :110 | Average episode reward : 440.000 | Episode length: 672.0
+Worker ID: 0 | Episode :111 | Average episode reward : 1620.000 | Episode length: 1123.0
+Worker ID: 0 | Episode :112 | Average episode reward : 420.000 | Episode length: 1028.0
+Worker ID: 0 | Episode :113 | Average episode reward : 460.000 | Episode length: 1016.0
+Worker ID: 0 | Episode :114 | Average episode reward : 280.000 | Episode length: 759.0
+Worker ID: 0 | Episode :115 | Average episode reward : 460.000 | Episode length: 1468.0
+Worker ID: 0 | Episode :116 | Average episode reward : 540.000 | Episode length: 1578.0
+Worker ID: 0 | Episode :117 | Average episode reward : 1330.000 | Episode length: 1799.0
+Worker ID: 0 | Episode :118 | Average episode reward : 280.000 | Episode length: 753.0
+Worker ID: 0 | Episode :119 | Average episode reward : 560.000 | Episode length: 965.0
+Worker ID: 0 | Episode :120 | Average episode reward : 480.000 | Episode length: 747.0
+Worker ID: 0 | Episode :121 | Average episode reward : 2040.000 | Episode length: 1293.0
+Worker ID: 0 | Episode :122 | Average episode reward : 1510.000 | Episode length: 1013.0
+Worker ID: 0 | Episode :123 | Average episode reward : 540.000 | Episode length: 1109.0
+Worker ID: 0 | Episode :124 | Average episode reward : 400.000 | Episode length: 709.0
+Worker ID: 0 | Episode :125 | Average episode reward : 480.000 | Episode length: 687.0
+Worker ID: 0 | Episode :126 | Average episode reward : 500.000 | Episode length: 732.0
+Worker ID: 0 | Episode :127 | Average episode reward : 380.000 | Episode length: 1236.0
+Worker ID: 0 | Episode :128 | Average episode reward : 420.000 | Episode length: 1171.0
+Worker ID: 0 | Episode :129 | Average episode reward : 870.000 | Episode length: 926.0
+Worker ID: 0 | Episode :130 | Average episode reward : 3450.000 | Episode length: 1458.0
+Worker ID: 0 | Episode :131 | Average episode reward : 460.000 | Episode length: 695.0
+Worker ID: 0 | Episode :132 | Average episode reward : 520.000 | Episode length: 648.0
+Worker ID: 0 | Episode :133 | Average episode reward : 340.000 | Episode length: 826.0
+Worker ID: 0 | Episode :134 | Average episode reward : 300.000 | Episode length: 1391.0
+Worker ID: 0 | Episode :135 | Average episode reward : 560.000 | Episode length: 971.0
+Worker ID: 0 | Episode :136 | Average episode reward : 480.000 | Episode length: 933.0
+Worker ID: 0 | Episode :137 | Average episode reward : 620.000 | Episode length: 1097.0
+Worker ID: 0 | Episode :138 | Average episode reward : 1430.000 | Episode length: 1288.0
+Worker ID: 0 | Episode :139 | Average episode reward : 720.000 | Episode length: 1184.0
+Worker ID: 0 | Episode :140 | Average episode reward : 1500.000 | Episode length: 1274.0
+Worker ID: 0 | Episode :141 | Average episode reward : 480.000 | Episode length: 1224.0
+Worker ID: 0 | Episode :142 | Average episode reward : 400.000 | Episode length: 617.0
+Worker ID: 0 | Episode :143 | Average episode reward : 540.000 | Episode length: 1907.0
+Worker ID: 0 | Episode :144 | Average episode reward : 500.000 | Episode length: 2062.0
+Worker ID: 0 | Episode :145 | Average episode reward : 280.000 | Episode length: 728.0
+Worker ID: 0 | Episode :146 | Average episode reward : 400.000 | Episode length: 1107.0
+Worker ID: 0 | Episode :147 | Average episode reward : 1320.000 | Episode length: 1346.0
+Worker ID: 0 | Episode :148 | Average episode reward : 2210.000 | Episode length: 1900.0
+Worker ID: 0 | Episode :149 | Average episode reward : 500.000 | Episode length: 692.0
+Worker ID: 0 | Episode :150 | Average episode reward : 2180.000 | Episode length: 1177.0
+Worker ID: 0 | Episode :151 | Average episode reward : 420.000 | Episode length: 636.0
+Worker ID: 0 | Episode :152 | Average episode reward : 400.000 | Episode length: 1006.0
+Worker ID: 0 | Episode :153 | Average episode reward : 620.000 | Episode length: 1046.0
+Worker ID: 0 | Episode :154 | Average episode reward : 440.000 | Episode length: 664.0
+Worker ID: 0 | Episode :155 | Average episode reward : 2780.000 | Episode length: 1494.0
+Worker ID: 0 | Episode :156 | Average episode reward : 2650.000 | Episode length: 1610.0
+Worker ID: 0 | Episode :157 | Average episode reward : 1800.000 | Episode length: 1020.0
+Worker ID: 0 | Episode :158 | Average episode reward : 240.000 | Episode length: 1373.0
+Worker ID: 0 | Episode :159 | Average episode reward : 340.000 | Episode length: 866.0
+Worker ID: 0 | Episode :160 | Average episode reward : 1710.000 | Episode length: 950.0
+Worker ID: 0 | Episode :161 | Average episode reward : 3290.000 | Episode length: 1311.0
+Worker ID: 0 | Episode :162 | Average episode reward : 790.000 | Episode length: 1232.0
+Worker ID: 0 | Episode :163 | Average episode reward : 340.000 | Episode length: 1064.0
+Worker ID: 0 | Episode :164 | Average episode reward : 200.000 | Episode length: 750.0
+Worker ID: 0 | Episode :165 | Average episode reward : 220.000 | Episode length: 778.0
+Worker ID: 0 | Episode :166 | Average episode reward : 460.000 | Episode length: 905.0
+Worker ID: 0 | Episode :167 | Average episode reward : 870.000 | Episode length: 957.0
+Worker ID: 0 | Episode :168 | Average episode reward : 1040.000 | Episode length: 896.0
+Worker ID: 0 | Episode :169 | Average episode reward : 480.000 | Episode length: 888.0
+Worker ID: 0 | Episode :170 | Average episode reward : 1800.000 | Episode length: 1069.0
+Worker ID: 0 | Episode :171 | Average episode reward : 260.000 | Episode length: 648.0
+Worker ID: 0 | Episode :172 | Average episode reward : 260.000 | Episode length: 820.0
+Worker ID: 0 | Episode :173 | Average episode reward : 440.000 | Episode length: 1253.0
+Worker ID: 0 | Episode :174 | Average episode reward : 870.000 | Episode length: 906.0
+Worker ID: 0 | Episode :175 | Average episode reward : 200.000 | Episode length: 623.0
+Worker ID: 0 | Episode :176 | Average episode reward : 520.000 | Episode length: 594.0
+Worker ID: 0 | Episode :177 | Average episode reward : 1850.000 | Episode length: 1142.0
+Worker ID: 0 | Episode :178 | Average episode reward : 1180.000 | Episode length: 1178.0
+Worker ID: 0 | Episode :179 | Average episode reward : 1050.000 | Episode length: 1134.0
+Worker ID: 0 | Episode :180 | Average episode reward : 280.000 | Episode length: 737.0
+Worker ID: 0 | Episode :181 | Average episode reward : 520.000 | Episode length: 1103.0
+Worker ID: 0 | Episode :182 | Average episode reward : 340.000 | Episode length: 965.0
+Worker ID: 0 | Episode :183 | Average episode reward : 380.000 | Episode length: 747.0
+Worker ID: 0 | Episode :184 | Average episode reward : 360.000 | Episode length: 840.0
+Worker ID: 0 | Episode :185 | Average episode reward : 200.000 | Episode length: 1048.0
+Worker ID: 0 | Episode :186 | Average episode reward : 600.000 | Episode length: 1095.0
+Worker ID: 0 | Episode :187 | Average episode reward : 400.000 | Episode length: 1307.0
+Worker ID: 0 | Episode :188 | Average episode reward : 360.000 | Episode length: 1383.0
+Worker ID: 0 | Episode :189 | Average episode reward : 140.000 | Episode length: 578.0
+Worker ID: 0 | Episode :190 | Average episode reward : 340.000 | Episode length: 840.0
+Worker ID: 0 | Episode :191 | Average episode reward : 300.000 | Episode length: 646.0
+Worker ID: 0 | Episode :192 | Average episode reward : 460.000 | Episode length: 1087.0
+Worker ID: 0 | Episode :193 | Average episode reward : 600.000 | Episode length: 917.0
+Worker ID: 0 | Episode :194 | Average episode reward : 3090.000 | Episode length: 1457.0
+Worker ID: 0 | Episode :195 | Average episode reward : 360.000 | Episode length: 999.0
+Worker ID: 0 | Episode :196 | Average episode reward : 920.000 | Episode length: 970.0
+Worker ID: 0 | Episode :197 | Average episode reward : 1050.000 | Episode length: 889.0
+Worker ID: 0 | Episode :198 | Average episode reward : 2510.000 | Episode length: 2221.0
+Worker ID: 0 | Episode :199 | Average episode reward : 480.000 | Episode length: 941.0
+Worker ID: 0 | Episode :200 | Average episode reward : 2260.000 | Episode length: 1277.0
+Worker ID: 0 | Episode :201 | Average episode reward : 340.000 | Episode length: 730.0
+Worker ID: 0 | Episode :202 | Average episode reward : 2030.000 | Episode length: 1082.0
+Worker ID: 0 | Episode :203 | Average episode reward : 2010.000 | Episode length: 1454.0
+Worker ID: 0 | Episode :204 | Average episode reward : 700.000 | Episode length: 1184.0
+Worker ID: 0 | Episode :205 | Average episode reward : 580.000 | Episode length: 1214.0
+Worker ID: 0 | Episode :206 | Average episode reward : 680.000 | Episode length: 841.0
+Worker ID: 0 | Episode :207 | Average episode reward : 800.000 | Episode length: 935.0
+Worker ID: 0 | Episode :208 | Average episode reward : 440.000 | Episode length: 680.0
+Worker ID: 0 | Episode :209 | Average episode reward : 1460.000 | Episode length: 1344.0
+Worker ID: 0 | Episode :210 | Average episode reward : 680.000 | Episode length: 937.0
+Worker ID: 0 | Episode :211 | Average episode reward : 480.000 | Episode length: 921.0
+Worker ID: 0 | Episode :212 | Average episode reward : 400.000 | Episode length: 630.0
+Worker ID: 0 | Episode :213 | Average episode reward : 2090.000 | Episode length: 1169.0
+Worker ID: 0 | Episode :214 | Average episode reward : 3060.000 | Episode length: 1506.0
+Worker ID: 0 | Episode :215 | Average episode reward : 870.000 | Episode length: 1808.0
+Worker ID: 0 | Episode :216 | Average episode reward : 1100.000 | Episode length: 1091.0
+Worker ID: 0 | Episode :217 | Average episode reward : 500.000 | Episode length: 1587.0
+Worker ID: 0 | Episode :218 | Average episode reward : 460.000 | Episode length: 789.0
+Worker ID: 0 | Episode :219 | Average episode reward : 1570.000 | Episode length: 1077.0
+Worker ID: 0 | Episode :220 | Average episode reward : 480.000 | Episode length: 1049.0
+Worker ID: 0 | Episode :221 | Average episode reward : 1680.000 | Episode length: 1830.0
+Worker ID: 0 | Episode :222 | Average episode reward : 720.000 | Episode length: 1477.0
+Worker ID: 0 | Episode :223 | Average episode reward : 200.000 | Episode length: 781.0
+Worker ID: 0 | Episode :224 | Average episode reward : 440.000 | Episode length: 1034.0
+Worker ID: 0 | Episode :225 | Average episode reward : 260.000 | Episode length: 622.0
+Worker ID: 0 | Episode :226 | Average episode reward : 280.000 | Episode length: 720.0
+Worker ID: 0 | Episode :227 | Average episode reward : 3650.000 | Episode length: 1523.0
+Worker ID: 0 | Episode :228 | Average episode reward : 400.000 | Episode length: 748.0
+Worker ID: 0 | Episode :229 | Average episode reward : 540.000 | Episode length: 715.0
+Worker ID: 0 | Episode :230 | Average episode reward : 420.000 | Episode length: 1211.0
+Worker ID: 0 | Episode :231 | Average episode reward : 1910.000 | Episode length: 1244.0
+Worker ID: 0 | Episode :232 | Average episode reward : 460.000 | Episode length: 1126.0
+Worker ID: 0 | Episode :233 | Average episode reward : 460.000 | Episode length: 765.0
+Worker ID: 0 | Episode :234 | Average episode reward : 560.000 | Episode length: 1076.0
+Worker ID: 0 | Episode :235 | Average episode reward : 3070.000 | Episode length: 1519.0
+Worker ID: 0 | Episode :236 | Average episode reward : 2990.000 | Episode length: 1374.0
+Worker ID: 0 | Episode :237 | Average episode reward : 300.000 | Episode length: 857.0
+Worker ID: 0 | Episode :238 | Average episode reward : 1820.000 | Episode length: 1132.0
+Worker ID: 0 | Episode :239 | Average episode reward : 1820.000 | Episode length: 1197.0
+Worker ID: 0 | Episode :240 | Average episode reward : 600.000 | Episode length: 1544.0
+Worker ID: 0 | Episode :241 | Average episode reward : 970.000 | Episode length: 2043.0
+Worker ID: 0 | Episode :242 | Average episode reward : 1600.000 | Episode length: 1146.0
+Worker ID: 0 | Episode :243 | Average episode reward : 340.000 | Episode length: 675.0
+Worker ID: 0 | Episode :244 | Average episode reward : 180.000 | Episode length: 743.0
+Worker ID: 0 | Episode :245 | Average episode reward : 220.000 | Episode length: 696.0
+Worker ID: 0 | Episode :246 | Average episode reward : 380.000 | Episode length: 705.0
+Worker ID: 0 | Episode :247 | Average episode reward : 800.000 | Episode length: 1070.0
+Worker ID: 0 | Episode :248 | Average episode reward : 1800.000 | Episode length: 1086.0
+Worker ID: 0 | Episode :249 | Average episode reward : 560.000 | Episode length: 963.0
+Worker ID: 0 | Episode :250 | Average episode reward : 1030.000 | Episode length: 1039.0
+Worker ID: 0 | Episode :251 | Average episode reward : 1720.000 | Episode length: 2631.0
+Worker ID: 0 | Episode :252 | Average episode reward : 820.000 | Episode length: 1276.0
+Worker ID: 0 | Episode :253 | Average episode reward : 580.000 | Episode length: 978.0
+Worker ID: 0 | Episode :254 | Average episode reward : 360.000 | Episode length: 578.0
+Worker ID: 0 | Episode :255 | Average episode reward : 380.000 | Episode length: 1347.0
+Worker ID: 0 | Episode :256 | Average episode reward : 1420.000 | Episode length: 1109.0
+Worker ID: 0 | Episode :257 | Average episode reward : 360.000 | Episode length: 691.0
+Worker ID: 0 | Episode :258 | Average episode reward : 930.000 | Episode length: 2477.0
+Worker ID: 0 | Episode :259 | Average episode reward : 1810.000 | Episode length: 2589.0
+Worker ID: 0 | Episode :260 | Average episode reward : 320.000 | Episode length: 817.0
+Worker ID: 0 | Episode :261 | Average episode reward : 1090.000 | Episode length: 926.0
+Worker ID: 0 | Episode :262 | Average episode reward : 340.000 | Episode length: 677.0
+Worker ID: 0 | Episode :263 | Average episode reward : 1770.000 | Episode length: 2190.0
+Worker ID: 0 | Episode :264 | Average episode reward : 520.000 | Episode length: 915.0
+Worker ID: 0 | Episode :265 | Average episode reward : 1600.000 | Episode length: 890.0
+Worker ID: 0 | Episode :266 | Average episode reward : 360.000 | Episode length: 590.0
+Worker ID: 0 | Episode :267 | Average episode reward : 360.000 | Episode length: 3091.0
+Worker ID: 0 | Episode :268 | Average episode reward : 140.000 | Episode length: 611.0
+Worker ID: 0 | Episode :269 | Average episode reward : 140.000 | Episode length: 693.0
+Worker ID: 0 | Episode :270 | Average episode reward : 220.000 | Episode length: 755.0
+Worker ID: 0 | Episode :271 | Average episode reward : 420.000 | Episode length: 706.0
+Worker ID: 0 | Episode :272 | Average episode reward : 600.000 | Episode length: 1242.0
+Worker ID: 0 | Episode :273 | Average episode reward : 600.000 | Episode length: 1175.0
+Worker ID: 0 | Episode :274 | Average episode reward : 520.000 | Episode length: 912.0
+Worker ID: 0 | Episode :275 | Average episode reward : 620.000 | Episode length: 983.0
+Worker ID: 0 | Episode :276 | Average episode reward : 440.000 | Episode length: 708.0
+Worker ID: 0 | Episode :277 | Average episode reward : 320.000 | Episode length: 1099.0
+Worker ID: 0 | Episode :278 | Average episode reward : 460.000 | Episode length: 957.0
+Worker ID: 0 | Episode :279 | Average episode reward : 400.000 | Episode length: 1768.0
+/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
+  result = entry_point.load(False)
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 221, in run
+    model.train_net()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 153, in train_net
+    pi = self.pi(s)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/mp_cdt_ppo_gae_discrete_cnn.py", line 87, in pi
+    return self.cdt.forward(x, LogProb=False)[1]
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/image_cascade_tree.py", line 143, in forward
+    self.max_feature_value = self.features.view(-1, self.num_fl_leaves, self.args['num_intermediate_variables'])[:, ids, :]
+RuntimeError: CUDA out of memory. Tried to allocate 2.22 GiB (GPU 0; 10.92 GiB total capacity; 4.75 GiB already allocated; 1.94 GiB free; 3.05 GiB cached)
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-6pcqoqvs': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-u2gpuu0e': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-mtqqgi29': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/var/lib/slurm/slurmd/job217418/slurm_script: line 9: 24028 Killed                  python3 mp_cdt_ppo_gae_discrete_cnn.py --train

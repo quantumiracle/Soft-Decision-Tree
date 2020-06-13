@@ -41,3 +41,6 @@ Traceback (most recent call last):
   File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/autograd/__init__.py", line 93, in backward
     allow_unreachable=True)  # allow_unreachable flag
 RuntimeError: CUDA out of memory. Tried to allocate 860.00 MiB (GPU 0; 10.92 GiB total capacity; 8.42 GiB already allocated; 784.50 MiB free; 579.44 MiB cached)
+slurmstepd: error: *** JOB 217416 ON compute005 CANCELLED AT 2020-06-12T14:01:24 ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
