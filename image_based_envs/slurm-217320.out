@@ -11859,4 +11859,12 @@ Worker ID: 0 | Episode :11847 | Average episode reward : 21.000 | Episode length
 Worker ID: 0 | Episode :11848 | Average episode reward : 21.000 | Episode length: 2745.0
 Worker ID: 0 | Episode :11849 | Average episode reward : 23.000 | Episode length: 2729.0
 Worker ID: 0 | Episode :11850 | Average episode reward : 21.000 | Episode length: 2729.0
-Worker ID: 0 | Episode :11851 | Average episode reward : 21.000 | Episode length: 2722.0
+Worker ID: 0 | Episode :11851 | Average episode reward : 21.000 | Episode length: 2722.0slurmstepd: error: *** JOB 217320 ON compute005 CANCELLED AT 2020-06-14T16:27:42 DUE TO TIME LIMIT ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-p8ld93q2': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-c21nduh1': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-ytyr1jhz': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
