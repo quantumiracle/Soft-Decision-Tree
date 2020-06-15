@@ -42,13 +42,10 @@ def evaluate(model, tree, episodes=1, frameskip=1, seed=None, DrawTree=None, Dra
         reward = 0.0
         step=0
         while not done:
-            # a = model(s)
-            a=1
-            print(a)
-            if a==0:
-                if step%frameskip==0:
-                    if DrawTree is not None:
-                        draw_tree(tree, input_img=np.moveaxis(s, 0, 2), DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
+            a = model(s)
+            if step%frameskip==0:
+                if DrawTree is not None:
+                    draw_tree(tree, input_img=np.moveaxis(s, 0, 2), DrawTree=DrawTree, savepath=img_path+'_'+DrawTree+'/{:04}.png'.format(step))
 
             s_prime, r, done, info = env.step(a)
             env.render()

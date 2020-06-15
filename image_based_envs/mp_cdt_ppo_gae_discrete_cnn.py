@@ -23,8 +23,8 @@ torch.multiprocessing.set_start_method('forkserver', force=True) # critical for 
 # EnvName = 'Enduro-v0'
 #EnvName = 'Freeway-v0'
 #EnvName = 'ChopperCommand-v0'
-#EnvName = 'MsPacman-v0'
-EnvName = 'Phoenix-v0'
+EnvName = 'MsPacman-v0'
+# EnvName = 'Phoenix-v0'
 # EnvName = 'CartPole-v1'
 
 
@@ -172,7 +172,7 @@ class PPO(nn.Module):
         else:
             m = Categorical(prob)
             a = m.sample().item()
-        return a, prob
+            return a, prob
 
     def save_model(self, path=MODEL_PATH):
         torch.save(self.state_dict(), path+'_ac')
@@ -200,9 +200,8 @@ def run(id, model, rewards_queue, train=False, test=False):
             done = False
             while not done:
                 if test:
-                    a = model.choose_action(s, Greedy=True)
-                    if a == 0:
-                        print(a)
+                    # a = model.choose_action(s, Greedy=True)
+                    a, _ = model.choose_action(s)
                     s_prime, r, done, info = env.step(a)
                     env.render()
                 else:
