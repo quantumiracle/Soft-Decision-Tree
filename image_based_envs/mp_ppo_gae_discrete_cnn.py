@@ -19,8 +19,8 @@ torch.multiprocessing.set_start_method('forkserver', force=True) # critical for 
 
 # EnvName = 'CarRacing-v0'
 # EnvName = 'Enduro-v0'
-EnvName = 'Freeway-v0'
-# EnvName = 'MsPacman-v0'
+#EnvName = 'Freeway-v0'
+EnvName = 'MsPacman-v0'
 
 
 #Hyperparameters
