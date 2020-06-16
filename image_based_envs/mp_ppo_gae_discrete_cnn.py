@@ -19,8 +19,8 @@ torch.multiprocessing.set_start_method('forkserver', force=True) # critical for 
 
 # EnvName = 'CarRacing-v0'
 # EnvName = 'Enduro-v0'
-#EnvName = 'Freeway-v0'
-EnvName = 'MsPacman-v0'
+EnvName = 'Freeway-v0'
+#EnvName = 'MsPacman-v0'
 
 
 #Hyperparameters
@@ -32,7 +32,7 @@ K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 20000
 NUM_WORKERS   = 1
-MODEL_PATH = './model/single_ppo_discrete_'+EnvName
+MODEL_PATH = './model/test_single_ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
     def __init__(self, obs_space, action_space, hidden_dim=128):
@@ -243,7 +243,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('single_ppo_learn_'+EnvName, rewards)
+                np.save('test_single_ppo_learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 
