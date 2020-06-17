@@ -59,7 +59,6 @@ class ObservationWrapper(gym.Wrapper):
             self.observation_space = spaces.Box(low=-np.inf,high=np.inf, shape=(channel, self.dim1, self.dim2))
         else:
             raise NotImplementedError
-        print(self.observation_space)
     
     def prepro(self, I):
         """Downsample 210x160x3 uint8 frame into 95x80x3."""
