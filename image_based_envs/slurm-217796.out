@@ -20009,3 +20009,12 @@ Worker ID: 0 | Episode :19998 | Average episode reward : 600.000 | Average episo
 Worker ID: 0 | Episode :19999 | Average episode reward : 420.000 | Average episode length: 753.0
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
   result = entry_point.load(False)
+slurmstepd: error: *** JOB 217796 ON compute004 CANCELLED AT 2020-06-17T11:00:53 ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-uh5jvfzj': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-7etkyft4': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-3p5d2hz5': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
