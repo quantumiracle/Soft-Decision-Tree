@@ -34,8 +34,8 @@ eps_clip      = 0.1
 K_epoch       = 3
 T_horizon     = 1000
 TRAIN_EPI     = 20000
-NUM_WORKERS   = 1
-MODEL_PATH = './lsdt_model/single_ppo_discrete_'+EnvName
+NUM_WORKERS   = 2
+MODEL_PATH = './lsdt_model/test_single_ppo_discrete_'+EnvName
 
 class PPO(nn.Module):
     def __init__(self, obs_space, action_space, learner_args, hidden_dim=128):
@@ -266,7 +266,7 @@ if __name__ == '__main__':
                 break
 
             if len(rewards)%20==0 and len(rewards)>0:
-                np.save('lsdt_single_learn_'+EnvName, rewards)
+                np.save('test_lsdt_single_learn_'+EnvName, rewards)
 
         [p.join() for p in processes]  # finished at the same time
 
