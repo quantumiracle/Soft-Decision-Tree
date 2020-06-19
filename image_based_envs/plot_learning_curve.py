@@ -9,7 +9,11 @@ import matplotlib.pyplot as plt
 # file_name='ppo_learn_Freeway-v0'
 
 # file_name='single_ppo_learn_Freeway-v0'
-file_name='single_ppo_learn_MsPacman-v0'
+# file_name='single_ppo_learn_MsPacman-v0'
+
+# file_name='lsdt_single_learn_Freeway-v0'
+file_name='test_lsdt_single_learn_Freeway-v0'
+
 
 
 r = np.load(file_name+'.npy')

@@ -183,7 +183,7 @@ def run(id, model, rewards_queue, train=False, test=False):
             done = False
             while not done:
                 a, prob = model.choose_action(s)
-
+                print(a)
                 s_prime, r, done, info = env.step(a)
                 if test:
                     env.render()
