@@ -5,3 +5,12 @@ compute003
 Box(1, 60, 50)
 /home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/gym/envs/registration.py:14: PkgResourcesDeprecationWarning: Parameters to load are deprecated.  Call .resolve and .require separately.
   result = entry_point.load(False)
+slurmstepd: error: *** JOB 218139 ON compute003 CANCELLED AT 2020-06-21T11:20:35 DUE TO TIME LIMIT ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-f86oyk2p': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-qw_elxf8': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-t4c474jf': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))

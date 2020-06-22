@@ -23,3 +23,12 @@ Traceback (most recent call last):
   File "/home/zihan/anaconda3/envs/exp/lib/python3.6/site-packages/torch/autograd/__init__.py", line 93, in backward
     allow_unreachable=True)  # allow_unreachable flag
 RuntimeError: CUDA out of memory. Tried to allocate 972.00 MiB (GPU 0; 10.92 GiB total capacity; 6.74 GiB already allocated; 735.50 MiB free; 2.87 GiB cached)
+slurmstepd: error: *** JOB 218306 ON compute005 CANCELLED AT 2020-06-22T11:19:38 DUE TO TIME LIMIT ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-8o7nvuhn': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-wajvrxio': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:155: UserWarning: semaphore_tracker: '/mp-7j9p0b76': [Errno 2] No such file or directory
+  warnings.warn('semaphore_tracker: %r: %s' % (name, e))
