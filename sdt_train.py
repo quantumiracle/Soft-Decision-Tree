@@ -117,8 +117,6 @@ def train_tree(tree):
 
 
 def test_tree(tree, epochs=10):
-    criterion = nn.CrossEntropyLoss()
-
     # Utility variables
     best_testing_acc = 0.
     testing_acc_list = []
@@ -131,6 +129,7 @@ def test_tree(tree, epochs=10):
                                     batch_size=learner_args['batch_size'],
                                     shuffle=True)
 
+    tree.load_model(learner_args['model_path'])
     for epoch in range(epochs):
         # Testing stage
         tree.eval()
