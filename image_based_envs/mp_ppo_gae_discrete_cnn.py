@@ -29,8 +29,7 @@ gamma         = 0.99
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-T_horizon     = 1000
-TRAIN_EPI     = 20000
+TRAIN_EPI     = 1000
 NUM_WORKERS   = 1
 MODEL_PATH = './model/single_ppo_discrete_'+EnvName
 
@@ -176,6 +175,9 @@ def run(id, model, rewards_queue, train=False, test=False):
         print_interval = 10        
         Epi_r = []
         Epi_length = []
+
+        s_list=[]
+        a_list=[]
         for n_epi in range(TRAIN_EPI):
             s = env.reset()
             episode_r = 0.0
@@ -183,13 +185,13 @@ def run(id, model, rewards_queue, train=False, test=False):
             done = False
             while not done:
                 a, prob = model.choose_action(s)
-                print(a)
                 s_prime, r, done, info = env.step(a)
-                if test:
-                    env.render()
+                # if test:
+                    # env.render()
                 # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
                 model.put_data((s, a, r, s_prime, prob[a].item(), done))
-
+                s_list.append(s)
+                a_list.append(a)
                 s = s_prime
 
                 episode_r += r
@@ -205,6 +207,10 @@ def run(id, model, rewards_queue, train=False, test=False):
             if n_epi%print_interval==0 and n_epi!=0:
                 if train:
                     torch.save(model.state_dict(), MODEL_PATH)
+                np.save('freeway_data/state.npy', s_list)
+                np.save('freeway_data/action.npy', a_list)
+                print(np.array(s_list).shape, np.array(a_list).shape)
+                
             print("Worker ID: {} | Episode :{} | Average episode reward : {:.3f} | Average episode length: {}".format(id, n_epi, np.mean(Epi_r), np.mean(Epi_length)))
             Epi_length = []
             Epi_r = []

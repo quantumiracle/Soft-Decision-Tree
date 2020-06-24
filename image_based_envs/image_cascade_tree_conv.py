@@ -3,6 +3,40 @@
 import torch
 import torch.nn as nn
 import numpy as np
+import torch.nn.functional as F
+from torch.autograd import Variable
+
+class ConvPool(nn.Module):
+    """ 1 convolution + 1 max pooling """
+    def __init__(self, input_nc, input_width, input_height, 
+                 output_nc=6, kernel_size=5, downsample=True, **kwargs):
+        super(ConvPool, self).__init__()
+        self.downsample = downsample
+
+        if max(input_width, input_height) < kernel_size:
+            warnings.warn('Router kernel too large, shrink it')
+            kernel_size = max(input_width, input_height)
+            self.downsample = False
+
+        self.conv1 = nn.Conv2d(input_nc, output_nc, kernel_size)
+        self.outputshape = self.get_outputshape(input_nc, input_width, input_height)
+
+    def get_outputshape(self, input_nc, input_width, input_height ):
+        """ Run a single forward pass through the transformer to get the 
+        output size
+        """
+        dtype = torch.FloatTensor
+        x = Variable(
+            torch.randn(1, input_nc, input_width, input_height).type(dtype),
+            requires_grad=False)
+        return self.forward(x).size()
+
+    def forward(self, x):
+        out = F.relu(self.conv1(x))
+        if self.downsample:
+            return F.max_pool2d(out, 2)
+        else:
+            return out
 
 class Cascade_DDT(nn.Module):
     def __init__(self, args):
@@ -24,11 +58,14 @@ class Cascade_DDT(nn.Module):
     def feature_learning_init(self):
         self.num_fl_inner_nodes = 2**self.args['feature_learning_depth'] -1
         self.num_fl_leaves = self.num_fl_inner_nodes + 1
-        self.fl_inner_nodes = nn.Linear(self.args['input_dim']+1, self.num_fl_inner_nodes, bias=False)
-        # coefficients of feature combinations
-        # fl_leaf_weights = torch.randn(self.num_fl_leaves*self.args['num_intermediate_variables'], self.args['input_dim'])
-        fl_leaf_weights = torch.randn(self.num_fl_leaves, self.args['num_intermediate_variables'])  # not depend on input image
-        self.fl_leaf_weights = nn.Parameter(fl_leaf_weights)
+        (self.input_channel, self.input_xdim, self.input_ydim) = self.args['input_shape']
+        self.input_dim = self.input_xdim * self.input_ydim
+        self.fl_inner_nodes = nn.Linear(self.input_dim+1, self.num_fl_inner_nodes, bias=False)
+
+        self.fl_conv = ConvPool(self.input_channel, self.input_xdim, self.input_ydim, \
+            output_nc=self.num_fl_leaves*self.args['num_intermediate_variables'], downsample='False')
+        self.feature_map_dim = self.fl_conv.outputshape[-1]*self.fl_conv.outputshape[-2]
+        self.fl_fc = nn.Linear(self.feature_map_dim, 1)
 
         # temperature term
         if self.args['beta_fl'] is True: # learnable
@@ -111,12 +148,13 @@ class Cascade_DDT(nn.Module):
     def intermediate_features_construct(self):
         """
         Construct the intermediate features for decision making, with learned feature combinations from feature learning module.
-        # """
-        # features = self.fl_leaf_weights.view(-1, self.args['input_dim']) @ self.data.transpose(0,1)   # data: (batch_size, feature_dim); return: (num_fl_leaves*num_intermediate_variables, batch)
-        # self.features = features.contiguous().view(self.num_fl_leaves, self.args['num_intermediate_variables'], -1).permute(2,0,1).contiguous().view(-1, self.args['num_intermediate_variables'])  # return: (N, num_intermediate_variables) where N=batch_size*num_fl_leaves
-        
-        self.features = torch.cat(self.data.shape[0]*[self.fl_leaf_weights]).contiguous().view(-1, self.args['num_intermediate_variables'])
+        """
+        data = self.data.view(-1, self.input_channel, self.input_xdim, self.input_ydim)
+        x=self.fl_conv(data).view(-1, self.feature_map_dim)  # first dim is batch_size*self.num_fl_leaves
 
+        # x = x.mean(dim=-1).mean(dim=-1).squeeze()  # global average pooling
+        x = self.fl_fc(x)
+        self.features = x.view(-1, self.args['num_intermediate_variables'])
 
     def decision_leaves(self, p):
         distribution_per_leaf = self.softmax(self.dc_leaves)
@@ -138,7 +176,7 @@ class Cascade_DDT(nn.Module):
             vs, ids = torch.max(fl_probs, 1)  # ids is the leaf index with maximal path probability
             # get the path with greatest probability, get index of it, feature vector and feature value on that leaf
             self.max_leaf_idx_fl = ids
-            self.max_feature_vector = self.fl_leaf_weights[ids]
+            # self.max_feature_vector = self.fl_leaf_weights[ids]
             self.max_feature_value = self.features.view(-1, self.num_fl_leaves, self.args['num_intermediate_variables'])[:, ids, :]
 
             one_dc_probs = dc_probs[torch.arange(dc_probs.shape[0]), ids, :]  # select decision path probabilities of learned features with largest probability
@@ -175,10 +213,4 @@ class Cascade_DDT(nn.Module):
 
 
 if __name__ == '__main__':   
-    learner_args = {
-        'num_intermediate_variables': 3,
-        'feature_learning_depth': 2,
-        'decision_depth': 2,
-        'input_dim': 8,
-        'output_dim': 4,
-    }
+    pass

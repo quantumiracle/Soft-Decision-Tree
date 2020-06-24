@@ -15,15 +15,15 @@ from common.utils import *
 # import sys
 # sys.path.insert(0,'..')
 # from cascade_tree import Cascade_DDT 
-from image_cascade_tree import Cascade_DDT
+from image_cascade_tree_conv import Cascade_DDT
 
 torch.multiprocessing.set_start_method('forkserver', force=True) # critical for make multiprocessing work
 
 # EnvName = 'CarRacing-v0'
 # EnvName = 'Enduro-v0'
-#EnvName = 'Freeway-v0'
+EnvName = 'Freeway-v0'
 #EnvName = 'ChopperCommand-v0'
-EnvName = 'MsPacman-v0'
+# EnvName = 'MsPacman-v0'
 # EnvName = 'Phoenix-v0'
 # EnvName = 'CartPole-v1'
 
@@ -236,25 +236,17 @@ if __name__ == '__main__':
     parser.add_argument('--train', dest='train', action='store_true', default=False)
     parser.add_argument('--test', dest='test', action='store_true', default=False)
     args = parser.parse_args()
-    
-    # env = DiscreteActionWrapper(gym.make(EnvName))
-    # env = gym.make(EnvName)
-    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
 
-    if len(env.observation_space.shape)>1:
-        state_dim=1
-        for dim in env.observation_space.shape:
-            state_dim*=dim
-    else:
-        state_dim=env.observation_space.shape[0]
+    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
+    state_shape = env.observation_space.shape
     action_dim = env.action_space.n
-    print(state_dim, action_dim)
+    print(state_shape, action_dim)
 
     learner_args = {
-    'num_intermediate_variables': 50,
+    'num_intermediate_variables': 10,
     'feature_learning_depth': 2,
     'decision_depth': 2,
-    'input_dim': state_dim,
+    'input_shape': state_shape,
     'output_dim': action_dim,
     'lr': 1e-3,
     'weight_decay': 0.,  # 5e-4

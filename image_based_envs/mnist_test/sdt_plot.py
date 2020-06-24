@@ -145,21 +145,21 @@ def draw_tree(tree, input_shape, input_img=None, show_correlation=False, savepat
         plt.title('{}'.format(np.argmax(leaves[key])), y=-.5)
         
     # add arrows indicating flow
-    for pos, key in enumerate(sorted(axes.keys(), key=lambda x:(len(x), x))):
-        children_keys = [k for k in axes.keys()
-                         if len(k) == len(key) + 1 and k.startswith(key)]
-        for child_key in children_keys:
-            p_rows, p_cols = axes[key].get_images()[0].get_array().shape
-            c_rows, c_cols = axes[child_key].get_images()[0].get_array().shape
-            # # distinguish with green and red color
-            # color = 'green' if (key in path and child_key in path) else 'red'
-            # _add_arrow(axes[key], axes[child_key],
-            #            (c_cols//2, 1), (p_cols//2, p_rows-1), color)
+    # for pos, key in enumerate(sorted(axes.keys(), key=lambda x:(len(x), x))):
+    #     children_keys = [k for k in axes.keys()
+    #                      if len(k) == len(key) + 1 and k.startswith(key)]
+    #     for child_key in children_keys:
+    #         p_rows, p_cols = axes[key].get_images()[0].get_array().shape
+    #         c_rows, c_cols = axes[child_key].get_images()[0].get_array().shape
+    #         # # distinguish with green and red color
+    #         # color = 'green' if (key in path and child_key in path) else 'red'
+    #         # _add_arrow(axes[key], axes[child_key],
+    #         #            (c_cols//2, 1), (p_cols//2, p_rows-1), color)
 
-            # distinguish with solid or dotted lines
-            linestyle = None if (key in path and child_key in path) else "dotted"
-            _add_arrow(axes[key], axes[child_key],
-                       (c_cols//2, 1), (p_cols//2, p_rows-1), color='black', linestyle=linestyle)
+    #         # distinguish with solid or dotted lines
+    #         linestyle = None if (key in path and child_key in path) else "dotted"
+    #         _add_arrow(axes[key], axes[child_key],
+    #                    (c_cols//2, 1), (p_cols//2, p_rows-1), color='black', linestyle=linestyle)
 
 
     # draw input image with arrow indicating flow into the root node
@@ -220,19 +220,36 @@ def get_path(tree, input, Probs=False):
 
 if __name__ == '__main__':
     from torchvision import datasets, transforms
-    from main import learner_args
+    # from main import learner_args
 
-    data_dir = '../Dataset/mnist'
-    test_loader = torch.utils.data.DataLoader(datasets.MNIST(data_dir, train=False,
-                                                                     transform=transforms.Compose([
-                                                                         transforms.ToTensor(),
-                                                                         transforms.Normalize((0.1307,), (0.3081,))])),
-                                                      batch_size=10,
-                                                      shuffle=True)
+    # data_dir = '../Dataset/mnist'
+    # test_loader = torch.utils.data.DataLoader(datasets.MNIST(data_dir, train=False,
+    #                                                                  transform=transforms.Compose([
+    #                                                                      transforms.ToTensor(),
+    #                                                                      transforms.Normalize((0.1307,), (0.3081,))])),
+    #                                                   batch_size=10,
+    #                                                   shuffle=True)
+
+    # data, target=next(iter(test_loader))
+    # print('Target: ', target)
+    # for i, x in enumerate(data):
+    #     tree = SDT(learner_args)
+    #     tree.load_model(learner_args['model_path'])
+    #     draw_tree(tree, (28, 28, 1), input_img=x, savepath='img/tree{}.png'.format(i))
+
+
+    from imitate_freeway import learner_args
+    from dataset import Dataset
+    data_dir = './freeway_data/'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=learner_args['batch_size'],
+                                    shuffle=True)
 
     data, target=next(iter(test_loader))
     print('Target: ', target)
     for i, x in enumerate(data):
         tree = SDT(learner_args)
         tree.load_model(learner_args['model_path'])
-        draw_tree(tree, (28, 28, 1), input_img=x, savepath='img/tree{}.png'.format(i))
+        draw_tree(tree, (60, 50, 1), input_img=x.float(), savepath='img/tree{}.png'.format(i))

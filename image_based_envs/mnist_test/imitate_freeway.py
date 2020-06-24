@@ -3,10 +3,10 @@
 import torch
 import torch.nn as nn
 # from newSDT import SDT
-from newSDT_prod import SDT
-# from landmarkSDT import SDT
+from landmarkSDT import SDT
 from torchvision import datasets, transforms
 import numpy as np
+from dataset import Dataset
 
 def onehot_coding(target, device, output_dim):
     target_onehot = torch.FloatTensor(target.size()[0], output_dim).to(device)
@@ -16,17 +16,17 @@ def onehot_coding(target, device, output_dim):
 
 use_cuda = False
 
-learner_args = {'input_shape': (1,28,28),
-                'output_dim': 10,
+learner_args = {'input_shape': (1,60,50),
+                'output_dim': 3,
                 'depth': 5,
-                'lamda': 1e-3,
-                'lr': 1e-2,
+                'lamda': 0.,
+                'lr': 1e-3,
                 'weight_decay': 0.,  # 5e-4
                 'batch_size': 128,
                 'epochs': 40,
                 'cuda': use_cuda,
-                'log_interval': 100,
-                'model_path': './model/sdt',
+                'log_interval': 10,
+                'model_path': './model/freeway',
                 'beta' : True,  # temperature 
                 'exp_scheduler_gamma': 1.,
                 'l1_regularization': False,  # for feature sparsity on nodes
@@ -42,20 +42,16 @@ def train_tree(tree):
 
     
     # Load data
-    data_dir = '../Dataset/mnist'
-    train_loader = torch.utils.data.DataLoader(datasets.MNIST(data_dir, train=True, download=True,
-                                                                      transform=transforms.Compose([
-                                                                          transforms.ToTensor(),
-                                                                          transforms.Normalize((0.1307,), (0.3081,))])),  # data normalization
-                                                       batch_size=learner_args['batch_size'],
-                                                       shuffle=True)
+    data_dir = './freeway_data/'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+    train_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='train'),
+                                    batch_size=learner_args['batch_size'],
+                                    shuffle=True)
 
-    test_loader = torch.utils.data.DataLoader(datasets.MNIST(data_dir, train=False,
-                                                                     transform=transforms.Compose([
-                                                                         transforms.ToTensor(),
-                                                                         transforms.Normalize((0.1307,), (0.3081,))])),
-                                                      batch_size=learner_args['batch_size'],
-                                                      shuffle=True)
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=learner_args['batch_size'],
+                                    shuffle=True)
     # Utility variables
     best_testing_acc = 0.
     testing_acc_list = []
@@ -66,7 +62,7 @@ def train_tree(tree):
         # Training stage
         tree.train()
         for batch_idx, (data, target) in enumerate(train_loader):
-            data, target = data.to(device), target.to(device)
+            data, target = data.to(device).float(), target.to(device)
             target_onehot = onehot_coding(target, device, learner_args['output_dim'])
             prediction, output, penalty, _ = tree.forward(data)
             # print(np.sum(output.detach().cpu().numpy(), axis=1))
@@ -93,7 +89,7 @@ def train_tree(tree):
         tree.eval()
         correct = 0.
         for batch_idx, (data, target) in enumerate(test_loader):
-            data, target = data.to(device), target.to(device)
+            data, target = data.to(device).float(), target.to(device)
             batch_size = data.size()[0]
             prediction, _, _, _ = tree.forward(data)
             pred = prediction.data.max(1)[1]
@@ -112,20 +108,20 @@ def test_tree(tree, epochs=10):
     testing_acc_list = []
     
     # Load data
-    data_dir = '../Dataset/mnist'
-    test_loader = torch.utils.data.DataLoader(datasets.MNIST(data_dir, train=False,
-                                                                     transform=transforms.Compose([
-                                                                         transforms.ToTensor(),
-                                                                         transforms.Normalize((0.1307,), (0.3081,))])),
-                                                      batch_size=learner_args['batch_size'],
-                                                      shuffle=True)
+    data_dir = './freeway_data/'
+    data_path = data_dir+'state.npy'
+    label_path = data_dir+'action.npy'
+    test_loader = torch.utils.data.DataLoader(Dataset(data_path, label_path, partition='test'),
+                                    batch_size=learner_args['batch_size'],
+                                    shuffle=True)
+
     tree.load_model(learner_args['model_path'])
     for epoch in range(epochs):
         # Testing stage
         tree.eval()
         correct = 0.
         for batch_idx, (data, target) in enumerate(test_loader):
-            data, target = data.to(device), target.to(device)
+            data, target = data.to(device).float(), target.to(device)
             batch_size = data.size()[0]
             prediction, _, _, _ = tree.forward(data)
             pred = prediction.data.max(1)[1]
