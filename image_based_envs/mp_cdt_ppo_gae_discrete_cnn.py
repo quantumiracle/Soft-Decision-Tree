@@ -234,7 +234,7 @@ if __name__ == '__main__':
     learner_args = {
     'num_intermediate_variables': 6,
     'feature_learning_depth': 3,
-    'decision_depth': 2,
+    'decision_depth': 3,
     'input_shape': state_shape,
     'output_dim': action_dim,
     'lr': 1e-3,

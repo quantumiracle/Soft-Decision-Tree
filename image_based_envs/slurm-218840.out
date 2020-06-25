@@ -1,4 +1,4 @@
-compute007
+compute005
 0
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
 (1, 60, 50) 3
