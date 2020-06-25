@@ -243,7 +243,7 @@ if __name__ == '__main__':
     print(state_shape, action_dim)
 
     learner_args = {
-    'num_intermediate_variables': 10,
+    'num_intermediate_variables': 6,
     'feature_learning_depth': 2,
     'decision_depth': 2,
     'input_shape': state_shape,
