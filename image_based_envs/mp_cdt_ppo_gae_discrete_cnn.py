@@ -2,6 +2,7 @@ import gym
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.autograd import Variable
 import torch.optim as optim
 from torch.distributions import Categorical
 import argparse
@@ -12,6 +13,7 @@ from torch.multiprocessing import Process
 from env_wrapper import ObservationWrapper
 import math
 from common.utils import *
+from models import * 
 # import sys
 # sys.path.insert(0,'..')
 # from cascade_tree import Cascade_DDT 
@@ -56,23 +58,10 @@ class PPO(nn.Module):
             X_dim2 = self.obs_space.shape[2]
             print(self.obs_space)
             # assert self.obs_space.shape[1] == self.obs_space.shape[2]
-            self.CONV_NUM_FEATURE_MAP=12
+            self.CONV_NUM_FEATURE_MAP=8
             self.CONV_KERNEL_SIZE=4
-            self.CONV_STRIDE=1
-            self.CONV_PADDING=0
-            self.in_layer1 = nn.Sequential(
-                nn.Conv2d(X_channel, self.CONV_NUM_FEATURE_MAP, self.CONV_KERNEL_SIZE, self.CONV_STRIDE, self.CONV_PADDING, bias=False),  # in_channels, out_channels, kernel_size, stride=1, padding=0
-                nn.ReLU())
-            self.in_layer2 = nn.Sequential(
-                nn.Conv2d(self.CONV_NUM_FEATURE_MAP, self.CONV_NUM_FEATURE_MAP * 2, self.CONV_KERNEL_SIZE, self.CONV_STRIDE, self.CONV_PADDING, bias=False),
-                # nn.BatchNorm2d(self.CONV_NUM_FEATURE_MAP * 2),
-                nn.ReLU(),
-            )
-            dim1_conv_size1 = int((X_dim1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            dim1_conv_size2 = int((dim1_conv_size1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            dim2_conv_size1 = int((X_dim2-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            dim2_conv_size2 = int((dim2_conv_size1-self.CONV_KERNEL_SIZE+2*self.CONV_PADDING)/self.CONV_STRIDE) + 1
-            in_layer_dim = int(self.CONV_NUM_FEATURE_MAP*2* dim1_conv_size2*dim2_conv_size2)
+            self.in_layer_conv = ConvPool(X_channel, X_dim1, X_dim2, self.CONV_NUM_FEATURE_MAP, self.CONV_KERNEL_SIZE)
+            in_layer_dim = self.in_layer_conv.outputshape[-1]*self.in_layer_conv.outputshape[-2]*self.in_layer_conv.outputshape[-3]
         # self.fc_h1 = nn.Linear(in_layer_dim, hidden_dim)
         self.fc_h2 = nn.Linear(in_layer_dim, hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,self.action_dim)  
@@ -104,8 +93,9 @@ class PPO(nn.Module):
         if len(x.shape) >2:
             if len(x.shape) ==3:
                 x = x.unsqueeze(0)
-            x = self.in_layer1(x)
-            x = self.in_layer2(x)            
+            # x = self.in_layer1(x)
+            # x = self.in_layer2(x)
+            x = self.in_layer_conv(x)            
             x = x.view(x.shape[0], -1)
         else:
             x = self.in_layer(x)
@@ -209,7 +199,6 @@ def run(id, model, rewards_queue, train=False, test=False):
                     s_prime, r, done, info = env.step(a)
                     # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
                     model.put_data((s, a, r, s_prime, prob[a].item(), done))
-
                 s = s_prime
 
                 episode_r += r
@@ -244,7 +233,7 @@ if __name__ == '__main__':
 
     learner_args = {
     'num_intermediate_variables': 6,
-    'feature_learning_depth': 2,
+    'feature_learning_depth': 3,
     'decision_depth': 2,
     'input_shape': state_shape,
     'output_dim': action_dim,
