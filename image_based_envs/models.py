@@ -19,7 +19,8 @@ class ConvPool(nn.Module):
             kernel_size = max(input_width, input_height)
             self.downsample = False
 
-        self.conv1 = nn.Conv2d(input_nc, output_nc, kernel_size)
+        self.conv1 = nn.Conv2d(input_nc, 2*output_nc, kernel_size)
+        self.conv2 = nn.Conv2d(2*output_nc, output_nc, kernel_size)
         self.outputshape = self.get_outputshape(input_nc, input_width, input_height)
 
     def get_outputshape(self, input_nc, input_width, input_height ):
@@ -33,7 +34,10 @@ class ConvPool(nn.Module):
         return self.forward(x).size()
 
     def forward(self, x):
-        out = F.relu(self.conv1(x))
+        x = F.relu(self.conv1(x))
+        if self.downsample:
+            x = F.max_pool2d(x, 2)
+        out = F.relu(self.conv2(x))
         if self.downsample:
             return F.max_pool2d(out, 2)
         else:
