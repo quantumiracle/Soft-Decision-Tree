@@ -2,3 +2,5 @@ data/
 *.npy
 *.png
 *.gif
+image_based_envs/cdt_model/
+image_based_envs/model/
