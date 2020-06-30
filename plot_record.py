@@ -11,7 +11,11 @@ import csv
 
 directory ='record/compare_lambda/'
 name='run-sdt_'
-label='Training_Weight_Difference'  # Testing_Accuracy, Testing_Alpha
+compare_id = 2
+label_set=['Training_Weight_Difference', 'Testing_Accuracy', 'Testing_Alpha']
+plotting_label_set=['Average Difference of Weight Vectors', 'Test Accuracy during Training', 'Value of Average Probability during Training']
+label=label_set[compare_id]
+plotting_label = plotting_label_set[compare_id]
 compared_val = [0.1, 0.01, 0.001, -0.1, -0.01, -0.001]
 
 def smooth(y, radius=100, mode='two_sided'):
@@ -44,7 +48,7 @@ def plot_with_fill(x, data, label, color=None):
     plt.plot(x, list(y_m), color=color, label=label)
 
 
-plt.figure(figsize=(8,6))
+plt.figure(figsize=(6,4))
 
 for val in compared_val:
     all_data=[]
@@ -67,11 +71,11 @@ for val in compared_val:
     all_data = np.array(all_data)
     x = np.arange(all_data.shape[1])
     y = all_data[:, :, 1]
-    plot_with_fill(x, y, label = str(val))
+    plot_with_fill(x, y, label ='$\lambda$='+str(val))
 
-plt.xlabel('Epoch')
-plt.ylabel(label)
-leg= plt.legend(loc=4)
+plt.xlabel('Epochs')
+plt.ylabel(plotting_label)
+leg= plt.legend(loc=4, prop={'size': 6})
 plt.grid()
 plt.savefig('./img/compare_lambda/'+label+'.png')
 plt.show()
