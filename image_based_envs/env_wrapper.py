@@ -94,7 +94,7 @@ if __name__ == '__main__':
     # env =gym.make(EnvName)
 
     EnvName = 'Freeway-v0'
-    env = ObservationWrapper(gym.make(EnvName), selected_channel='grey')
+    env = ObservationWrapper(gym.make(EnvName), selected_channel=None)
 
     env.reset()
     for _ in range(10000):
@@ -103,9 +103,9 @@ if __name__ == '__main__':
         print(a)
         s, r, d, _ = env.step(a) # take a random action
         print(s.shape)
-        # plt.imshow(np.moveaxis(s, 0, 2))
+        plt.imshow(np.moveaxis(s, 0, 2))
         # plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0], vmin=0, vmax=1)  # when selected channel is int
-        plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0], cmap=plt.get_cmap('gray'), vmin=0, vmax=1)  # when selected channel is 'grey'
+        # plt.imshow(np.moveaxis(s, 0, 2)[:, :, 0], cmap=plt.get_cmap('gray'), vmin=0, vmax=1)  # when selected channel is 'grey'
         plt.show()
     env.close()
 
