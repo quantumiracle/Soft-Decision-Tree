@@ -13,7 +13,7 @@ directory ='record/compare_lambda/'
 name='run-sdt_'
 compare_id = 2
 label_set=['Training_Weight_Difference', 'Testing_Accuracy', 'Testing_Alpha']
-plotting_label_set=['Average Difference of Weight Vectors', 'Test Accuracy during Training', 'Value of Average Probability during Training']
+plotting_label_set=['Average Difference of Weight Vectors', 'Test Accuracy during Training', 'Average Probability during Training']
 label=label_set[compare_id]
 plotting_label = plotting_label_set[compare_id]
 compared_val = [0.1, 0.01, 0.001, -0.1, -0.01, -0.001]
@@ -48,7 +48,7 @@ def plot_with_fill(x, data, label, color=None):
     plt.plot(x, list(y_m), color=color, label=label)
 
 
-plt.figure(figsize=(6,4))
+plt.figure(figsize=(4,3))
 
 for val in compared_val:
     all_data=[]
@@ -75,9 +75,9 @@ for val in compared_val:
 
 plt.xlabel('Epochs')
 plt.ylabel(plotting_label)
-leg= plt.legend(loc=4, prop={'size': 6})
+leg= plt.legend(loc=1, prop={'size': 8})
 plt.grid()
-plt.savefig('./img/compare_lambda/'+label+'.png')
+plt.savefig('./img/compare_lambda/'+label+'.png', bbox_inches = 'tight')
 plt.show()
 
 
