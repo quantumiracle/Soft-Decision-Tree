@@ -5,11 +5,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 import argparse
+from minatar import Environment
 import matplotlib.pyplot as plt
 import numpy as np
 from cascade_tree import Cascade_DDT 
 from gym_wrapper import GymWrapper, LowDimWrapper
-from minatar import Environment
 
 
 #Hyperparameters
