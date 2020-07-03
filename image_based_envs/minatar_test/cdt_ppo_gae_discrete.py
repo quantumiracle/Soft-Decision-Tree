@@ -18,7 +18,7 @@ gamma         = 0.98
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-Episodes      = 5000
+Episodes      = 20000
 # T_horizon     = 20
 EnvName = 'freeway' 
 
