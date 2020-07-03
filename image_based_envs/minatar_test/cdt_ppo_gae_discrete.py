@@ -170,7 +170,7 @@ if __name__ == '__main__':
     env.close()
 
     learner_args = {
-        'num_intermediate_variables': 2,
+        'num_intermediate_variables': 5,
         'feature_learning_depth': int(args.feature_learning_depth),
         'decision_depth': int(args.decision_depth),
         'input_dim': state_dim,
