@@ -85,6 +85,7 @@ class LowDimWrapper(GymWrapper):
         self.observation_space = spaces.Box(low=low,high=high, shape=(18,))
 
     def get_low_dimension_state(self, img):
+        """ Get one pixel (x,y position) per object"""
         agent_channel = 0 # the channel of state indicating the agent in MinAtar freeway 
         cars_channel = 1 # the channel of state indicating other cars in MinAtar freeway 
         agent_pos = np.concatenate(np.where(img[0]))  # get agent coordinates from agent channel
@@ -92,13 +93,41 @@ class LowDimWrapper(GymWrapper):
         low_state = np.array([agent_pos.tolist()]+cars_pos.tolist()) # first is agent position, the rest are cars position
         return low_state
 
+
+    def get_low_dimension_state_plus(self, img):
+        """ 
+        
+        Two pixels per car, rather than one for each; the agent is only one pixel.
+        It can encode the head-tail information, which is missing in get_low_dimension_state().
+        Since only one car always exist on each row, so we can neglect the row information.
+        Therefore each car can still be represented by two-dimension vector, with each represent its 
+        position on columns.
+        
+        """
+        agent_channel = 0 # the channel of state indicating the agent in MinAtar freeway 
+        cars_channel = 1 # the channel of state indicating other cars in MinAtar freeway 
+        agent_pos = np.concatenate(np.where(img[0]))  # get agent coordinates from agent channel
+        cars_pos = np.vstack(np.where(img[1])).T
+        remaining_cars_channel = img[cars_channel+1:] # the channels containing the remaining pixel of each car
+        remaining_pixels = []
+        for chann in remaining_cars_channel:
+            pix_pos = np.where(chann)
+            if len(pix_pos[0])>0:
+                pos = np.vstack(pix_pos).T  # x,y
+                remaining_pixels+=pos.tolist()
+        sorted_remaining_pixels=sorted(remaining_pixels,key=lambda x: x[0])  # (8,2), sorted according to row order
+        two_pix_colum_pos = np.vstack((np.array(cars_pos)[:, 1], np.array(sorted_remaining_pixels)[:, 1])).T # column position of two pixels, in row order
+        
+        low_state = np.array([agent_pos.tolist()]+two_pix_colum_pos.tolist())
+        return low_state
+
     def step(self, action):
         high_dim_state, reward, done, info = super(LowDimWrapper, self).step(action)
-        low_dim_state = self.get_low_dimension_state(high_dim_state)
+        low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
         return low_dim_state.reshape(-1), reward, done, info
 
     def reset(self):
         high_dim_state = super(LowDimWrapper, self).reset()
-        low_dim_state = self.get_low_dimension_state(high_dim_state)
+        low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
         return low_dim_state.reshape(-1)
 
