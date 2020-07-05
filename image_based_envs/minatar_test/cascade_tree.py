@@ -5,6 +5,9 @@ import torch.nn as nn
 import numpy as np
 
 class Cascade_DDT(nn.Module):
+    """ 
+    Cascade a feature learning tree and a soft decision tree (sparse in features) 
+    """
     def __init__(self, args):
         super(Cascade_DDT, self).__init__()
         self.args = args
