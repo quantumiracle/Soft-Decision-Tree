@@ -126,6 +126,7 @@ def run(EnvName, learner_args, train=False, test=False):
         step=0
         while not done:
             a, prob = model.choose_action(s)
+            print(a)
             s_prime, r, done, info = env.step(a)
             if test:
                 env.render()
@@ -170,7 +171,7 @@ if __name__ == '__main__':
     env.close()
 
     learner_args = {
-        'num_intermediate_variables': 5,
+        'num_intermediate_variables': 10,
         'feature_learning_depth': int(args.feature_learning_depth),
         'decision_depth': int(args.decision_depth),
         'input_dim': state_dim,
