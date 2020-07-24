@@ -5,9 +5,9 @@ import torch.nn.functional as F
 import torch.optim as optim
 from torch.distributions import Categorical
 import argparse
+from minatar import Environment  # need to be put before matplotlib, otherwise error
 import matplotlib.pyplot as plt
 import numpy as np
-from minatar import Environment
 from gym_wrapper import GymWrapper, LowDimWrapper
 
 parser = argparse.ArgumentParser(description='Train or test neural net motor controller.')
