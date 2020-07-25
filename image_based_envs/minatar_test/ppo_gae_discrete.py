@@ -37,12 +37,20 @@ class PPO(nn.Module):
         self.data = []
         hidden_dim=128
         self.fc1   = nn.Linear(state_dim,hidden_dim)
+        self.fc2   = nn.Linear(hidden_dim,hidden_dim)
+        self.fc3   = nn.Linear(hidden_dim,hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
 
+    def _shared_body(self,x):
+        x=F.relu(self.fc1(x))
+        x=F.relu(self.fc2(x))
+        x=F.relu(self.fc3(x))
+        return x
+
     def pi(self, x, softmax_dim = -1):
-        x = F.relu(self.fc1(x))
+        x = self._shared_body(x)
         x = self.fc_pi(x)
         prob = F.softmax(x, dim=softmax_dim)
         return prob
@@ -50,7 +58,7 @@ class PPO(nn.Module):
     def v(self, x):
         if isinstance(x, (np.ndarray, np.generic) ):
             x = torch.tensor(x)
-        x = F.relu(self.fc1(x))
+        x = self._shared_body(x)
         v = self.fc_v(x)
         return v
       
