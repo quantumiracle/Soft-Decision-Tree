@@ -14,13 +14,16 @@ from gym_wrapper import GymWrapper, LowDimWrapper
 
 #Hyperparameters
 learning_rate = 0.0005
-gamma         = 0.98
+gamma         = 0.99
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-Episodes      = 20000
+Episodes      = 100000
 # T_horizon     = 20
 EnvName = 'freeway' 
+
+dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
+SiLU = lambda x: x*torch.sigmoid(x)
 
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim, learner_args):
@@ -43,11 +46,16 @@ class PPO(nn.Module):
     #     x = self.fc_pi(x)
     #     prob = F.softmax(x, dim=softmax_dim)
     #     return prob
+
+    def _shared_body(self,x):
+        x=SiLU(self.fc1(x))
+        x=dSiLU(self.fc2(x))
+        return x
     
     def v(self, x):
         if isinstance(x, (np.ndarray, np.generic) ):
             x = torch.tensor(x)
-        x = F.relu(self.fc1(x))
+        x = self._shared_body(x)
         v = self.fc_v(x)
         return v
       

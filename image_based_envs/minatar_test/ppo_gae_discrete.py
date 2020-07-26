@@ -19,23 +19,26 @@ args = parser.parse_args()
 
 #Hyperparameters
 learning_rate = 0.0005
-gamma         = 0.98
+gamma         = 0.99
 lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
-Episodes      = 20000
-# T_horizon     = 20
+Episodes      = 100000
+# T_horizon     = 1000
 
 EnvName = 'freeway' 
 
 path='ppo_discrete_'+EnvName+'_id'+str(args.id)
 model_path = './model_ppo/'+path
 
+dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
+SiLU = lambda x: x*torch.sigmoid(x)
+
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim=512
+        hidden_dim=128
         self.fc1   = nn.Linear(state_dim,hidden_dim)
         self.fc2   = nn.Linear(hidden_dim,hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim,action_dim)
@@ -43,8 +46,8 @@ class PPO(nn.Module):
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
 
     def _shared_body(self,x):
-        x=F.relu(self.fc1(x))
-        x=F.relu(self.fc2(x))
+        x=SiLU(self.fc1(x))
+        x=dSiLU(self.fc2(x))
         return x
 
     def pi(self, x, softmax_dim = -1):
@@ -151,8 +154,8 @@ def run(mode='train'):
             if mode=='test':
                 env.render()
             else:
-                model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-                # model.put_data((s, a, r, s_prime, prob[a].item(), done))
+                # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+                model.put_data((s, a, r, s_prime, prob[a].item(), done))
 
             s = s_prime
 
