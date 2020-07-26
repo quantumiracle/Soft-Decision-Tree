@@ -138,8 +138,8 @@ def run(EnvName, learner_args, train=False, test=False):
             s_prime, r, done, info = env.step(a)
             if test:
                 env.render()
-            model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-            # model.put_data((s, a, r, s_prime, prob[a].item(), done))
+            # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+            model.put_data((s, a, float(r), s_prime, prob[a].item(), done))
 
             s = s_prime
 
