@@ -35,10 +35,9 @@ class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim=128
+        hidden_dim=512
         self.fc1   = nn.Linear(state_dim,hidden_dim)
         self.fc2   = nn.Linear(hidden_dim,hidden_dim)
-        self.fc3   = nn.Linear(hidden_dim,hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
         self.optimizer = optim.Adam(self.parameters(), lr=learning_rate)
@@ -46,7 +45,6 @@ class PPO(nn.Module):
     def _shared_body(self,x):
         x=F.relu(self.fc1(x))
         x=F.relu(self.fc2(x))
-        x=F.relu(self.fc3(x))
         return x
 
     def pi(self, x, softmax_dim = -1):
