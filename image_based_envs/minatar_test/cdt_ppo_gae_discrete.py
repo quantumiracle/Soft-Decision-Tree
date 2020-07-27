@@ -33,6 +33,7 @@ class PPO(nn.Module):
         self.device = learner_args['device']
         hidden_dim=128
         self.fc1   = nn.Linear(state_dim,hidden_dim)
+        self.fc2   = nn.Linear(hidden_dim,hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
 
@@ -134,7 +135,6 @@ def run(EnvName, learner_args, train=False, test=False):
         step=0
         while not done:
             a, prob = model.choose_action(s)
-            print(a)
             s_prime, r, done, info = env.step(a)
             if test:
                 env.render()
