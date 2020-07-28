@@ -91,7 +91,7 @@ class PPO(nn.Module):
         for i in range(K_epoch):
             td_target = r + gamma * self.v(s_prime) * done_mask
             delta = td_target - self.v(s)
-            delta = delta.detach().numpy()
+            delta = delta.detach().cpu().numpy()
 
             advantage_lst = []
             advantage = 0.0
@@ -133,7 +133,7 @@ def run(mode='train'):
     state_dim = env.observation_space.shape[0]
     action_dim = env.action_space.n  # discrete
     print(state_dim, action_dim)
-    model = PPO(state_dim, action_dim)
+    model = PPO(state_dim, action_dim).to(device)
     print_interval = 20
     if mode=='test':
         model.load_model()
