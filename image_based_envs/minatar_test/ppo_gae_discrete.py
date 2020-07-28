@@ -24,12 +24,12 @@ lmbda         = 0.95
 eps_clip      = 0.1
 K_epoch       = 3
 Episodes      = 100000
-# T_horizon     = 1000
+T_horizon     = 1000
 
 EnvName = 'freeway' 
-
 path='ppo_discrete_'+EnvName+'_id'+str(args.id)
 model_path = './model_ppo/'+path
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 dSiLU = lambda x: torch.sigmoid(x)*(1+x*(1-torch.sigmoid(x)))
 SiLU = lambda x: x*torch.sigmoid(x)
@@ -79,9 +79,9 @@ class PPO(nn.Module):
             done_mask = 0 if done else 1
             done_lst.append([done_mask])
             
-        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float), torch.tensor(a_lst), \
-                                          torch.tensor(r_lst), torch.tensor(s_prime_lst, dtype=torch.float), \
-                                          torch.tensor(done_lst, dtype=torch.float), torch.tensor(prob_a_lst)
+        s,a,r,s_prime,done_mask, prob_a = torch.tensor(s_lst, dtype=torch.float).to(device), torch.tensor(a_lst).to(device), \
+                                          torch.tensor(r_lst).to(device), torch.tensor(s_prime_lst, dtype=torch.float).to(device), \
+                                          torch.tensor(done_lst, dtype=torch.float).to(device), torch.tensor(prob_a_lst).to(device)
         self.data = []
         return s, a, r, s_prime, done_mask, prob_a
         
@@ -99,7 +99,7 @@ class PPO(nn.Module):
                 advantage = gamma * lmbda * advantage + delta_t[0]
                 advantage_lst.append([advantage])
             advantage_lst.reverse()
-            advantage = torch.tensor(advantage_lst, dtype=torch.float)
+            advantage = torch.tensor(advantage_lst, dtype=torch.float).to(device)
 
             pi = self.pi(s, softmax_dim=1)
             pi_a = pi.gather(1,a)
@@ -114,7 +114,7 @@ class PPO(nn.Module):
             self.optimizer.step()
 
     def choose_action(self, s, Greedy=False):
-        prob = self.pi(torch.from_numpy(s).float())
+        prob = self.pi(torch.from_numpy(s).float().to(device)).squeeze().detach().cpu()
         if Greedy:
             a = torch.argmax(prob, dim=-1).item()
             # print('greedy: ', prob, a)
@@ -144,27 +144,29 @@ def run(mode='train'):
         reward = 0.0
         step=0
         while not done:
-            if mode=='train':
-                a, prob=model.choose_action(s)
-            else:
-                # a = model.choose_action(s, Greedy=True)
-                a, prob=model.choose_action(s)
-            s_prime, r, done, info = env.step(a)
+            for t in range(T_horizon):
+                if mode=='train':
+                    a, prob=model.choose_action(s)
+                else:
+                    # a = model.choose_action(s, Greedy=True)
+                    a, prob=model.choose_action(s)
+                s_prime, r, done, info = env.step(a)
 
-            if mode=='test':
-                env.render()
-            else:
-                # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
-                model.put_data((s, a, float(r), s_prime, prob[a].item(), done))
+                if mode=='test':
+                    env.render()
+                else:
+                    # model.put_data((s, a, r/100.0, s_prime, prob[a].item(), done))
+                    model.put_data((s, a, float(r), s_prime, prob[a].item(), done))
 
-            s = s_prime
+                s = s_prime
 
-            reward += r
-            step+=1
-            if done:
-                break
-        if  mode=='train':
-            model.train_net()
+                reward += r
+                step+=1
+                if done:
+                    break
+            if  mode=='train':
+                model.train_net()
+        if mode=='train':
             if n_epi%print_interval==0 and n_epi!=0:
                 np.save('./log/'+path, rewards_list)
                 torch.save(model.state_dict(), model_path)

@@ -26,7 +26,7 @@ class GymWrapper():
         high = np.inf  # need to specify
         low = -high
 
-        self.observation_space = spaces.Box(low=low,high=high, shape=env.state_shape())
+        self.observation_space = spaces.Box(low=low,high=high, shape=rotate(env.state_shape(),1)) # (H, W, C) -> (C, H, W)
 
         # setup action space
         self.action_space = spaces.Discrete(n=env.num_actions())
