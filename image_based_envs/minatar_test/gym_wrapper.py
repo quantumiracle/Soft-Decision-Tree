@@ -1,9 +1,10 @@
 import numpy as np
 from gym import spaces
+import matplotlib.pyplot as plt
 
 def rotate(l, n):
     return l[-n:] + l[:-n]
-    
+
 class GymWrapper():
     ''' Openai Gym wrapper for MinAtar '''
     env = None
