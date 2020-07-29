@@ -34,7 +34,7 @@ eps_clip = 0.1
 K_epoch = 3
 Episodes = 100000
 T_horizon = 1000
-NUM_WORKERS = 1
+NUM_WORKERS = 5
 
 EnvName = 'freeway'
 path = 'ppo_discrete_' + EnvName + '_id' + str(args.id)

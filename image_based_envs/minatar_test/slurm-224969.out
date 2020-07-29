@@ -1,0 +1,3 @@
+compute003
+0,1,2,3,4
+slurmstepd: error: *** JOB 224969 ON compute003 CANCELLED AT 2020-07-28T05:53:16 ***
