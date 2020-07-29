@@ -44,7 +44,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 dSiLU = lambda x: torch.sigmoid(x) * (1 + x * (1 - torch.sigmoid(x)))
 SiLU = lambda x: x * torch.sigmoid(x)
 
-
 class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
