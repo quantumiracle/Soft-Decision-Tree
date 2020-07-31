@@ -36,7 +36,7 @@ class PPO(nn.Module):
         self.data = []
         self.model_path = learner_args['model_path']
         self.device = learner_args['device']
-        hidden_dim=128
+        hidden_dim=512
         self.fc1   = nn.Linear(state_dim,hidden_dim)
         self.fc2   = nn.Linear(hidden_dim,hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,action_dim)

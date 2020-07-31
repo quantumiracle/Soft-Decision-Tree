@@ -48,7 +48,7 @@ class PPO(nn.Module):
     def __init__(self, state_dim, action_dim):
         super(PPO, self).__init__()
         self.data = []
-        hidden_dim = 128
+        hidden_dim = 512
         self.fc1 = nn.Linear(state_dim, hidden_dim)
         self.fc2 = nn.Linear(hidden_dim, hidden_dim)
         self.fc_pi = nn.Linear(hidden_dim, action_dim)
@@ -178,6 +178,7 @@ def run(id, model, rewards_queue, mode='train'):
                     # a = model.choose_action(s, Greedy=True)
                     a, prob = model.choose_action(s)
                 s_prime, r, done, info = env.step(a)
+                # print(a)
 
                 if mode == 'test':
                     env.render()
