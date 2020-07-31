@@ -2,3 +2,6 @@ compute004
 2,3,4,5,6
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+/var/lib/slurm/slurmd/job230339/slurm_script: line 12: 39327 Killed                  python3 cdt_ppo_gae_discrete_multi.py --train --depth1=3 --depth2=3 --id=0
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
