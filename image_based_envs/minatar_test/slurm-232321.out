@@ -2,3 +2,6 @@ compute003
 0,1,2,3,4
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+slurmstepd: error: *** JOB 232321 ON compute003 CANCELLED AT 2020-08-04T10:45:03 ***
+/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/semaphore_tracker.py:143: UserWarning: semaphore_tracker: There appear to be 3 leaked semaphores to clean up at shutdown
+  len(cache))
