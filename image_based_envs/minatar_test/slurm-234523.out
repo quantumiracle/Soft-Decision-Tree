@@ -2,4 +2,3 @@ compute004
 0,1,2,3,4
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
 [33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
-/var/lib/slurm/slurmd/job234522/slurm_script: line 9: 10743 Killed                  python3 ppo_gae_discrete_multi.py --train --id=0
