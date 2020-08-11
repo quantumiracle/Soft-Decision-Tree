@@ -50,7 +50,9 @@ def plot_with_fill(x, data, label, color=None):
 
 plt.figure(figsize=(4,3))
 
-for val in compared_val:
+marker = ["o", "^", "<",  "p", "x", "s"]
+
+for j, val in enumerate(compared_val):
     all_data=[]
     for filename in os.listdir(directory):
         if filename.startswith(name) and filename.endswith(label+".csv"): 
@@ -66,12 +68,13 @@ for val in compared_val:
                             data.append([int(step), float(value)])
                 # print(data.shape)
                 all_data.append(np.array(data))
-
+    print(j)
     print(np.array(all_data).shape)
     all_data = np.array(all_data)
     x = np.arange(all_data.shape[1])
     y = all_data[:, :, 1]
     plot_with_fill(x, y, label ='$\lambda$='+str(val))
+    # plt.plot(x, np.mean(y, axis=0), label ='$\lambda$='+str(val), c='black', markevery=3, marker=marker[j])
 
 plt.xlabel('Epochs')
 plt.ylabel(plotting_label)
