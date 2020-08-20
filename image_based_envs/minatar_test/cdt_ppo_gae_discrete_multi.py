@@ -38,7 +38,9 @@ class PPO(nn.Module):
         self.device = learner_args['device']
         hidden_dim=512
         self.fc1   = nn.Linear(state_dim,hidden_dim)
+        self.ln1 = nn.LayerNorm(hidden_dim)
         self.fc2   = nn.Linear(hidden_dim,hidden_dim)
+        self.ln2 = nn.LayerNorm(hidden_dim)
         # self.fc_pi = nn.Linear(hidden_dim,action_dim)
         self.fc_v  = nn.Linear(hidden_dim,1)
 
@@ -49,7 +51,9 @@ class PPO(nn.Module):
 
     def _shared_body(self,x):
         x=SiLU(self.fc1(x))
+        x=self.ln1(x)
         x=dSiLU(self.fc2(x))
+        x=self.ln2(x)
         return x
 
     def pi(self, x):

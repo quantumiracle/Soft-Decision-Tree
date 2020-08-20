@@ -192,6 +192,7 @@ def run(id, model, rewards_queue, mode='train'):
                         (s, a, float(r), s_prime, prob[a].item(), done))
 
                 s = s_prime
+                print(a)
 
                 reward += r
                 step += 1

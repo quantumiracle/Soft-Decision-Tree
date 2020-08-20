@@ -122,15 +122,19 @@ class LowDimWrapper(GymWrapper):
         two_pix_colum_pos = np.vstack((np.array(cars_pos)[:, 1], np.array(sorted_remaining_pixels)[:, 1])).T # column position of two pixels, in row order
         
         low_state = np.array([agent_pos.tolist()]+two_pix_colum_pos.tolist())
-        return low_state
+        return low_sta
+    
+    def normalize(self, s):
+        """ state normalization """
+        return (s-s.mean())/s.std()
 
     def step(self, action):
         high_dim_state, reward, done, info = super(LowDimWrapper, self).step(action)
         low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
-        return low_dim_state.reshape(-1), reward, done, info
+        return normalize(low_dim_state.reshape(-1)), reward, done, info
 
     def reset(self):
         high_dim_state = super(LowDimWrapper, self).reset()
         low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
-        return low_dim_state.reshape(-1)
+        return normalize(low_dim_state.reshape(-1))
 
