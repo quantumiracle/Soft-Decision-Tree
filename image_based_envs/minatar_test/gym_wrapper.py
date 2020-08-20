@@ -122,7 +122,7 @@ class LowDimWrapper(GymWrapper):
         two_pix_colum_pos = np.vstack((np.array(cars_pos)[:, 1], np.array(sorted_remaining_pixels)[:, 1])).T # column position of two pixels, in row order
         
         low_state = np.array([agent_pos.tolist()]+two_pix_colum_pos.tolist())
-        return low_sta
+        return low_state
     
     def normalize(self, s):
         """ state normalization """
