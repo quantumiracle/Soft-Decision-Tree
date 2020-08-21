@@ -1,0 +1,84 @@
+compute006
+0,1,2,3,4
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+18 6
+Process Process-4:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/cdt_ppo_gae_discrete_multi.py", line 151, in run
+    s = env.reset()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 138, in reset
+    low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 125, in get_low_dimension_state_plus
+    return low_sta
+NameError: name 'low_sta' is not defined
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+18 6
+Process Process-3:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/cdt_ppo_gae_discrete_multi.py", line 151, in run
+    s = env.reset()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 138, in reset
+    low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 125, in get_low_dimension_state_plus
+    return low_sta
+NameError: name 'low_sta' is not defined
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+18 6
+Process Process-1:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/cdt_ppo_gae_discrete_multi.py", line 151, in run
+    s = env.reset()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 138, in reset
+    low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 125, in get_low_dimension_state_plus
+    return low_sta
+NameError: name 'low_sta' is not defined
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+18 6
+Process Process-2:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/cdt_ppo_gae_discrete_multi.py", line 151, in run
+    s = env.reset()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 138, in reset
+    low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 125, in get_low_dimension_state_plus
+    return low_sta
+NameError: name 'low_sta' is not defined
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+[33mWARN: gym.spaces.Box autodetected dtype as <class 'numpy.float32'>. Please provide explicit dtype.[0m
+18 6
+Process Process-5:
+Traceback (most recent call last):
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 258, in _bootstrap
+    self.run()
+  File "/home/zihan/anaconda3/envs/exp/lib/python3.6/multiprocessing/process.py", line 93, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/cdt_ppo_gae_discrete_multi.py", line 151, in run
+    s = env.reset()
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 138, in reset
+    low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
+  File "/home/zihan/Soft-Decision-Tree/image_based_envs/minatar_test/gym_wrapper.py", line 125, in get_low_dimension_state_plus
+    return low_sta
+NameError: name 'low_sta' is not defined
