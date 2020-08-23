@@ -131,10 +131,10 @@ class LowDimWrapper(GymWrapper):
     def step(self, action):
         high_dim_state, reward, done, info = super(LowDimWrapper, self).step(action)
         low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
-        return normalize(low_dim_state.reshape(-1)), reward, done, info
+        return self.normalize(low_dim_state.reshape(-1)), reward, done, info
 
     def reset(self):
         high_dim_state = super(LowDimWrapper, self).reset()
         low_dim_state = self.get_low_dimension_state_plus(high_dim_state)
-        return normalize(low_dim_state.reshape(-1))
+        return self.normalize(low_dim_state.reshape(-1))
 
